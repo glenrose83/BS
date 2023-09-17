@@ -25,7 +25,7 @@
                         <a class="custom-menu" href="manage_products.php">
                     <svg class="bi" width="12" height="12" fill="currentColor">
                         <use xlink:href="bootstrap-icons.svg#pencil"/>
-                        </svg> Change products</a><br>
+                        </svg> View products</a><br>
 
                         <a class="custom-menu" href="manage_categories.php">
                     <svg class="bi" width="12" height="12" fill="currentColor">

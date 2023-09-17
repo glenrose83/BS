@@ -2,7 +2,7 @@
 
 class DB {
 
-    protected function connect(){
+    protected function __construct(){
         $host = '127.0.0.1';
         $db   = 'basicshop';
         $user = 'root';

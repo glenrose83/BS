@@ -5,35 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
-    <link rel="stylesheet" href="admin/css/pure-min.css">
-    <link rel="stylesheet" href="admin/css/styles.css">
+   
+    <!--adding bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <!--adding my own style-->
+     <link rel="stylesheet" href="css/mystyle.css">
 </head>
 <body>
 
-<div id="layout">
-    
+<div class="container-fluid bg">
+       
+        <div class="col-md-12">
+            <!-- title -->
+            <div class="cus-title-midscreen">
+            <h1>Administration Login</h1>
+            </div>
 
-    <div id="main">
-        <div class="header">
-            <h1>Please log in test</h1>
-            <h2>Administration</h2>
+                
+                <!-- content -->
+                <div class="cus-text-midscreen">
+                             
+                <form action="includes/login.inc.php" method="POST">
+               <b>Type your username:</b>  <br><input type="text" name="username" placeholder="Username" style="margin-top: 5px;"></input><br><br>
+                <br>
+               <b>Type your password:</b> <br><input type="password" name="password"  placeholder="Password" style="margin-top: 5px;"></input><br><br>
+                
+                <button type="submit" class="btn btn-success">Login</button>
+                </form>
+            </div>
         </div>
 
-        <div class="content">
-            <h2 class="content-subhead">Please fill out your information:</h2>
-            
-            <form action="includes/login.inc.php" method="POST">
-            Type your username:  <br><input type="text" name="username" placeholder="Username"></input><br><br>
-            
-            Type your password: <br><input type="password" name="password"  placeholder="Password"></input><br><br>
-            
-            <button type="submit">Login</button>
-            </form>
-        </div>
-    </div>
 </div>
 
-
-
+<!--Javascript used by bootstrap-->
+<script src="js/bootstrap.bundle.min.js"></script>  
 </body>
 </html>
