@@ -8,11 +8,11 @@ include_once '../bootstrap.php';
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 
- //getting data for orderinfo
+ //getting data for orderinfo and this is the ordernumber.
  $data=[
     'id' => $sanitized_id 
 ];
-$stmt = $pdo->prepare('SELECT * FROM customers LEFT JOIN orders ON customers.id = orders.fk_customer');
+$stmt = $pdo->prepare("SELECT * FROM orders LEFT JOIN customers ON orders.fk_customer = customers.id WHERE orders.id=$sanitized_id");
 $stmt->execute();
 $buyer = $stmt->fetch();
 
@@ -53,19 +53,80 @@ $buyer = $stmt->fetch();
                 <div class="row">
                     <div class="col-md-12">
                         <h1>Administration</h1>
-                        <h2>Add Product</h2>
+                        <h2>Handle Order</h2>
                     </div> 
                 </div>
            
         
            
                 <div class="row">
-                    <div class="col-md-10 custom-box">
+                   
+                        <div class="col-md-6 custom-box">    
+                        <?php 
+                        echo "<b>Customer:</b><p>"
+                        .$buyer['fullname']."<br>"
+                        .$buyer['streetname']." ".$buyer['housenr']."<br>"
+                        .$buyer['postcode']." ".$buyer['city']."<br>"
+                        .$buyer['phone']."<br>"
+                        .$buyer['email']."</p>"
+                        ."<p><b>Payment Method: </b>".$buyer['payment_method']
+                        ."<br><b>Delivery Method: </b>".$buyer['delivery_method']."</p>";
+                        ?>
+                        </div>
+
+                        <div class="col-md-3 custom-box">    
+                        <?php 
+                        echo "<b>Status: </b>".$buyer['status']."
+                        <br><br><b>Actions:</b><br>"
+                        ."Order Sent Out<br>"
+                        ."Cancel Order<br>"
+                        ."Send customer email";
+                        ?>
+                        </div>
+                    
+                        <div class="col-md-9 custom-box">    
+                        <?php 
+                        echo "<b>Items:</b><br>
+                        <table class='table table-striped'>
+                        <tr>
+                            <th scope='col'>#</th>
+                            <th scope='col'>First</th>
+                            <th scope='col'>Last</th>
+                            <th scope='col'>Handle</th>
+                        </tr>
+                        <tr>
+                            <td scope='col'>234234</th>
+                            <td scope='col'>234234234</th>
+                            <td scope='col'>234234</th>
+                            <td scope='col'>2423423</th>
+                        </tr>
+                        </table>"                       
+                        ?>
+                        </div>
+
+                        <div class="col-md-5 custom-box">    
+                        <?php 
+                        echo "Time: ".$buyer['order_date']."<br>
+                        IP:<br>
+                        User Client: <br>"
+                        ."Customerid: ".$buyer['id']
+                        ?>
+                        </div>
+
+                        <div class="col-md-4 custom-box">    
+                        <?php 
+                        echo "
+                        Shipping: <br>
+                        Coupons: <br>
+                        Items subtotal: ".$buyer['total_price']."<br>
+                        Stripe/Bambora Fee:<br>
+                        Total Paid by costumer:
+                        "
+                        ?>
+                        </div>
 
                     
-                    <?php var_dump($buyer); ?>
-                    
-                    </div> 
+                   
                 </div>
 
            
