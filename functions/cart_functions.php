@@ -16,7 +16,11 @@ function searchForId($id, $array) {
     $subtotal=0;            
 
     for ($x = 0; $x < $count; $x++) {
-    $subtotal += $_SESSION['cart'][$x]['item_price'];
+    $unitprice = $_SESSION['cart'][$x]['item_price'];
+    $qty = $_SESSION['cart'][$x]['quantity'];
+    $unittotal = $unitprice * $qty;    
+
+    $subtotal += $unittotal;
     }
 
         return $subtotal;

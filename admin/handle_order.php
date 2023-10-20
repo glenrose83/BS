@@ -12,10 +12,22 @@ $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
  $data=[
     'id' => $sanitized_id 
 ];
+
+//Getting data on the customer
 $stmt = $pdo->prepare("SELECT * FROM orders LEFT JOIN customers ON orders.fk_customer = customers.id WHERE orders.id=$sanitized_id");
 $stmt->execute();
-$buyer = $stmt->fetch();
+$customer = $stmt->fetch();
 
+//NEW getting all data by inner joins 3 tables
+$stmt = $pdo->prepare("
+SELECT * FROM orders od 
+INNER JOIN ordered_products op 
+ON od.id = op.fk_orders 
+INNER JOIN products pr 
+ON pr.id = op.fk_products 
+WHERE od.id = $sanitized_id");
+$stmt->execute();
+$order = $stmt->fetchALL();
 ?>
 
 
@@ -64,52 +76,74 @@ $buyer = $stmt->fetch();
                         <div class="col-md-6 custom-box">    
                         <?php 
                         echo "<b>Customer:</b><p>"
-                        .$buyer['fullname']."<br>"
-                        .$buyer['streetname']." ".$buyer['housenr']."<br>"
-                        .$buyer['postcode']." ".$buyer['city']."<br>"
-                        .$buyer['phone']."<br>"
-                        .$buyer['email']."</p>"
-                        ."<p><b>Payment Method: </b>".$buyer['payment_method']
-                        ."<br><b>Delivery Method: </b>".$buyer['delivery_method']."</p>";
+                        .$customer['fullname']."<br>"
+                        .$customer['streetname']." ".$customer['housenr']."<br>"
+                        .$customer['postcode']." ".$customer['city']."<br>"
+                        .$customer['phone']."<br>"
+                        .$customer['email']."</p>"
+                        ."<p><b>Payment Method: </b>".$customer['payment_method']
+                        ."<br><b>Delivery Method: </b>".$customer['delivery_method']."</p>";
                         ?>
                         </div>
 
                         <div class="col-md-3 custom-box">    
-                        <?php 
-                        echo "<b>Status: </b>".$buyer['status']."
-                        <br><br><b>Actions:</b><br>"
-                        ."Order Sent Out<br>"
-                        ."Cancel Order<br>"
-                        ."Send customer email";
-                        ?>
+                        <b>Status: </b>
+                        <?php echo handle_color($customer['status']);?>
+                        <b>Actions:</b><br>
+                        <form action="includes/handle_orderstatus.inc.php?id=<?php echo $sanitized_id;?>" method="POST" enctype="multipart/form-data">
+                        <select class="form-control" id="categorySelector" name="status" required>
+                            
+                            <?php
+                            $sql = 'SELECT * FROM order_statuses';
+                            $stmt= $pdo->prepare($sql);
+                            $stmt->execute();
+                            $statuses = $stmt->fetchALL(); 
+                            
+                            foreach($statuses as $status){ ?>
+                            <option>
+                                <?php echo $status['status'] . "</option>"; 
+                            }?> 
+                            </select><br>
+                            <button type="submit" class="btn btn-primary">Set status</button>
+                        
+                                
+                        </form>
                         </div>
                     
                         <div class="col-md-9 custom-box">    
-                        <?php 
-                        echo "<b>Items:</b><br>
+                        <b>Items:</b><br>
                         <table class='table table-striped'>
                         <tr>
-                            <th scope='col'>#</th>
-                            <th scope='col'>First</th>
-                            <th scope='col'>Last</th>
-                            <th scope='col'>Handle</th>
+                            <th scope='col'>Productno.</th>
+                            <th scope='col'>Name</th>
+                            <th scope='col'>Qty</th>
+                            <th scope='col'>Stock</th>
+                            <th scope='col'>Price Each</th>
+                            <th scope='col'>Price Total</th>
                         </tr>
-                        <tr>
-                            <td scope='col'>234234</th>
-                            <td scope='col'>234234234</th>
-                            <td scope='col'>234234</th>
-                            <td scope='col'>2423423</th>
-                        </tr>
-                        </table>"                       
-                        ?>
+                        <?php foreach ($order as $ordered) { echo "
+                            <tr>
+                                <td scope='col'>".$ordered['id']."</th>
+                                <td scope='col'>".$ordered['productname']."</th>
+                                <td scope='col'>".$ordered['qty']."</th>
+                                <td scope='col'>".$ordered['howmanyinstock']."</th>
+                                <td scope='col'>".$ordered['pricesxvat']."</th>
+                                <td scope='col'>".$ordered['howmanyinstock']."</th>
+                            </tr>
+                        "; } ?>
+                            
+                        </table>
+
+                       
                         </div>
 
                         <div class="col-md-5 custom-box">    
+                         
                         <?php 
-                        echo "Time: ".$buyer['order_date']."<br>
+                        echo "Time: ".$customer['order_date']."<br>
                         IP:<br>
                         User Client: <br>"
-                        ."Customerid: ".$buyer['id']
+                        ."Customerid: ".$customer['id']
                         ?>
                         </div>
 
@@ -118,11 +152,11 @@ $buyer = $stmt->fetch();
                         echo "
                         Shipping: <br>
                         Coupons: <br>
-                        Items subtotal: ".$buyer['total_price']."<br>
+                        Items subtotal: ".$customer['total_price']."<br>
                         Stripe/Bambora Fee:<br>
                         Total Paid by costumer:
                         "
-                        ?>
+                        ?>  
                         </div>
 
                     

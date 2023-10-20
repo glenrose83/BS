@@ -1,7 +1,7 @@
 <?php
 
 $host = '127.0.0.1';
-$db   = 'basicshop';
+$db   = 'BS';
 $user = 'root';
 $pass = '';
 

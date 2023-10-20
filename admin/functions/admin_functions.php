@@ -1,5 +1,22 @@
 <?php
 
+    function handle_color($status){
+        if ($status = "not handled"){
+            $status = "<p class='text-danger'>Not Handled</p>";
+        } elseif (
+            $status = "processed"){
+            $status = "<p class='text-success'>Processed</p>";
+        } elseif (
+            $status = "in progress"){
+            $status = "<p class='text-warning-emphasis'>In Progress</p>";
+        }
+        
+        return $status;
+    }
+
+
+
+
     function delete_product($id,$pdo){
         $data=[
             'id' => $id,

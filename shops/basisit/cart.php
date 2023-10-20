@@ -66,6 +66,7 @@ include_once '../../bootstrap.php';
                 <th scope="col">Item ID</th>
                 <th scope="col">Qty</th>
                 <th scope="col">Price</th>
+                <th scope="col">Total for product</th>
                 <th scope="col"></th>
                 </tr>
             </thead>
@@ -77,21 +78,29 @@ include_once '../../bootstrap.php';
                     $count = count($_SESSION['cart']);                  
 
                     for ($x = 0; $x < $count; $x++) {
+
+                    //Before echo I calculate right price based on qty
+                    $price = $_SESSION['cart'][$x]['item_price'];
+                    $qty = $_SESSION['cart'][$x]['quantity'];
+                    $totalPerProduct = $price * $qty;
+
                     echo "
                     <tr>
                     <th scope='row'>" . $_SESSION['cart'][$x]['item_name'] . "</td>
                     <td>" . $_SESSION['cart'][$x]['itemID'] . "</td>
                     <td>" . $_SESSION['cart'][$x]['quantity'] . "</td>
                     <td>" . $_SESSION['cart'][$x]['item_price'] . "</td>
+                    <td>" . $totalPerProduct . "</td>
+                    
                     <td> <a href='../../functions/manage_cart.inc.php?delete_product=".$x."><button type='button' class='btn btn-outline-danger btn-sm'>X</button></a></td></tr>";
                       }
                     echo "<tr><td>&nbsp;</td><td></td><td></td><td></td><td></td></tr>";
 
                     $subtotal = ukSubtotal();  
                     $ordertotal = Ordertotal($subtotal);
-                    echo "<tr><td>Subtotal</td><td></td><td></td><td>". $subtotal ."</td><td></td></tr>
-                    <tr><td>VAT</td><td></td><td></td><td>".Vat($subtotal)."</td><td></td><tr>
-                    <tr><th>Order Total</td><td></td><td></td><th>". $ordertotal . "</td><td></td></tr>";
+                    echo "<tr><td>Subtotal</td><td></td><td></td><td></td><td>". $subtotal ."</td><td></td></tr>
+                    <tr><td>VAT</td><td></td><td></td><td></td><td>".Vat($subtotal)."</td><td></td><tr>
+                    <tr><th>Order Total</td><td></td><td></td><td></td><th>". $ordertotal . "</td><td></td></tr>";
 
                  
                 } else {

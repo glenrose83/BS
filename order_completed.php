@@ -34,13 +34,12 @@ for ($x = 0; $x < $count; $x++) {
 
     $data = [
         'fk_orders' => $last_id_orders,
-        'item' => $_SESSION['cart'][$x]['itemID'],
-        'qty' => $_SESSION['cart'][$x]['quantity'],   
-        'price' => $_SESSION['cart'][$x]['item_price'],
-        'name' => $_SESSION['cart'][$x]['item_name']
+        'fk_products' => $_SESSION['cart'][$x]['itemID'],
+        'qty' => $_SESSION['cart'][$x]['quantity']   
+        
     ];
-    $sql = "INSERT INTO ordered_products (fk_orders, item, qty, price, name) 
-    VALUES (:fk_orders, :item, :qty, :price, :name)";
+    $sql = "INSERT INTO ordered_products (fk_orders, fk_products, qty) 
+    VALUES (:fk_orders, :fk_products, :qty)";
     $stmt= $pdo->prepare($sql);
     $stmt->execute($data);
 
