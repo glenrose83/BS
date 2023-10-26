@@ -9,8 +9,19 @@ if(isset($_SESSION['username'])){
 
 include_once '../bootstrap.php'; 
 
-//instantiating object from class
-$settings = new settings;
+    //Getting payment options data
+    $stmt = $pdo->prepare(
+    'SELECT * FROM payment_options;'
+    );
+    $stmt->execute();
+    $paymentOptions = $stmt->fetchALL();
+
+    //Getting payment options data
+    $stmt = $pdo->prepare(
+    'SELECT * FROM payment_options_custom;'
+    );
+    $stmt->execute();
+    $paymentOptionsCustom = $stmt->fetchALL();
 
 //Getting shipping data
 $stmt = $pdo->prepare(
@@ -33,6 +44,31 @@ $stmt = $pdo->prepare(
         $stmt->execute();
         $currency = $stmt->fetch();
 
+
+    //Getting shipping data
+    $stmt = $pdo->prepare(
+    'SELECT * FROM shipping;'
+    );
+    $stmt->execute();
+    $shippings = $stmt->fetchALL();
+
+
+    //Getting data for coupons
+    $stmt = $pdo->prepare(
+    'SELECT * FROM coupons;'
+    );
+    $stmt->execute();
+    $coupons = $stmt->fetchALL();
+
+    //Getting data for currency
+    $stmt = $pdo->prepare(
+        'SELECT * FROM currency;'
+        );
+        $stmt->execute();
+        $currency = $stmt->fetch();
+
+        //getting userinfo
+        $userinfo = get_userinfo($user,$pdo);
 ?>
 
 <!doctype html>
@@ -74,14 +110,14 @@ $stmt = $pdo->prepare(
                 <div class="row">
                     <div class="col-md-5 custom-box">
                     My info: <br><br>
-                    Shopname: <span class="fs-6 fw-light"><?php echo $settings->shopname;?></span><br>
-                    Companyname: <span class="fs-6 fw-light"><?php echo $settings->companyname;?></span><br>
-                    Address: <span class="fs-6 fw-light"><?php echo $settings->address;?></span><br>
-                    City: <span class="fs-6 fw-light"><?php echo $settings->city;?></span><br>
-                    Country: <span class="fs-6 fw-light"><?php echo $settings->country;?></span><br>
-                    Vat: <span class="fs-6 fw-light"><?php echo $settings->vat;?></span><br>
-                    Email: <span class="fs-6 fw-light"><?php echo $settings->email;?></span><br>
-                    Phone: <span class="fs-6 fw-light"><?php echo $settings->phone;?></span><br>
+                    Shopname: <span class="fs-6 fw-light"><?php echo $userinfo['shopname'];?></span><br>
+                    Companyname: <span class="fs-6 fw-light"><?php echo $userinfo['companyname'];?></span><br>
+                    Address: <span class="fs-6 fw-light"><?php echo $userinfo['address'];?></span><br>
+                    City: <span class="fs-6 fw-light"><?php echo $userinfo['city'];?></span><br>
+                    Country: <span class="fs-6 fw-light"><?php echo $userinfo['country'];?></span><br>
+                    Vat: <span class="fs-6 fw-light"><?php echo $userinfo['vat'];?></span><br>
+                    Email: <span class="fs-6 fw-light"><?php echo $userinfo['email'];?></span><br>
+                    Phone: <span class="fs-6 fw-light"><?php echo $userinfo['phone'];?></span><br>
                     <a href="change_settings.php"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
                     <a href="change_password.php"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
                     
@@ -135,8 +171,85 @@ $stmt = $pdo->prepare(
                 <div class="row">
                     
                      <div class="col-md-10 custom-box">
-                    Payment Methods: <br>            
-                    test <br>
+                     <strong>Payment Options:</strong> 
+                      <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">Status</th>
+                        <th scope="col">Payment Option</th>
+                        <th scope="col">Delete Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                    <?php
+                    foreach ($paymentOptions as $payOption){
+                    ?>
+                    <tr>
+                    <td><?php  
+                        if($payOption['status']==1){
+                        echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $payOption['id']."'>activated</a>";
+                            } else {
+                        echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $payOption['id']."'>Deactivated</a>";
+                        }
+                        ?>    
+                    </td>
+                    <td><?php echo $payOption['options']; ?></td>
+                    <td><i>Can´t be deleted</i></td>
+                    </tr>
+                    <?php } ?>  
+                    
+                    <?php
+                    foreach ($paymentOptionsCustom as $payOptionCustom){
+                    ?>
+                    <tr>
+                    <td><?php  
+                        if($payOptionCustom['status']==1){
+                        echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $payOption['id']."'>activated</a>";
+                            } else {
+                        echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $payOption['id']."'>Deactivated</a>";
+                        }
+                        ?>    
+                    </td>
+                    <td><?php echo $payOptionCustom['options']; ?> <i>- (Custom payment Option)</i></td> 
+                    <td>IF X DELETE</td>
+                     </tr>
+                    <?php } ?>                  
+
+
+                    </tbody>
+                    </table><p>&nbsp;</p>
+                     
+                    <!--Make a custom payment method-->
+                    <strong>Add custom payment options:  </strong>     
+                  
+                        <form action="includes/add_coupon.inc.php" method="POST" enctype='multipart/form-data'>                
+                            <div class="form row">
+                                <div class="col-md-1">
+                                <label for="name">Status</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Name of coupon"  required>
+                                </div>
+
+                                <div class="col-md-4">
+                                <label for="code">Customer text:</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                </div>
+
+                                 <div class="col-md-3">
+                                <label for="code">Your info(customer hidden):</label>
+                                <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                </div>
+
+
+
+                            </div>    
+
+                            <div class="form-group row">
+                            <div class="col-sm-10">
+                        <br><button type="submit" class="btn btn-primary">Add payment option</button>
+                            </div>
+                    
+                        </form>
                     </div>
 
                 </div>

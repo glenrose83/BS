@@ -8,6 +8,9 @@ if(isset($_SESSION['username'])){
 }
 
 include_once '../bootstrap.php'; 
+
+//get username and shop fra database where $_seesion = username
+
 ?>
 
 <!doctype html>

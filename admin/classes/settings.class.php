@@ -22,14 +22,18 @@ class settings extends DB {
     public $shippingID;
 
 
-    public function __construct(){
+    public function getUserInfo($username){
+
+        $data=[
+            'username' => $username
+             ];
         
         //getting data for information
-        $stmt = $this->connect()->prepare(
-        'SELECT * FROM users;'
-        );
-        $stmt->execute();
+        $sql = "Select * FROM users WHERE username = :username";
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute($data);
         $settings = $stmt->fetch();
+
         
         $this-> companyname = $settings['companyname'];
         $this-> address = $settings['address'];
@@ -43,8 +47,6 @@ class settings extends DB {
         $this-> role = $settings['role'];
         $this-> vat = $settings['vat'];
         $this-> zip = $settings['zip'];
-
-       
 
     }
 

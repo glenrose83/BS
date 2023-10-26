@@ -1,9 +1,14 @@
 <div>
         <div>
             <p><small><em>Basic Webshop v.1</em></small></p>
-            <p><small>Welcome <b><?php echo $user; ?></b><br>
-            Companyname: <b>Shopshop</b><br>
-            Email: <b>test@shopshop.com</b></small></p><p><br><br></p>
+            
+            <?php 
+            $userinfo = get_userinfo($_SESSION['username'],$pdo); 
+            ?>
+
+            <p><small>Welcome <b><?php echo $userinfo['username']; ?></b><br>
+            Webshopname: <b><?php echo $userinfo['shopname']; ?></b><br>
+            Contact Email: <b><?php echo $userinfo['email']; ?></b></small></p><p><br><br></p>
 
         
 

@@ -14,7 +14,18 @@
         return $status;
     }
 
+    function get_userinfo($username,$pdo){
 
+             $data=[
+            'username' => $username
+             ];
+    
+    $sql = "Select * FROM users WHERE username = :username";
+    $stmt= $pdo->prepare($sql);
+    $stmt->execute($data);
+    $stmt = $stmt->fetch();
+    return $stmt;
+    }
 
 
     function delete_product($id,$pdo){
