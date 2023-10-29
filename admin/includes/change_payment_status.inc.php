@@ -1,4 +1,4 @@
-<?php
+change_payment_status.inc<?php
 include_once '../../bootstrap.php';
 
 
@@ -22,10 +22,10 @@ if(isset($_GET['status'])){
         }
 
     //Updating the DB        
-    $sql = "UPDATE shipping SET status=:status WHERE id=:id";
+    $sql = "UPDATE payment_options SET status=:status WHERE id=:id";
     $stmt= $pdo->prepare($sql);
     $stmt->execute($data);
     
     
-    header('Location: ../settings.php?status=shippingChanged');
-} 
+    header('Location: ../settings.php?status=paymentstatusChanged');
+}

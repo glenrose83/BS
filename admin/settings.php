@@ -188,9 +188,9 @@ $stmt = $pdo->prepare(
                     <tr>
                     <td><?php  
                         if($payOption['status']==1){
-                        echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $payOption['id']."'>activated</a>";
+                        echo "<a href='includes/change_payment_status.inc?status=1&id=". $payOption['id']."'>activated</a>";
                             } else {
-                        echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $payOption['id']."'>Deactivated</a>";
+                        echo "<a href='includes/change_payment_status.inc?status=0&id=". $payOption['id']."'>Deactivated</a>";
                         }
                         ?>    
                     </td>
@@ -201,20 +201,24 @@ $stmt = $pdo->prepare(
                     
                     <?php
                     foreach ($paymentOptionsCustom as $payOptionCustom){
+                    echo "<tr>
+                          <td>"
                     ?>
-                    <tr>
-                    <td><?php  
-                        if($payOptionCustom['status']==1){
-                        echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $payOption['id']."'>activated</a>";
-                            } else {
-                        echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $payOption['id']."'>Deactivated</a>";
+                    <?php if($payOptionCustom['status']==1){
+                            echo "<a href='includes/change_custom_payment_status.inc?status=1&id=". $payOptionCustom['id']."'>activated</a>
+                            </td>
+                            <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
+                            <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
+                            </tr>    
+                            ";
+                                } else {
+                            echo "<a href='includes/change_custom_payment_status.inc?status=0&id=". $payOptionCustom['id']."'>Deactivated</a>
+                        </td>
+                        <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
+                        <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
+                        </tr>";
                         }
-                        ?>    
-                    </td>
-                    <td><?php echo $payOptionCustom['options']; ?> <i>- (Custom payment Option)</i></td> 
-                    <td>IF X DELETE</td>
-                     </tr>
-                    <?php } ?>                  
+                    }?>                  
 
 
                     </tbody>
@@ -223,21 +227,18 @@ $stmt = $pdo->prepare(
                     <!--Make a custom payment method-->
                     <strong>Add custom payment options:  </strong>     
                   
-                        <form action="includes/add_coupon.inc.php" method="POST" enctype='multipart/form-data'>                
+                        <form action="includes/add_payment_custom.inc.php" method="POST" enctype='multipart/form-data'>                
                             <div class="form row">
-                                <div class="col-md-1">
-                                <label for="name">Status</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name of coupon"  required>
-                                </div>
+                              
 
                                 <div class="col-md-4">
                                 <label for="code">Customer text:</label>
-                                <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                <input type="text" class="form-control" id="code" name="description" placeholder="Ect. pay in 25 rates"  required>
                                 </div>
 
-                                 <div class="col-md-3">
+                                 <div class="col-md-4">
                                 <label for="code">Your info(customer hidden):</label>
-                                <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                <input type="text" class="form-control" id="code" name="info" placeholder="Ect. Create 25 invoices"  required>
                                 </div>
 
 
@@ -293,19 +294,19 @@ $stmt = $pdo->prepare(
                     <form action="includes/add_shipping.inc.php" method="POST" enctype='multipart/form-data'>                
                             <div class="form row">
                                 <div class="col-md-4">
-                                <label for="name">Coupon name:</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Name of coupon"  required>
+                                <label for="name">Shipping method:</label>
+                                <input type="text" class="form-control" id="name" name="shippingMethod" placeholder="ect. Airdrop-delivery"  required>
                                 </div>
 
                             
                                 <div class="col-md-3">
-                                <label for="code">Coupon code:</label>
-                                <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                <label for="code">Shipping time:</label>
+                                <input type="text" class="form-control" id="code" name="time" placeholder="ect. 3 days"  required>
                                 </div>
 
                                 <div class="col-md-3">
-                                <label for="validationCustom05">Discount in %</label>
-                                <input type="text" class="form-control" id="discount" name="discount" placeholder="Only numbers" required>
+                                <label for="validationCustom05">Price</label>
+                                <input type="text" class="form-control" id="discount" name="price" placeholder="Only numbers" required>
                                 </div>
                             </div>    
 
@@ -313,6 +314,7 @@ $stmt = $pdo->prepare(
                             <div class="col-sm-10">
                         <br><button type="submit" class="btn btn-primary">Add shipping option</button>
                             </div>
+                    </form>        
                 </div>
 
                 <div class="row">
