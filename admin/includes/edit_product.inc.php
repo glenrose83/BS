@@ -47,14 +47,13 @@ $data = [
     'allowpurchasewhenempty' => $allowpurchasewhenempty,
     'weight' => $weight,
     'yournotes' => $yournotes,
-    'setimage' => 0,
     'id' => $product_id
 ];
 
 $sql = "UPDATE products SET productstatus=:productstatus, productname=:productname, productdescription=:productdescription, 
 pricesxvat=:pricesxvat, costprice=:costprice, expenses=:expenses, item=:item, category=:category, deliverytime=:deliverytime, 
 howmanyinstock=:howmanyinstock, keeptrackofstock=:keeptrackofstock, allowpurchasewhenempty=:allowpurchasewhenempty, 
-weight=:weight, yournotes=:yournotes, image=:setimage WHERE id=:id";
+weight=:weight, yournotes=:yournotes WHERE id=:id";
 $stmt= $pdo->prepare($sql);
 $stmt->execute($data);
 

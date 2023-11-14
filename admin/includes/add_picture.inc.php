@@ -42,18 +42,7 @@ if(isset($_POST['submit'])){
                                 $stmt= $pdo->prepare($sql);
                                 $stmt->execute($data);
 
-                                //inserting boolean in product table
-                                $data=[
-                                    'set' => 1,
-                                    'id' => $product_id 
-                                
-                                ];
-
-                                $sql = "UPDATE products SET image=:set WHERE id=:id";
-                                $stmt= $pdo->prepare($sql);
-                                $stmt->execute($data);
-
-                        
+                                                       
 
                             }  
                 }

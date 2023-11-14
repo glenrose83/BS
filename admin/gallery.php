@@ -84,10 +84,10 @@ include_once '../bootstrap.php';
                             <p>
                                 <!--checking if its primary picture-->";
 
-                                if ($image['primary_pic'] == NULL) {                                        
-                                echo "<a href='includes/set_primary_pic.inc.php?id=".$image['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-secondary'>Select as primary picture</button></a><br>";
+                                if ($image['primary_pic'] == 1) {  
+                                    echo "<button type='button' class='btn-sm btn-light' disabled>Primary picture</button><br>";                                      
                                 } else {
-                                echo "<button type='button' class='btn-sm btn-light' disabled>Primary picture</button><br>";
+                                    echo "<a href='includes/set_primary_pic.inc.php?id=".$image['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-secondary'>Select as primary picture</button></a><br>";
                                 }
                             
                             echo "<!--button to delete picture-->

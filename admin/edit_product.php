@@ -2,11 +2,25 @@
 session_start();
 include_once '../bootstrap.php'; 
 
-//GET id from url  and Fetch product from DB
+//GET id from url and Fetch product from DB
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 $stmt = $pdo->prepare("SELECT * FROM products WHERE id=$sanitized_id");
 $stmt->execute(); 
 $product = $stmt->fetch();
+
+//Get image info
+$sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$stmt = $pdo->prepare("SELECT * FROM product_images WHERE fk_id=$sanitized_id");
+$stmt->execute(); 
+$images = $stmt->fetchALL();
+
+//Get fronpage info
+$sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+$stmt = $pdo->prepare("SELECT * FROM product_images WHERE fk_id=$sanitized_id AND primary_pic=1");
+$stmt->execute(); 
+$pri_image = $stmt->fetch();
+
+
 
 //Checking if user has access
 if(isset($_SESSION['username'])){
@@ -68,8 +82,17 @@ if(isset($_SESSION['username'])){
                         
                                 <div class="pure-control-group">
                                     Product status<br>
-                                    <input type="radio" id="aligned-name" name="productstatus" value="1" checked> Enable
-                                    <input type="radio" id="aligned-name" name="productstatus" value="0" > Disable
+                                    <?php 
+                                    if ($product['productstatus']){
+                                        echo "<input type='radio' id='aligned-name' name='productstatus' value='1' checked> Enabled
+                                        <input type='radio' id='aligned-name' name='productstatus' value='0' > Disabled";
+                                    } else {
+                                        echo "<input type='radio' id='aligned-name' name='productstatus' value='1'> Enabled
+                                        <input type='radio' id='aligned-name' name='productstatus' value='0' checked> Disabled";
+                                    }
+
+                                    ?>
+                                    
                                     <span class="pure-form-message-inline"></span>
                                 </div>
     
@@ -108,12 +131,26 @@ if(isset($_SESSION['username'])){
 
                    
                     <div class="col-md-5 custom-box">
-                    <?php if($product['image']){
-                       echo "<img src='includes/img/img_0170.jpg.jpeg' class='edit-prod-pic'>";
+                    
+                    <?php 
+                    //Checks if there is images
+                    if(is_array($images)){
+                        
+                        if(is_array($pri_image)){
+                        echo "<center><b>Frontpage image</b><br><img src='".$pri_image['url']."' class='edit-prod-pic'>";
+                        echo "<a href='includes/delete_frontpageimage.inc.php?id=".$sanitized_id."'>Disable frontpage picture</a></center>";
+                        echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
+                        }else{
+                            echo "There is no primary pic";
+                            echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
+                        }                    
 
                     } else {
                         echo "<center><p><br></p>You have not uploaded at picture<br><br><a href='picture_uploader.php?id=". $sanitized_id ."'>Clik here to upload a picture</a></center>";                
-                    }
+                    }            
+                    
+
+                    
                     ?>
                     </div>
                 </div>
@@ -123,15 +160,37 @@ if(isset($_SESSION['username'])){
                                 
                                 <div class="pure-control-group">
                                     Keep track of stock<br>
-                                    <input type="radio" id="aligned-name" name="keeptrackofstock" value="1" checked/> Yes
-                                    <input type="radio" id="aligned-name" name="keeptrackofstock" value="0" /> No
+                                    <?php 
+                                        if($product['keeptrackofstock']){
+                                            echo"
+                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' checked/> Yes
+                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' /> No
+                                            ";
+                                        } else {
+                                            echo"
+                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' /> Yes
+                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' checked/> No
+                                            ";
+                                        }
+                                    ?>                                      
                                     <span class="pure-form-message-inline"></span>
                                 </div>
                                 <br>
                                 <div class="pure-control-group">
                                     Allow purchase when stock is empty<br>
-                                    <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="1" checked/> Yes
-                                    <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="0" /> No
+                                    <?php 
+                                        if($product['allowpurchasewhenempty']){
+                                            echo"
+                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' checked/> Yes
+                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' /> No
+                                            ";
+                                        } else {
+                                            echo"
+                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' /> Yes
+                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' checked/> No
+                                            ";
+                                        }
+                                    ?> 
                                     <span class="pure-form-message-inline"></span>
                                 </div>
         

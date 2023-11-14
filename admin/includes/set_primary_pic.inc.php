@@ -2,48 +2,32 @@
 include_once '../../bootstrap.php';
 
 if(isset($_GET['id'])){
-    $id = filter_input(INPUT_GET, 'requestpage', FILTER_SANITIZE_NUMBER_INT);
+    $requestpage = filter_input(INPUT_GET, 'requestpage', FILTER_SANITIZE_NUMBER_INT);
     $pic_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-
-    //SET NULL in DB where product ID is the same, then no primary picture is selected
-    $data=[
-        'id' => $id
-     ];
-
-     $sql = "UPDATE product_images SET primary_pic=NULL WHERE fk_id = :id";
-     $stmt= $pdo->prepare($sql);
-     $stmt->execute($data);
-
-
-    //get url from DB to the new primary picture
-    $data=[
-        'id' => $pic_id
-    ];
-
-
-    $sql = "SELECT url FROM product_images WHERE id = :id";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute($data);
-    $url = $stmt -> fetch();
-
-    echo $url['url'];
 
 
      //Set url in DB on the new primary picture
     $data=[
-        'id' => $pic_id,
-        'url' => $url['url']
+        'id' => $requestpage
     ];
 
+    $data1=[
+        'id' => $pic_id
+    ];
 
-    $sql = "UPDATE product_images SET primary_pic=:url WHERE id = :id";
+    //removing marking from old priamry pic
+    $sql = "UPDATE product_images SET primary_pic=FALSE WHERE fk_id=:id AND primary_pic=1";
     $stmt= $pdo->prepare($sql);
     $stmt->execute($data);
-   
+
+
+    //marking new primary
+    $sql = "UPDATE product_images SET primary_pic=TRUE WHERE id =:id";
+    $stmt= $pdo->prepare($sql);
+    $stmt->execute($data1);
     
 
-     Header('Location: ../gallery.php?id='.$id);
+     Header('Location: ../gallery.php?id='.$requestpage);
 
 
     } else {

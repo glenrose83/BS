@@ -41,7 +41,7 @@ include_once '../bootstrap.php';
                 <div class="row">
                     <div class="col-md-12">
                         <h1>Administration</h1>
-                        <h2>Change Products</h2>
+                        <h2>Manage Products</h2>
                     </div> 
                 </div>
 
@@ -57,7 +57,6 @@ include_once '../bootstrap.php';
                         <th scope="col">Stock</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Images</th>
                         <th scope="col">Delete</th>
                         <th scope="col">Edit Product</th>
                         </tr>
@@ -69,7 +68,7 @@ include_once '../bootstrap.php';
                             $stmt->execute(); 
                             $product = $stmt->fetchALL();
 
-                            //echo out products
+                            //echo out products  - showProductimage($products['id'],$pdo).s
                             
                             foreach($product as $products) {
                                 echo" <tr>
@@ -78,7 +77,6 @@ include_once '../bootstrap.php';
                                 <td>".$products['howmanyinstock']."</td>
                                 <td>".$products['category']."</td>
                                 <td>".$products['pricesxvat']."</td>
-                                <td>".showProductimage($products['id'],$pdo)."</td>
                                 <td><a href='includes/manage_products.inc.php?delete_product=".$products['id']."><button type='button' class='btn btn-outline-danger btn-sm'>X</button></a></td>
                                 <td><a href='edit_product.php?id=". $products['id'] . "'><button type='button' class='btn btn-outline-danger btn-sm'>O</button></a></td>
                             </tr>";

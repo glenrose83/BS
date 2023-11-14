@@ -77,17 +77,17 @@
         ];
         
           
-        $stmt = $pdo->prepare("SELECT image FROM products WHERE id = :id");
-        $stmt->execute($data); 
-        $product = $stmt->fetch();
-        $product = $product['image'];              
+        //$stmt = $pdo->prepare("SELECT image FROM products WHERE id = :id");
+        //$stmt->execute($data); 
+        //$product = $stmt->fetch();
+        //$product = $product['image'];              
      
-        if($product!=FALSE) {
+        //if($product!=FALSE) {
             //if no image is set in db
-            return "<a href='gallery.php?id=". $id . "'><img class='no_image_uploaded' src='../img/product_image.png'></a>";
-            } else {
-            return "<img class='no_image_uploaded' src='../img/no_product_image.png'>";    
-            }
+          //  return "<a href='gallery.php?id=". $id . "'><img class='no_image_uploaded' src='../img/product_image.png'></a>";
+            //} else {
+            //return "<img class='no_image_uploaded' src='../img/no_product_image.png'>";    
+            //}
     }
 
     function findPendingOrders($pdo) {
