@@ -88,7 +88,7 @@ $order = $stmt->fetchALL();
 
                         <div class="col-md-3 custom-box">    
                         <b>Status: </b>
-                        <?php echo handle_color($customer['status']);?>
+                        <?php echo handle_color($customer['status']);?><br><br>
                         <b>Actions:</b><br>
                         <form action="includes/handle_orderstatus.inc.php?id=<?php echo $sanitized_id;?>" method="POST" enctype="multipart/form-data">
                         <select class="form-control" id="categorySelector" name="status" required>

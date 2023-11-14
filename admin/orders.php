@@ -49,8 +49,9 @@ include_once '../bootstrap.php';
                 <table class="table table-striped">
                   <thead>
                 <tr>
-                <th scope="col">Ordrenumber</th>
                 <th scope="col">#</th>
+                <th scope="col">Status</th>
+                <th scope="col">Ordrenumber</th>
                 <th scope="col">Date</th>                
                 <th scope="col">Customer Name</th>
                 <th scope="col">Total price</th>
@@ -61,7 +62,7 @@ include_once '../bootstrap.php';
                 <?php
                     //Fetch all products from DB
                     $stmt = $pdo->prepare("SELECT customers.fullname, orders.* FROM customers  
-                    LEFT JOIN orders ON customers.id = orders.fk_customer");
+                    LEFT JOIN orders ON customers.id = orders.fk_customer ORDER BY id DESC");
                     $stmt->execute(); 
                     $orders = $stmt->fetchALL();
 
@@ -69,8 +70,9 @@ include_once '../bootstrap.php';
                     
                     foreach($orders as $order) {
                         echo" <tr>
+                        <td><a href='handle_order.php?id=".$order['id']."'><button type='button' class='btn btn-info'>Handle order</button></a></td>
+                        <td>".$order['status']."</td>                        
                         <td>".$order['id']."</td>
-                        <td><a href='handle_order.php?id=".$order['id']."'><button type='button' class='btn btn-info'>Handle order</button></a>
                         <td>".$order['order_date']."</td>
                         <td>".$order['fullname']."</td>
                         <td>".$order['total_price']."</td>

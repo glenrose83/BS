@@ -108,7 +108,7 @@ include_once '../bootstrap.php';
                 
                 <div class="row">
                     <div class="col-md-3 custom-main-box-v1">
-                    You have <?php echo findPendingOrders($pdo); ?> orders pending...
+                    <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
                     </div>
                 </div>
 
