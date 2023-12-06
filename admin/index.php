@@ -25,7 +25,7 @@ include_once '../bootstrap.php';
     <!--adding bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--adding my own style-->
-    <link rel="stylesheet" href="css/mystyle.css">
+    <link rel="stylesheet" href="../css/mystyle.css">
 
    
 </head>
@@ -36,100 +36,115 @@ include_once '../bootstrap.php';
 
 <body>
 
+<!--div nedenfor laver scrool horzintol-->
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
 
-<div class="container-fluid height">
-    <div class="row height">
+    <div class="row">
 
-        <div class="col-md-3 admin-menu">
-
+        <!--menu-->
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
-        <div class="col-md-9 "> 
-            <div class="header custom-pagetitle">
+        <div class="col-md-9"> 
+            <div class="header">
             
-            
-            
-
-            <!--Site content-->
-            <div class="container-fluid">
+            <!--Site menu-->
+            <div class="container-fluid image">
+            <img src="../img/bg-scaleup.png" alt="..." />
                 <div class="row">
-                        <div class="col-md-10">
-                        <h1>Administration<br></h1>
-                        </div>
-                    
+                             <div class="col-12 title">
+                            <h1>Administration<br></h1>
+                            </div>
+                </div>            
+                           
+                <div class="row">
                        
-                        <div class="col-md-2 custom-box">
-                            <a href="orders.php">    
-                        <svg class="bi" width="32" height="32" fill="currentColor">
-                        <use xlink:href="bootstrap-icons.svg#cash-coin"/>
-                        </svg> <br>    
-                        View Orders
-                        </div>
-                        </a>
+                                <div class="box col-2">
+                                <a href="orders.php">    
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#cash-coin"/>
+                                </svg> <br>    
+                                View Orders
+                                </div>
+                                </a>
 
-                         
-                        <div class="col-md-2 custom-box">
-                            <a href="add_product.php">   
-                        <svg class="bi" width="32" height="32" fill="currentColor">
-                        <use xlink:href="bootstrap-icons.svg#file-earmark-plus"/>
-                        </svg> <br>
-                        Create a product 
-                        </div>
-                        </a>
-                        
-                        
-                        <div class="col-md-2 custom-box">
-                            <a href="manage_products.php">    
-                        <svg class="bi" width="32" height="32" fill="currentColor">
-                        <use xlink:href="bootstrap-icons.svg#pencil-square"/>
-                        </svg> <br>
-                        Show Products
-                        </div>
-                        </a>
-                        
-                        <div class="col-md-2 custom-box">
-                        <svg class="bi" width="32" height="32" fill="currentColor">
-                        <use xlink:href="bootstrap-icons.svg#bar-chart-line"/>
-                        </svg> <br>
-                        Show sales(Comming Soon)
-                        </div>
-                        
-                        
-                        <div class="col-md-2 custom-box">
-                        <a href="logout.inc.php">    
-                        <svg class="bi" width="32" height="32" fill="currentColor">
-                        <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
-                        </svg> <br>
-                        Logout
-                        </div>
-                        </a>
-                    
+                            
+                                <div class="box col-2">
+                                <a href="add_product.php">   
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#file-earmark-plus"/>
+                                </svg> <br>
+                                Create a product 
+                                </div>
+                                </a>
+                            
+                            
+                                <div class="box col-2">
+                                <a href="manage_products.php">    
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#pencil-square"/>
+                                </svg> <br>
+                                Show Products
+                                </div>
+                                </a>
+                            
+                                <div class="box col-2">
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#bar-chart-line"/>
+                                </svg> <br>
+                                Show sales(Comming Soon)
+                                </div>
+                                
+                                
+                                <div class="box col-2">
+                                <a href="logout.inc.php">    
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
+                                </svg> <br>
+                                Logout
+                                </div>
+                                </a>
+
+                                <div class="box col-2 centerinside">
+                                <a href="logout.inc.php">    
+                                <svg class="bi" width="32" height="32" fill="currentColor">
+                                <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
+                                </svg> <br>
+                                Logout
+                                </div>
+                                </a>
+
                 </div>
+
                 
                 <div class="row">
-                    <div class="col-md-3 custom-main-box-v1">
+                    <div class="box col-6">
+                    <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                    </div>
+                    <div class="box col-6">
                     <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 custom-main-box">
+                    <div class="col-md-6 box">
                     Most Popular Products
                     </div>
 
-                    <div class="col-md-5 custom-main-box">
+                    <div class="col-md-6 box">
                     Sales today
                     
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-5 custom-main-box">
+                    <div class="col-md-6 box">
                     Total this year   
                     </div>
 
-                    <div class="col-md-5 custom-main-box">
+                    <div class="col-md-6 box">
                     Sales this week / month
                      
                     </div>
