@@ -61,58 +61,71 @@ include_once '../bootstrap.php';
                            
                 <div class="row">
                        
-                                <div class="box col-2">
-                                <a href="orders.php">    
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#cash-coin"/>
-                                </svg> <br>    
-                                View Orders
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="orders.php">    
+                                   <center><svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#cash-coin"/>
+                                    </svg> </center>  
+                                    View Orders
+                                    </a>
+                                    </div>
                                 </div>
-                                </a>
+                                
 
                             
-                                <div class="box col-2">
-                                <a href="add_product.php">   
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#file-earmark-plus"/>
-                                </svg> <br>
-                                Create a product 
-                                </div>
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="add_product.php">   
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#file-earmark-plus"/>
+                                    </svg> <br>
+                                    Create a product 
+                                    </div>
+                                </div>  
                                 </a>
                             
                             
-                                <div class="box col-2">
-                                <a href="manage_products.php">    
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#pencil-square"/>
-                                </svg> <br>
-                                Show Products
-                                </div>
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="manage_products.php">    
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#pencil-square"/>
+                                    </svg> <br>
+                                    Show Products
+                                    </div>
+                                </div>    
                                 </a>
                             
-                                <div class="box col-2">
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#bar-chart-line"/>
-                                </svg> <br>
-                                Show sales(Comming Soon)
+                                <div class="col-2">
+                                    <div class="boxinside">   
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#bar-chart-line"/>
+                                    </svg> <br>
+                                    Show sales
+                                    </div>
                                 </div>
                                 
                                 
-                                <div class="box col-2">
-                                <a href="logout.inc.php">    
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
-                                </svg> <br>
-                                Logout
-                                </div>
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="logout.inc.php">    
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
+                                    </svg> <br>
+                                    Logout
+                                    </div>
                                 </a>
+                                </div>
 
-                                <div class="box col-2 centerinside">
-                                <a href="logout.inc.php">    
-                                <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
-                                </svg> <br>
-                                Logout
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="logout.inc.php">    
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
+                                    </svg> <br>
+                                    Logout
+                                    </div>
                                 </div>
                                 </a>
 
@@ -120,8 +133,10 @@ include_once '../bootstrap.php';
 
                 
                 <div class="row">
-                    <div class="box col-6">
-                    <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                    <div class="col-6">
+                        <div class="box">
+                        <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                        </div>  
                     </div>
                     <div class="box col-6">
                     <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
