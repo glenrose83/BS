@@ -21,70 +21,76 @@ include_once '../bootstrap.php';
       <!--adding bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 
 <body>
 
 
-<div class="container-fluid height">
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
+
     <div class="row height">
 
-        <div class="col-md-3 admin-menu">
+        <div class="col-md-3 ">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
         <div class="col-md-9 "> 
 
-            <div class="container-fluid">
+            <div class="container-fluid image">
+            <img src="../img/bg-scaleup.png" alt="..." />    
                       
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 title">
                         <h1>Administration</h1>
                         <h2>Manage Products</h2>
                     </div> 
                 </div>
 
+
                 <!--//Table with products-->
                 <div class="row">
                 <div class="col-md-12 custom-box">
-                        
-                    <table class="table table-striped">
-                    <thead>
-                        <tr>
-                        <th scope="col">Itemnumber</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Delete</th>
-                        <th scope="col">Edit Product</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                            //Fetch all products from DB
-                            $stmt = $pdo->prepare("SELECT * FROM products");
-                            $stmt->execute(); 
-                            $product = $stmt->fetchALL();
 
-                            //echo out products  - showProductimage($products['id'],$pdo).s
-                            
-                            foreach($product as $products) {
-                                echo" <tr>
-                                <td>".$products['item']."</td>
-                                <td>".$products['productname']."</td>
-                                <td>".$products['howmanyinstock']."</td>
-                                <td>".$products['category']."</td>
-                                <td>".$products['pricesxvat']."</td>
-                                <td><a href='includes/manage_products.inc.php?delete_product=".$products['id']."><button type='button' class='btn btn-outline-danger btn-sm'>X</button></a></td>
-                                <td><a href='edit_product.php?id=". $products['id'] . "'><button type='button' class='btn btn-outline-danger btn-sm'>O</button></a></td>
-                            </tr>";
-                            } 
-                            ?>
+                    <div class="boxinside">                        
+                        <table class="table table-striped">
+                        <thead>
+                            <tr>
+                            <th scope="col">Itemnumber</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stock</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Delete</th>
+                            <th scope="col">Edit Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                                //Fetch all products from DB
+                                $stmt = $pdo->prepare("SELECT * FROM products");
+                                $stmt->execute(); 
+                                $product = $stmt->fetchALL();
 
-                    </tbody>
-                    </table>
+                                //echo out products  - showProductimage($products['id'],$pdo).s
+                                
+                                foreach($product as $products) {
+                                    echo" <tr>
+                                    <td>".$products['item']."</td>
+                                    <td>".$products['productname']."</td>
+                                    <td>".$products['howmanyinstock']."</td>
+                                    <td>".$products['category']."</td>
+                                    <td>".$products['pricesxvat']."</td>
+                                    <td><a href='includes/manage_products.inc.php?delete_product=".$products['id']."><button type='button' class='btn btn-outline-danger btn-sm'>X</button></a></td>
+                                    <td><a href='edit_product.php?id=". $products['id'] . "'><button type='button' class='btn btn-outline-danger btn-sm'>O</button></a></td>
+                                </tr>";
+                                } 
+                                ?>
+
+                            </tbody>
+                            </table>
+                    </div>        
                 </div>
                 </div>
             </div>                  

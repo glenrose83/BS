@@ -22,26 +22,29 @@ include_once '../bootstrap.php';
     <!--adding bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 
 </head>
 
 <body>
 
-<div class="container-fluid height">
+<div class="container-fluid height image">
+
     <div class="row">
 
-        <div class="col-md-3 admin-menu">
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
         <div class="col-md-9"> 
 
-            <div class="container-fluid">
+            <div class="container-fluid image">
+            <img src="../img/bg-scaleup.png" alt="..." />
+    
                 
                 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 title">
                         <h1>Administration</h1>
                         <h2>Manage Categories</h2>
                     </div> 
@@ -53,40 +56,41 @@ include_once '../bootstrap.php';
 
                     <div class="col-md-5 custom-box">
 
-                    
+                        <div class="boxinside">
                         
-                    <form class="pure-form pure-form-aligned" action="includes/add_category.inc.php" method="POST" enctype='multipart/form-data'>
-                          <div class="form-group row">
-                                <label for="productname" class="col-sm-3 col-form-label">Add a category: </label>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="category" placeholder="Type something...">
-                                </div>
-                            </div>
+                            <form class="pure-form pure-form-aligned" action="includes/add_category.inc.php" method="POST" enctype='multipart/form-data'>
+                                <div class="form-group row">
+                                        <label for="productname" class="col-sm-3 col-form-label">Add a category: </label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="category" placeholder="Type something...">
+                                        </div>
+                                    </div>
 
-                            <div class="form-group row">
-                                <label for="productname" class="col-sm-3 col-form-label"></label>
-                                <div class="col-sm-4">
-                                <button type="submit" name="submit" value="upload" class="btn btn-success">Add category</button>       
-                                </div>
-                            </div>
+                                    <div class="form-group row">
+                                        <label for="productname" class="col-sm-3 col-form-label"></label>
+                                        <div class="col-sm-4">
+                                        <button type="submit" name="submit" value="upload" class="btn btn-success">Add category</button>       
+                                        </div>
+                                    </div>
 
-                               
-                     </form><br>
-                    
+                                    
+                            </form><br>
+                            
 
-                     <p><h6><br><b>Categories:<h6></b></h6></p>
-                     <p class='fs-6'>
-                        
-                    <?php
-                        $stmt = $pdo->prepare("SELECT * FROM categories");
-                        $stmt->execute(); 
-                        $categories = $stmt->fetchALL();
+                            <p><h6><br><b>Categories:<h6></b></h6></p>
+                            <p class='fs-6'>
+                                
+                            <?php
+                                $stmt = $pdo->prepare("SELECT * FROM categories");
+                                $stmt->execute(); 
+                                $categories = $stmt->fetchALL();
 
-                        foreach ($categories as $category) {
-                            echo $category['cat']. " <== <a  class='text-danger' href='includes/delete_category.inc.php?id=".$category['id']."'>Delete</a><br>";
-                        }
-                        ?>       
-                        </p>
+                                foreach ($categories as $category) {
+                                    echo $category['cat']. " <== <a  class='text-danger' href='includes/delete_category.inc.php?id=".$category['id']."'>Delete</a><br>";
+                                }
+                            ?>       
+                                </p>
+                        </div>        
                        
                     </div> 
                            

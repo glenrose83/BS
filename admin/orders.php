@@ -21,7 +21,7 @@ include_once '../bootstrap.php';
   <!--adding bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 
 <body>
@@ -30,58 +30,60 @@ include_once '../bootstrap.php';
 <div class="container-fluid height">
     <div class="row height">
 
-        <div class="col-md-3 admin-menu">
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
         <div class="col-md-9 "> 
 
             <div class="container-fluid">
                     
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Administration</h1>
-                        <h2>Orders</h2>
-                    </div> 
-                </div>
+                        <div class="row">
+                            <div class="col-md-12 title">
+                                <h1>Administration</h1>
+                                <h2>Orders</h2>
+                            </div> 
+                        </div>
 
-                 <!--//Table with products-->
+                    <!--//Table with products-->
+                    <div class="boxinside">
 
-                <table class="table table-striped">
-                  <thead>
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Status</th>
-                <th scope="col">Ordrenumber</th>
-                <th scope="col">Date</th>                
-                <th scope="col">Customer Name</th>
-                <th scope="col">Total price</th>
+                        <table class="table table-striped">
+                        <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ordrenumber</th>
+                        <th scope="col">Date</th>                
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Total price</th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                    //Fetch all products from DB
-                    $stmt = $pdo->prepare("SELECT customers.fullname, orders.* FROM customers  
-                    LEFT JOIN orders ON customers.id = orders.fk_customer ORDER BY id DESC");
-                    $stmt->execute(); 
-                    $orders = $stmt->fetchALL();
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                            //Fetch all products from DB
+                            $stmt = $pdo->prepare("SELECT customers.fullname, orders.* FROM customers  
+                            LEFT JOIN orders ON customers.id = orders.fk_customer ORDER BY id DESC");
+                            $stmt->execute(); 
+                            $orders = $stmt->fetchALL();
 
-                    //echo out products
-                    
-                    foreach($orders as $order) {
-                        echo" <tr>
-                        <td><a href='handle_order.php?id=".$order['id']."'><button type='button' class='btn btn-info'>Handle order</button></a></td>
-                        <td>".$order['status']."</td>                        
-                        <td>".$order['id']."</td>
-                        <td>".$order['order_date']."</td>
-                        <td>".$order['fullname']."</td>
-                        <td>".$order['total_price']."</td>
-                    </tr>";
-                    } 
-                    ?>
+                            //echo out products
+                            
+                            foreach($orders as $order) {
+                                echo" <tr>
+                                <td><a href='handle_order.php?id=".$order['id']."'><button type='button' class='btn btn-info'>Handle order</button></a></td>
+                                <td>".$order['status']."</td>                        
+                                <td>".$order['id']."</td>
+                                <td>".$order['order_date']."</td>
+                                <td>".$order['fullname']."</td>
+                                <td>".$order['total_price']."</td>
+                            </tr>";
+                            } 
+                            ?>
 
-                    </tbody>
-                    </table>
+                            </tbody>
+                            </table>
+                        </div>    
 
         </div>
 

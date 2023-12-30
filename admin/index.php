@@ -138,34 +138,25 @@ include_once '../bootstrap.php';
                         <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
                         </div>  
                     </div>
-                    <div class="box col-6">
-                    <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                    <div class="col-6">
+                        <div class="box">
+                        <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6 box">
-                    Most Popular Products
+                    <div class="col-6">
+                        <div class="box">
+                        <a href="orders.php">Most popular</a>
+                        </div>  
                     </div>
-
-                    <div class="col-md-6 box">
-                    Sales today
-                    
+                    <div class="col-6">
+                        <div class="box">
+                        <a href="orders.php">Sales today</a>
+                        </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 box">
-                    Total this year   
-                    </div>
-
-                    <div class="col-md-6 box">
-                    Sales this week / month
-                     
-                    </div>
-                </div>
-
-
+                </div>           
 
         </div>
         

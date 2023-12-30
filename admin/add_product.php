@@ -22,26 +22,30 @@ include_once '../bootstrap.php';
     <!--adding bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 
 </head>
 
 <body>
 
-<div class="container-fluid height">
-    <div class="row">
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
 
-        <div class="col-md-3 admin-menu">
+
+<div class="row">
+
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
-        <div class="col-md-9"> 
+        <div class="col-md-9 image"> 
 
-            <div class="container-fluid">
+            <div class="container-fluid image">
+            <img src="../img/bg-scaleup.png" alt="..." />    
                 
                 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 title">
                         <h1>Administration</h1>
                         <h2>Add Product</h2>
                     </div> 
@@ -50,159 +54,167 @@ include_once '../bootstrap.php';
         
            
                 <div class="row">
-                    <div class="col-md-10 custom-box">
+                    <div class="col-md-10">
+                        <div class="boxinside-one"> 
                           
-                        <form class="pure-form pure-form-aligned" action="includes/add_product.inc.php" method="POST" enctype='multipart/form-data'>
-                        <fieldset>
-                    
-                            <div class="pure-control-group">
-                                Product status<br>
-                                <input type="radio" id="aligned-name" name="productstatus" value="1" checked> Enable
-                                <input type="radio" id="aligned-name" name="productstatus" value="0" > Disable
-                                <span class="pure-form-message-inline"></span>
-                            </div>
-
-                            <p><br></p>
-                            <div class="form-group row">
-                                <label for="productname" class="col-sm-4 col-form-label">Productname</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="productname" placeholder="required">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="productdescription" class="col-sm-4 col-form-label">Product description</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="productdescription" placeholder="required..." />
-                                    </div>
-                            </div>
-                    
-                          
-
-                            <div class="form-group row"> 
-                                <label for="priceexvat" class="col-sm-4 col-form-label">Price ex. VAT</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="priceexvat" placeholder="required">
+                            <form class="pure-form pure-form-aligned" action="includes/add_product.inc.php" method="POST" enctype='multipart/form-data'>
+                            <fieldset>
+                        
+                                <div class="pure-control-group">
+                                    Product status<br>
+                                    <input type="radio" id="aligned-name" name="productstatus" value="1" checked> Enable
+                                    <input type="radio" id="aligned-name" name="productstatus" value="0" > Disable
+                                    <span class="pure-form-message-inline"></span>
                                 </div>
 
-                            </div>
-                            <div class="form-group row">
-                                <label for="deliverytime"  class="col-sm-4 col-form-label">Deliverytime</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="deliverytime" placeholder="required..." />
+                                <p><br></p>
+                                <div class="form-group row">
+                                    <label for="productname" class="col-sm-4 col-form-label">Productname</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="productname" placeholder="required">
                                     </div>
-                            </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="productdescription" class="col-sm-4 col-form-label">Product description</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="productdescription" placeholder="required..." />
+                                        </div>
+                                </div>
+                        
+                            
+
+                                <div class="form-group row"> 
+                                    <label for="priceexvat" class="col-sm-4 col-form-label">Price ex. VAT</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="priceexvat" placeholder="required">
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <label for="deliverytime"  class="col-sm-4 col-form-label">Deliverytime</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="deliverytime" placeholder="required..." />
+                                        </div>
+                                </div>
+                        </div>        
                     </div> 
+
                 </div>
 
            
             
                 <div class="row">
                     <div class="col-md-10 custom-box">
-                        <div class="pure-control-group">
-                            Keep track of stock<br>
-                            <input type="radio" id="aligned-name" name="keeptrackofstock" value="1" checked/> Yes
-                            <input type="radio" id="aligned-name" name="keeptrackofstock" value="0" /> No
-                            <span class="pure-form-message-inline"></span>
-                        </div>
-                        <br>
-                        <div class="pure-control-group">
-                            Allow purchase when stock is empty<br>
-                            <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="1" checked/> Yes
-                            <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="0" /> No
-                            <span class="pure-form-message-inline"></span>
-                        </div>
-
-                        
-
-                        <p><br></p>
-
-                        <div class="form-group row">
-                                <label for="itemnumber"  class="col-sm-4 col-form-label">Item number</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="itemnumber" placeholder="required..." />
-                                    </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="category"  class="col-sm-4 col-form-label">Category</label>
-                            <div class="col-sm-6">
-
-                            
-                                
-                                <select class="form-control" id="categorySelector" name="category" required>
-                                <option selected disabled></option>
-                                 <!-- Getting data from database and using it for dropdown menu -->
-                                                    <?php
-                                                    $sql = "SELECT * FROM categories";
-                                                    $stmt= $pdo->prepare($sql);
-                                                    $stmt->execute();
-                                                    $items = $stmt->fetchALL(); 
-                                                        foreach($items as $item){?>
-                                                        <option><?php echo $item['cat'] . "</option>"; 
-                                                    }?>
-                                                    </select>
-                                                  
-
-
-                               
-                                
-                                
+                        <div class="boxinside-one"> 
+                           
+                            <div class="pure-control-group">
+                                Keep track of stock<br>
+                                <input type="radio" id="aligned-name" name="keeptrackofstock" value="1" checked/> Yes
+                                <input type="radio" id="aligned-name" name="keeptrackofstock" value="0" /> No
+                                <span class="pure-form-message-inline"></span>
                             </div>
+                            <br>
+                            <div class="pure-control-group">
+                                Allow purchase when stock is empty<br>
+                                <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="1" checked/> Yes
+                                <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="0" /> No
+                                <span class="pure-form-message-inline"></span>
+                            </div>
+
+                            
+
+                            <p><br></p>
+
+                            <div class="form-group row">
+                                    <label for="itemnumber"  class="col-sm-4 col-form-label">Item number</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="itemnumber" placeholder="required..." />
+                                        </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="category"  class="col-sm-4 col-form-label">Category</label>
+                                <div class="col-sm-6">
+
+                                
+                                    
+                                    <select class="form-control" id="categorySelector" name="category" required>
+                                    <option selected disabled></option>
+                                    <!-- Getting data from database and using it for dropdown menu -->
+                                                        <?php
+                                                        $sql = "SELECT * FROM categories";
+                                                        $stmt= $pdo->prepare($sql);
+                                                        $stmt->execute();
+                                                        $items = $stmt->fetchALL(); 
+                                                            foreach($items as $item){?>
+                                                            <option><?php echo $item['cat'] . "</option>"; 
+                                                        }?>
+                                                        </select>
+                                                    
+
+
+                                
+                                    
+                                    
+                                </div>
+                            </div>    
                                 
                             
-                        </div>
-
-                        <div class="form-group row">
-                                <label for="howmanyareinstock"  class="col-sm-4 col-form-label">How many are in stock</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" required="" id="aligned-name" name="howmanyareinstock" placeholder="required..." />
-                                    </div>
-                        </div>
-
-                        <div class="form-group row">
-                                <label for="weight"  class="col-sm-4 col-form-label">Weight in gram</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="aligned-name" name="weight" />
-                                    </div>
-                        </div>
-                        <div class="form-group row">
-                                <label for="costprice"  class="col-sm-4 col-form-label">Costprice</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="aligned-name" name="costprice"/>
-                                    </div>
-                        </div>
-
-                        <div class="form-group row">
-                                <label for="expenses"  class="col-sm-4 col-form-label">Expenses for each product</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="aligned-name" name="expenses"/>
-                                    </div>
-                        </div>
-                     
-                    </div> 
-                </div>
-            
-
-                <div class="row">
-                    <div class="col-md-10 custom-box">
-                        <div class="pure-control-group">Your notes<br>
-                            <textarea class="aligned-name col-sm-10" name="yournotes" placeholder=""></textarea>                          
-                        </div>
-                    </div> 
-                </div>
-
-
-                <div class="row">
-                    <div class="col-md-10 custom-box">
-                        <div class="pure-control-group">
-                        <label for="aligned-name" >Upload images</label><br>
-                        <input type='file' name='pic[]' id='file' multiple ><br>
-                        </div>
-
-                        <p><br></p>
                         
-                        <button type="submit" name="submit" value="upload" class="btn btn-success">Create product</button>
-                        </form>
+                            
+                            
+
+                                <div class="form-group row">
+                                        <label for="howmanyareinstock"  class="col-sm-4 col-form-label">How many are in stock</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="howmanyareinstock" placeholder="required..." />
+                                            </div>
+                                </div>
+
+                                <div class="form-group row">
+                                        <label for="weight"  class="col-sm-4 col-form-label">Weight in gram</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="aligned-name" name="weight" />
+                                            </div>
+                                </div>
+                                <div class="form-group row">
+                                        <label for="costprice"  class="col-sm-4 col-form-label">Costprice</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="aligned-name" name="costprice"/>
+                                            </div>
+                                </div>
+
+                                <div class="form-group row">
+                                        <label for="expenses"  class="col-sm-4 col-form-label">Expenses for each product</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" id="aligned-name" name="expenses"/>
+                                            </div>
+                                </div>
+
+                          
+
+                
+                                <div class="pure-control-group">Your notes<br>
+                                    <textarea class="aligned-name col-sm-10" name="yournotes" placeholder=""></textarea>                          
+                                </div>
+                        </div> 
+                    </div>    
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="boxinside-one">    
+                            <div class="pure-control-group">
+                            <label for="aligned-name" >Upload images</label><br>
+                            <input type='file' name='pic[]' id='file' multiple ><br>
+                            </div>
+
+                            <p><br></p>
+                            
+                            <button type="submit" name="submit" value="upload" class="btn btn-success">Create product</button>
+                            </form>
+                                                    </div>    
                     </div> 
                 </div>
 

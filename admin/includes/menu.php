@@ -1,21 +1,24 @@
 <div>
         <div>
+            
+            <div class="webshopinfo">
             <small><em>Basic Webshop v.1</em></small>
             
             <?php 
             $userinfo = get_userinfo($_SESSION['username'],$pdo); 
             ?>
 
-           <br><small>Welcome <b><?php echo $userinfo['username']; ?></b><br>
-            Webshopname: <b><?php echo $userinfo['shopname']; ?></b><br>
-            Contact Email: <b><?php echo $userinfo['email']; ?></b></small><p></p><br>
+           <br><small><b>Welcome </b><?php echo $userinfo['username']; ?><br>
+           <b>Webshopname: </b><?php echo $userinfo['shopname']; ?><br>
+           <b>Contact Email: </b><?php echo $userinfo['email']; ?></small><p></p><br>
+            </div>
 
         
 
 
             <h3 class="colortitle"><i>Menu</i></h3>
 
-                <div class="box">
+                <div class="boxmenu">
                     <a href="index.php">
                         <svg class="bi" width="12" height="12" fill="currentColor">
                         <use xlink:href="bootstrap-icons.svg#house-door"/>
@@ -55,7 +58,7 @@
                     <a class="custom-menu" href="settings.php">
                     <svg class="bi" width="12" height="12" fill="currentColor">
                         <use xlink:href="bootstrap-icons.svg#gear"/>
-                        </svg> Settings</a><p><br></p>
+                        </svg> Settings</a><br>
                     
 
 
