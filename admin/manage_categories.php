@@ -54,25 +54,18 @@ include_once '../bootstrap.php';
                 <div class="row">                  
                     
 
-                    <div class="col-md-5 custom-box">
+                    <div class="col-md-12 custom-box">
 
-                        <div class="boxinside">
+                        <div class="boxinside-one">
                         
                             <form class="pure-form pure-form-aligned" action="includes/add_category.inc.php" method="POST" enctype='multipart/form-data'>
                                 <div class="form-group row">
-                                        <label for="productname" class="col-sm-3 col-form-label">Add a category: </label>
-                                        <div class="col-sm-4">
+                                        <label for="productname" class="col-sm-2 col-form-label">Add a category: </label>
+                                        <div class="col-sm-7">
                                             <input type="text" class="form-control" required="" id="aligned-name" name="category" placeholder="Type something...">
+                                            <br><button type="submit" name="submit" value="upload" class="btn btn-success">Add category</button> 
                                         </div>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="productname" class="col-sm-3 col-form-label"></label>
-                                        <div class="col-sm-4">
-                                        <button type="submit" name="submit" value="upload" class="btn btn-success">Add category</button>       
-                                        </div>
-                                    </div>
-
                                     
                             </form><br>
                             

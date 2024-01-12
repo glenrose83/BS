@@ -16,6 +16,14 @@ include_once '../bootstrap.php';
     $stmt->execute();
     $paymentOptions = $stmt->fetchALL();
 
+
+    //Getting sales vat data
+    $stmt = $pdo->prepare(
+    'SELECT * FROM vat;'
+    );
+    $stmt->execute();
+    $country = $stmt->fetchALL();
+
     //Getting payment options data
     $stmt = $pdo->prepare(
     'SELECT * FROM payment_options_custom;'
@@ -23,8 +31,8 @@ include_once '../bootstrap.php';
     $stmt->execute();
     $paymentOptionsCustom = $stmt->fetchALL();
 
-//Getting shipping data
-$stmt = $pdo->prepare(
+    //Getting shipping data
+    $stmt = $pdo->prepare(
     'SELECT * FROM shipping;'
     );
     $stmt->execute();
@@ -135,7 +143,7 @@ $stmt = $pdo->prepare(
                         <div class="boxinside-one">
                             Shop Settings: <br> <br>
 
-                            Select shop language: <br>  
+                            Select shop language: (Danish is comming soon)<br>  
                             <form>          
                             <div class="form-check">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
@@ -158,21 +166,81 @@ $stmt = $pdo->prepare(
                             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
                             </div>
                             <button type="button" class="btn-small btn-outline-secondary">Set tracking</button>
-                            </form>
-                            <br>
-
-                            Set Sales VAT: <br>   
-                            <form>
-                            <div class="form-group">                    
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
-                            </div>
-                            <button type="button" class="btn-small btn-outline-secondary">Set sales VAT</button>
-
+                            <br>&nbsp;<br>&nbsp;
                             </form>
                         </div>
                     </div>
 
                 </div>
+
+                <!--Sales Vat-->
+                <div class="row">
+                    
+                     <div class="col-md-10 custom-box">
+                        
+                        <div class="boxinside-one">   
+                                <strong>VAT Options:</strong> 
+                                <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                <th scope="col">Country</th>
+                                <th scope="col">Amount in %</th>
+                                <th scope="col">Delete Option</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+            
+                            <?php
+                            foreach ($country as $countryOption){
+                            ?>
+                            <tr>
+                                                        
+                            <td><?php echo $countryOption['country']?>    
+                            </td>
+                            <td><?php echo $countryOption['vat']; ?></td>
+                            <td>
+
+                            <?php  
+                                echo "<a href='includes/delete_vat.inc?id=". $countryOption['id']."'>Delete</a>";
+                                
+                                ?>       
+                            </td>
+                            </tr>
+                            <?php } ?>  
+                            </tbody>
+                            </table><p>&nbsp;</p>
+                 
+                     
+                                <!--Add VAT option-->
+                                <strong>Add VAT options:  </strong>     
+                  
+                                <form action="includes/add_vat_option.inc.php" method="POST" enctype='multipart/form-data'>                
+                                <div class="form row">
+                            
+                                    <div class="col-md-4">
+                                    <label for="code">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" placeholder="Ect. Denmark"  required>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                    <label for="code">VAT in %(ONLY NUMBERS):</label>
+                                    <input type="text" class="form-control" id="vat" name="vat" placeholder="Ect. 25"  required>
+                                    </div>
+
+                                </div>    
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10">
+                                    <br><button type="submit" class="btn btn-primary">Add VAT option</button>
+                                    </div>
+                            
+                                 </form>
+                                </div>
+                        </div>        
+                    </div>
+                </div>
+
+
 
                 <!--payment options-->
                 <div class="row">

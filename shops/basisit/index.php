@@ -1,7 +1,18 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include_once '../../bootstrap.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
+    <?php
+    //Google tracking code
+    //IF constant with GA4STATUS is TRUE - run this
+    if(GA4STATUS) {  
+        $main = new Main();
+        echo $main->getData();
+        }
+    ?>
+    
 <title>Basic Shop - Free Webshops To The People</title>
 
 <!--adding my own style-->

@@ -1,6 +1,7 @@
-<?php
-$shopname ="Tester";
+<?php    
+include_once 'bootstrap.php';
 
-$number = + rand(12125, 21564894218951999);
-$unique = $shopname. "_". $number;
-echo $unique;
+//IF constant with GA4STATUS is enabled
+$main = new Main();
+$main->getData();
+echo $main->ga4code;

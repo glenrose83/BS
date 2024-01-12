@@ -112,8 +112,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h3 ><p><br></p>All Products</h2>
                             
                     <?php
-                    //Fetch all products from DB
-                    $stmt = $pdo->prepare("SELECT * FROM products");
+                   //Fetch all products from DB
+                    $stmt = $pdo->prepare("
+                    SELECT * FROM products pr
+                    INNER JOIN product_images prim
+                    ON pr.id =prim.fk_id
+                    WHERE prim.primary_pic = 1
+                    ");
                     $stmt->execute(); 
                     $product = $stmt->fetchALL();
                     ?>
@@ -134,7 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 ?>
                                 
                                 <div class="col-md-2">
-                                <img class="cus-thumb" src="<?php echo $products['front_img']; ?>"><br>
+                                <img class="cus-thumb" src="<?php echo $products['url']; ?>"><br>
                                 <b><?php echo $products['productname'];?></b><br>
                                 <?php echo $products['pricesxvat'];?> kr.
                                 <p></p>

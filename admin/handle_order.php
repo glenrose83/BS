@@ -140,10 +140,11 @@ $order = $stmt->fetchALL();
                         <div class="col-md-5 custom-box">    
                          
                         <?php 
-                        echo "Time: ".$customer['order_date']."<br>
-                        IP:<br>
-                        User Client: <br>"
-                        ."Customerid: ".$customer['id']
+                        echo "Time: ".$customer['order_date']."; <br>
+                        IP: ".$customer['ip']." <br>"
+                        ."Customerid: ".$customer['id']."
+                        User Client: ".$customer['browser']."<br>
+                
                         ?>
                         </div>
 

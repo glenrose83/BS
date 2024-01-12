@@ -15,6 +15,16 @@ $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 $email_confirm = filter_input(INPUT_POST, 'email_confirm', FILTER_SANITIZE_STRING);
 
+//Getting user IP
+$ip = $_SERVER['REMOTE_ADDR'];
+$ipTwo = $_SERVER['HTTP_CLIENT_IP'];
+$ipThree = $_SERVER['HTTP_X_FORWARDED_FOR'];
+$ipFour = getenv("REMOTE_ADDR");
+
+//Getting user browser
+$userBrowser = $_SERVER['HTTP_USER_AGENT'];
+
+
 
 //Validating Input data
 if (empty($fullname || $streetname || $housenumber || $etc  || $postcode || $city || $phone || $country || $email || $email_confirm)){
@@ -28,6 +38,8 @@ if ($email !== $email_confirm){
     exit();
 } 
 
+//getting IP and useragent
+
 
 //Inserting data to database
 $data = [
@@ -40,9 +52,15 @@ $data = [
     'phone' => $phone,
     'country' => $country,
     'email' => $email,
+    'browser' => $userBrowser,
+    'ip' => $ip,
+    'iptwo' => $ipTwo,
+    'ipthree' => $ipThree,
+    'ipfour' => $ipFour
+
 ];
-$sql = "INSERT INTO customers (fullname, streetname, housenr, etc, postcode, city, country, phone, email) 
-VALUES (:fullname, :streetname, :housenumber, :etc, :postcode, :city, :country, :phone, :email)";
+$sql = "INSERT INTO customers (fullname, streetname, housenr, etc, postcode, city, country, phone, email, browser, ip, iptwo, ipthree, ipfour) 
+VALUES (:fullname, :streetname, :housenumber, :etc, :postcode, :city, :country, :phone, :email, :browser, :ip, :iptwo, :ipthree, :ipfour)";
 $stmt= $pdo->prepare($sql);
 $stmt->execute($data);
 
