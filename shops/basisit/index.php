@@ -12,7 +12,7 @@ include_once '../../bootstrap.php';
         echo $main->getData();
         }
     ?>
-    
+
 <title>Basic Shop - Free Webshops To The People</title>
 
 <!--adding my own style-->
@@ -22,9 +22,6 @@ include_once '../../bootstrap.php';
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<?php 
-include_once '../../bootstrap.php'; 
-?>
 </head>
 
 <body>

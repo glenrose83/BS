@@ -161,11 +161,11 @@ include_once '../bootstrap.php';
                             </form><br>
 
                             Tracking: <br>            
-                            <form>
+                            <form action="includes/set_tracking.inc.php" method="POST" enctype='multipart/form-data'>
                             <div class="form-group">                    
-                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+                            <input type="text" class="form-control" id="tracking" placeholder="Example: UA-179874926-9">
                             </div>
-                            <button type="button" class="btn-small btn-outline-secondary">Set tracking</button>
+                            <button type="button" class="btn-small btn-outline-secondary">Set tracking </button> <a href="includes/set_tracking.inc.php?action=remove">-Click here to remove tracking</a>
                             <br>&nbsp;<br>&nbsp;
                             </form>
                         </div>
