@@ -77,7 +77,23 @@ include_once '../bootstrap.php';
 
         //getting userinfo
         $userinfo = get_userinfo($user,$pdo);
-?>
+
+    //Tracking check
+        $stmt = $pdo->prepare(
+        'SELECT * FROM users;'
+        );
+        $stmt->execute();
+        $check = $stmt->fetch();
+        if($check['ga4status']) {
+            $trackingCheck = $check['ga4status'];
+            $trackingCodeGa4 = $check['ga4tracking'];
+        } else {
+            $trackingCheck=false;
+        }
+
+        //getting userinfo
+        $userinfo = get_userinfo($user,$pdo);
+?><a href="includes/set_tracking.inc.php?action=remove">
 
 <!doctype html>
 <html lang="en">
@@ -160,12 +176,16 @@ include_once '../bootstrap.php';
                             <button type="button" class="btn-small btn-outline-secondary">Set language</button>
                             </form><br>
 
-                            Tracking: <br>            
-                            <form action="includes/set_tracking.inc.php" method="POST" enctype='multipart/form-data'>
-                            <div class="form-group">                    
-                            <input type="text" class="form-control" id="tracking" placeholder="Example: UA-179874926-9">
-                            </div>
-                            <button type="button" class="btn-small btn-outline-secondary">Set tracking </button> <a href="includes/set_tracking.inc.php?action=remove">-Click here to remove tracking</a>
+                            <b>Tracking:</b> <br>            
+                            <?php if(!$trackingCheck) {?>    
+                                <form action="includes/set_tracking.inc.php" method="POST" enctype='multipart/form-data'>
+                                <div class="form-group">                    
+                                <input type="text" class="form-control" name="tracking" placeholder="Example: UA-179874926-9">
+                                </div>
+                                <button type="submit" class="btn-small btn-outline-secondary">Set tracking </button> 
+                                 <?php } else {                                  
+                                echo "Tracking is set to: <b>".$trackingCodeGa4."</b>, <br><a href='includes/remove_tracking.inc.php?action=delete'>but you can <span class='text-danger'>remove by clicking here.</a></span>
+                                ";} ?>
                             <br>&nbsp;<br>&nbsp;
                             </form>
                         </div>

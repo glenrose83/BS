@@ -21,7 +21,7 @@ $data=[
     'tracking' => $tracking
  ];
 
-$sql = "INSERT INTO users (ga4tracking) VALUES (:tracking)";
+$sql = "UPDATE users SET ga4tracking=:tracking, ga4status=1";
 $stmt= $pdo->prepare($sql);
 $stmt->execute($data);
 
