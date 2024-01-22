@@ -1,7 +1,22 @@
-<?php
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 21, 2024 at 09:52 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
-$standardDatabase = 
-"
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
 --
 -- Database: `bs`
 --
@@ -438,6 +453,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`id`, `username`, `userpassword`, `companyname`, `address`, `zip`, `city`, `country`, `vat`, `phone`, `email`, `shopname`, `role`, `databasename`, `ga4status`, `ga4tracking`, `template`) VALUES
+(3, 'Glen', '$2y$10$cnGr4EvTj8rzculgTQ65I.2YHnhZ718lMnjbc6.qbtQg2oxqBxtXS', 'Webshop', 'Hagbardsvej 4', 3650, 'ølstykke', 'Denmark', '27825283', '28141529', 'glenrose83@gmail.com', 'Shopshop', 'admin', '', 1, 'UA-1510255', NULL),
+(6, 'jan', '$2y$10$up102/7xVWNOU1AqDdR/qe3f11AldksjIHYd1RX5GMRHnW3i9lAo6', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1212@sd.com', 'myshopper', 'admin', '', NULL, NULL, NULL),
+(7, 'jan', '$2y$10$LSGvp.tAJ8j1u.NJtX45UOZITa47SC2BAwtYNlermXJ/8wbLVuy0q', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sdfdfe@sdfe.com', 'janhouse', 'admin', '', NULL, NULL, NULL),
+(8, 'shopusername', '$2y$10$2xl7B.r1Oz9zmUifxzo01eqaeOzflyoOySag6G16TDn8pR/AHtPNy', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sdfdfe@sdfe.com', 'Shopname', 'admin', '', NULL, NULL, NULL),
+(9, 'Kenneth', '$2y$10$tqbYEiNCDFHrXv3rfZKwy.GZcrxuLmr3eV2tmtuPeXKd/T8bD4DBG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'kenneth@gmail.com', 'hundeshoppen', 'admin', '', NULL, NULL, NULL),
+(10, 'jonas', '$2y$10$qJ70ParpbpLS4c5j3DoC0.0F1/WFDX2N4aJt2ETnOyqXzc6DZAyHG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'jonas@xn--gmail-wra.com', 'alarmShoppen', 'admin', '', NULL, NULL, NULL),
+(11, 'martin1', '$2y$10$AKpXxCK1.jZumfJymNiH..20o4K.2YYcwaJq5mwpMCZ4B9DLfqA6G', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'jonas@xn--gmail-wra.com', 'elestikShop1', 'admin', '', NULL, NULL, NULL),
+(12, 'ken', '$2y$10$EhoCkgNvhoUSUC71kQqLZeGRJ5f7lo.DS7gZRpECw5/lpWAjnWnmm', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'jonas@xn--gmail-wra.com', 'skrivebordet', 'admin', '', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -482,4 +506,7 @@ ALTER TABLE `orders`
 ALTER TABLE `product_images`
   ADD CONSTRAINT `images` FOREIGN KEY (`fk_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
-";
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
