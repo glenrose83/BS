@@ -1,8 +1,7 @@
 <?php
+ob_start();
 include_once '../bootstrap.php';
 include_once '../standard_database.php';
-
-$userEmail = "glenrose83@gmail.com";
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -34,7 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif  ($passwordOne !== $passwordTwo){
         header('Location: ../register.php?error=passwordmatch');
     }
+
+    //Saving in session for use in sending email
+    $_SESSION['username'] = $userName;
+    $_SESSION['shopname'] = $shopName;
+    $_SESSION['useremail'] = $userEmail;
+    $_SESSION['pwd'] = $passwordOne;
     
+    //Hashing password
     $hashedPassword = password_hash($passwordOne, PASSWORD_DEFAULT);
     
     
@@ -54,7 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // statement to create unique database for induvidal shop
     $number = + rand(121251111, 21564894218951999);
-    $uniqueDB = $shopName. "_". $number;
+    $uniqueDBwithSpace = $shopName. "_". $number;
+    $uniqueDB = str_replace(' ','', $uniqueDBwithSpace);
+
     
     // create unqiue username & Password
     $uniqueName = $userName. "_". $number; 
@@ -248,6 +256,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     copy($file, $newfile);
 
 
+
+
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -285,9 +295,10 @@ try {
     Password: '.$passwordOne.'<br><br>
     <a href="www.basicwebshop.net/admin">Log in to admin panel here</a>';
 
+
+
     $mail->send();
     Header('Location: ../admin/index.php');
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-
