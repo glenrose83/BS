@@ -5,13 +5,13 @@
     if(!defined('GA4STATUS')){
      
         //Getting data
-        $stmt = $pdo->prepare("SELECT * FROM users");
+        $stmt = $pdo->prepare("SELECT * FROM tracking WHERE name='ga4'");
         $stmt->execute(); 
         $userSettings = $stmt->fetch();
 
         //Declaring constants
-        define("GA4STATUS", $userSettings['ga4status']);  
-        define("GA4CODE", $userSettings['ga4tracking']);  
+        define("GA4STATUS", $userSettings['status']);  
+        define("GA4CODE", $userSettings['code']);  
     
        
     } 

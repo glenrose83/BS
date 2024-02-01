@@ -441,6 +441,23 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- --------------------------------------------------------
 
+DROP TABLE IF EXISTS `tracking`;
+CREATE TABLE IF NOT EXISTS `tracking` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tracking`
+--
+
+INSERT INTO `tracking` (`id`, `name`, `status`, `code`) VALUES
+(1, 'ga4', 1, 'UA-1510255');
+
+
 --
 -- Table structure for table `vat`
 --

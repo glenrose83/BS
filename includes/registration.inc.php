@@ -65,11 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     // create unqiue username & Password
-    $uniqueName = $userName. "_". $number; 
+    $uniqueNameWithspaces = $userName. "_". $number; 
+    $uniqueName = str_replace(' ','', $uniqueNameWithspaces);
     $pass = "JayFooD_". rand(200,9999);
-    echo "password is: ".$pass;
-    echo "username is: ".$uniqueName;
-    echo "database is: ".$uniqueDB;
+
     
     
     
@@ -89,28 +88,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
     
     
-    // Creating folder for the shop for new user
-    $dirPath = '../shops/' . $shopName;
+    // Creating folder for the shop for new user, but remove spaces
+    $shopNameFolder= str_replace(' ','', $shopName);
+
+    //creating the shopfolder
+    $dirPath = '../shops/' . $shopNameFolder;
     if (!mkdir($dirPath, 0777, true)) {
         die('Failed to create directories...');
     }
     
     // Creating folder for the img in the shop for new user
-    $dirPath = '../shops/' . $shopName. '/img';
+    $dirPath = '../shops/' . $shopNameFolder. '/img';
     if (!mkdir($dirPath, 0777, true)) {
         die('Failed to create directories...');
     }
     
     // Creating DB file
     $p="";
-    $filepath = "../shops/" . $shopName . "/db.php";
+    $filepath = "../shops/" . $shopNameFolder . "/db.php";
     $index = fopen($filepath, "w") or die("unable to create file");
     $text = "
     <?php
         \$host = 'localhost';
-        \$db   = 'bs';
-        \$user = 'root';
-        \$pass = '';
+        \$db   = '$uniqueDB';
+        \$user = '$uniqueName';
+        \$pass = '$pass';
         \$dsn = \"mysql:host=\$host;dbname=\$db\";
         \$pdo = new PDO(\$dsn, \$user, \$pass);
         \$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -121,7 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
     //creating bootstrap.php
-    $filepath = "../shops/" . $shopName . "/bootstrap.php";
+    $filepath = "../shops/" . $shopNameFolder . "/bootstrap.php";
     $index = fopen($filepath, "w") or die("unable to create file");
     $text = "
     <?php
@@ -135,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     fclose($index); 
     
     //Creating index file 
-    $filepath = "../shops/" . $shopName . "/index.php";
+    $filepath = "../shops/" . $shopNameFolder . "/index.php";
     $index = fopen($filepath, "w") or die("unable to create file");
     $text = "
     <?php
@@ -145,6 +147,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     fwrite($index, $text);
     fclose($index); 
     
+    //Creating cart file 
+    $filepath = "../shops/" . $shopNameFolder . "/cart.php";
+    $index = fopen($filepath, "w") or die("unable to create file");
+    $text = "
+    <?php
+    include_once '../standard/cart.php';
+    ";
+    fwrite($index, $text);
+    fclose($index); 
+
+
+     //Creating checkout file 
+      $filepath = "../shops/" . $shopNameFolder . "/checkout_design.php";
+      $index = fopen($filepath, "w") or die("unable to create file");
+      $text = "
+      <?php
+      include_once '../standard/checkout_design.php';
+      ";
+      fwrite($index, $text);
+      fclose($index); 
+
+      //Creating delivery file 
+      $filepath = "../shops/" . $shopNameFolder . "/delivery_design.php";
+      $index = fopen($filepath, "w") or die("unable to create file");
+      $text = "
+      <?php
+      include_once '../standard/delivery_design.php';
+      ";
+      fwrite($index, $text);
+      fclose($index); 
+
+    //Creating order completed file 
+    $filepath = "../shops/" . $shopNameFolder . "/order_completed_design.php";
+    $index = fopen($filepath, "w") or die("unable to create file");
+    $text = "
+    <?php
+    include_once '../standard/order_completed_design.php';
+    ";
+    fwrite($index, $text);
+    fclose($index); 
+
+    
+    //Creating payment design file 
+    $filepath = "../shops/" . $shopNameFolder . "/payment_design.php";
+    $index = fopen($filepath, "w") or die("unable to create file");
+    $text = "
+    <?php
+    include_once '../standard/payment_design.php';
+    ";
+    fwrite($index, $text);
+    fclose($index); 
+
     
     //Closing previous connection
     $stmt = null;
@@ -168,95 +222,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     //Copying image files 
     $file = '../shops/standard/img/black-shirt.png'; 
-    $newfile = '../shops/'.$shopName.'/img/black-shirt.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/black-shirt.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/computer.png'; 
-    $newfile = '../shops/'.$shopName.'/img/computer.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/computer.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/fryingpan.png'; 
-    $newfile = '../shops/'.$shopName.'/img/fryingpan.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/fryingpan.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/handsker.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/handsker.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/handsker.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/kitchen_machine.png'; 
-    $newfile = '../shops/'.$shopName.'/img/kitchen_machine.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/kitchen_machine.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/laptop.png'; 
-    $newfile = '../shops/'.$shopName.'/img/laptop.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/laptop.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/multiple-tshirts.png'; 
-    $newfile = '../shops/'.$shopName.'/img/multiple-tshirts.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/multiple-tshirts.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/computerimg.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/computerimg.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/computerimg.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/phones.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/phones.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/phones.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/red-dress.png'; 
-    $newfile = '../shops/'.$shopName.'/img/red-dress.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/red-dress.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/running_shoe.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/running_shoe.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/running_shoe.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/shoe.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/shoe.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/shoe.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/skab.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/skab.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/skab.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/studio_monitor.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/studio_monitor.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/studio_monitor.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/studio_monitor_1.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/studio_monitor_1.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/studio_monitor_1.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/studio_monitor_2.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/studio_monitor_2.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/studio_monitor_2.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/studio_monitor_3.jpg'; 
-    $newfile = '../shops/'.$shopName.'/img/studio_monitor_3.jpg';
+    $newfile = '../shops/'.$shopNameFolder.'/img/studio_monitor_3.jpg';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/temperature.png'; 
-    $newfile = '../shops/'.$shopName.'/img/temperature.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/temperature.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/termperature_1.png'; 
-    $newfile = '../shops/'.$shopName.'/img/termperature_1.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/termperature_1.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/wall_clock.png'; 
-    $newfile = '../shops/'.$shopName.'/img/wall_clock.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/wall_clock.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/watch.png'; 
-    $newfile = '../shops/'.$shopName.'/img/watch.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/watch.png';
     copy($file, $newfile);
     
     $file = '../shops/standard/img/white_shoe.png'; 
-    $newfile = '../shops/'.$shopName.'/img/white_shoe.png';
+    $newfile = '../shops/'.$shopNameFolder.'/img/white_shoe.png';
     copy($file, $newfile);
 
 
-
+    
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
@@ -286,14 +340,17 @@ try {
     Username: '.$userName.'<br>
     Shopname: '.$shopName.'<br>
     Password: '.$passwordOne.'<br><br>
-    <a href="www.basicwebshop.net/admin">Log in to admin panel here</a>';
-    
+    <a href="www.basicwebshop.net/admin">Log in to admin panel here</a><br>
+    <a href="www.basicwebshop.net/shop"'.$shopNameFolder.'>See your website here</a>';
+
+
     $mail->AltBody = 'Hi and welcome to your new shop 
     <br>Here is your username and password.<br><br>
     Username: '.$userName.'<br>
     Shopname: '.$shopName.'<br>
     Password: '.$passwordOne.'<br><br>
-    <a href="www.basicwebshop.net/admin">Log in to admin panel here</a>';
+    <a href="www.basicwebshop.net/admin">Log in to admin panel here</a><br>
+    <a href="www.basicwebshop.net/shop"'.$shopNameFolder.'>See your website here</a>';
 
 
 
@@ -302,3 +359,4 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+
