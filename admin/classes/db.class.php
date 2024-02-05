@@ -4,7 +4,7 @@ class DB {
 
     protected function __construct(){
         $host = '127.0.0.1';
-        $db   = 'basicshop';
+        $db   = 'bs';
         $user = 'root';
         $pass = '';
         $dsn = "mysql:host=$host;dbname=$db";
