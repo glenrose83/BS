@@ -1,5 +1,8 @@
 <?php
 ob_start();
+session_start();
+session_unset();
+session_destroy();
 include_once '../bootstrap.php';
 include_once '../standard_database.php';
 
@@ -44,17 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = password_hash($passwordOne, PASSWORD_DEFAULT);
     
     
-    // Inserting data to database
-     $data = [
-        'username' => $userName,
-        'shopname' => $shopName,
-        'useremail' => $userEmail,
-        'password' => $hashedPassword,
-        'role' => $role
-    ];
-    $sql = "INSERT INTO users (username, userpassword, email, shopname, role) VALUES (:username, :password, :useremail, :shopname, :role)";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute($data);
+
     
     
     
@@ -68,6 +61,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $uniqueNameWithspaces = $userName. "_". $number; 
     $uniqueName = str_replace(' ','', $uniqueNameWithspaces);
     $pass = "JayFooD_". rand(200,9999);
+
+
+    // Inserting data to database
+    $data = [
+            'username' => $userName,
+            'shopname' => $shopName,
+            'useremail' => $userEmail,
+            'password' => $hashedPassword,
+            'database' => $uniqueDB,
+            'dbusername' => $uniqueName,
+            'databasepwd' => $pass,
+            'role' => $role
+        ];
+    $sql = "INSERT INTO users (username, userpassword, email, shopname, role, databasename, databaseuser, databasepwd) 
+    VALUES (:username, :password, :useremail, :shopname, :role, :database, :dbusername, :databasepwd)";
+    $stmt= $pdo->prepare($sql);
+    $stmt->execute($data);
 
     
     
@@ -310,7 +320,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     copy($file, $newfile);
 
 
-    
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);

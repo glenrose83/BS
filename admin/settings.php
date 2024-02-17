@@ -7,6 +7,7 @@ if(isset($_SESSION['username'])){
     header('Location: ../login.php?error=pleaselogin');
 }
 
+
 include_once '../bootstrap.php'; 
 
     //Getting payment options data
@@ -75,18 +76,19 @@ include_once '../bootstrap.php';
         $stmt->execute();
         $currency = $stmt->fetch();
 
-        //getting userinfo
-        $userinfo = get_userinfo($user,$pdo);
+    //getting userinfo
+     $userinfo = get_userinfo($user,$pdo);
+    
 
     //Tracking check
         $stmt = $pdo->prepare(
-        'SELECT * FROM users;'
+        'SELECT * FROM tracking;'
         );
         $stmt->execute();
         $check = $stmt->fetch();
-        if($check['ga4status']) {
-            $trackingCheck = $check['ga4status'];
-            $trackingCodeGa4 = $check['ga4tracking'];
+        if($check['status']) {
+            $trackingCheck = $check['status'];
+            $trackingCodeGa4 = $check['code'];
         } else {
             $trackingCheck=false;
         }
@@ -141,15 +143,15 @@ include_once '../bootstrap.php';
                         <div class="boxinside-one">
                         
                             My info: <br><br>
-                            Shopname: <span class="fs-6 fw-light"><?php echo $userinfo['shopname'];?></span><br>
-                            Companyname: <span class="fs-6 fw-light"><?php echo $userinfo['companyname'];?></span><br>
-                            Address: <span class="fs-6 fw-light"><?php echo $userinfo['address'];?></span><br>
-                            City: <span class="fs-6 fw-light"><?php echo $userinfo['city'];?></span><br>
-                            Country: <span class="fs-6 fw-light"><?php echo $userinfo['country'];?></span><br>
-                            Vat: <span class="fs-6 fw-light"><?php echo $userinfo['vat'];?></span><br>
-                            Email: <span class="fs-6 fw-light"><?php echo $userinfo['email'];?></span><br>
-                            Phone: <span class="fs-6 fw-light"><?php echo $userinfo['phone'];?></span><br>
-                            <a href="change_settings.php"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
+                            Shopname: <span class="fs-6 fw-light"><?php echo SHOPNAME;?></span><br>
+                            Companyname: <span class="fs-6 fw-light"><?php echo COMPANYNAME;?></span><br>
+                            Address: <span class="fs-6 fw-light"><?php echo ADDRESS;?></span><br>
+                            City: <span class="fs-6 fw-light"><?php echo CITY;?></span><br>
+                            Country: <span class="fs-6 fw-light"><?php echo COUNTRY;?></span><br>
+                            Vat: <span class="fs-6 fw-light"><?php echo VAT;?></span><br>
+                            Email: <span class="fs-6 fw-light"><?php echo EMAIL;?></span><br>
+                            Phone: <span class="fs-6 fw-light"><?php echo PHONE;?></span><br><br>
+                            <a href="change_info.php"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
                             <a href="change_password.php"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
                         </div>    
                     
@@ -176,7 +178,7 @@ include_once '../bootstrap.php';
                             <button type="button" class="btn-small btn-outline-secondary">Set language</button>
                             </form><br>
 
-                            <b>Tracking:</b> <br>            
+                            <b>Google Analytics Tracking:</b> <br>            
                             <?php if(!$trackingCheck) {?>    
                                 <form action="includes/set_tracking.inc.php" method="POST" enctype='multipart/form-data'>
                                 <div class="form-group">                    

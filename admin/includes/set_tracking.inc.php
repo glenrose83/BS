@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../../includes/db_connection.php';
 
 
@@ -18,10 +19,11 @@ if (empty($tracking)){
 
 //adding to DB
 $data=[
-    'tracking' => $tracking
+    'tracking' => $tracking,
+    'enable' => 1
  ];
 
-$sql = "UPDATE users SET ga4tracking=:tracking, ga4status=1";
+$sql = "UPDATE tracking SET code=:tracking, status=:enable WHERE id=1";
 $stmt= $pdo->prepare($sql);
 $stmt->execute($data);
 

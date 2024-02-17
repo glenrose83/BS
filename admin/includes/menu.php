@@ -61,7 +61,7 @@
                     
 
 
-                    <a class="custom-menu" href="logout.php">    
+                    <a class="custom-menu" href="../logout.php">    
                     <svg class="bi" width="12" height="12" fill="currentColor">
                     <use xlink:href="bootstrap-icons.svg#box-arrow-right"/> </svg> Logout</a>
                 </div>

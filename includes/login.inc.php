@@ -12,10 +12,12 @@ if(empty($typedPassword || $typedUsername)){
   $_SESSION['loggedin'] = TRUE;
   $_SESSION['username'] = $typedUsername;
 
+
   //Getting user from DB
 /* $stmt = $pdo->prepare("SELECT * FROM users WHERE username=:typedusername");
 $stmt->execute(['typedusername' => $typedUsername]); 
 $user = $stmt->fetch(); */
+
 
 include_once '../bootstrap.php';
 

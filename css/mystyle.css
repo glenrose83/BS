@@ -185,6 +185,13 @@ padding-left: 10px;;
   margin-bottom: 2rem;
 }
 
+.left-title {
+  text-align: left;
+  color: white;
+  margin-top: 89px;
+  margin-bottom: 2rem;
+}
+
 .centerinside {
   text-align: center;
   display: flex;

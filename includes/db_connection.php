@@ -1,7 +1,10 @@
 <?php
 
-if(isset($_SESSION['username'])){
-    
+$usernameSet = isset($_SESSION['username']);
+
+
+if($usernameSet){
+
     //if constant is defined
     if(defined('DATABASENAME')){
 
@@ -30,6 +33,7 @@ if(isset($_SESSION['username'])){
         $dsn = "mysql:host=$host;dbname=$db";
         $pdo = new PDO($dsn, $user, $pass);
 
+
         $data=[
             'user' => $_SESSION['username']    
         ];
@@ -39,21 +43,36 @@ if(isset($_SESSION['username'])){
         $userDetails = $stmt->fetch();
 
         //if is array so we check it found username
-        
+        $userDetailsTEST = is_array($userDetails);
+        if(!$userDetailsTEST){
+            header('Location: ../login.php?error=userDoesNotExist');
+        }
+
+     
 
         //Assign to constants
-        define("DATABASENAME", $userDetails['databasename']);  
-        define("DATABASEUSER", $userDetails['databaseuser']);  
+        define("DATABASENAME", $userDetails['databasename']);                  
+        define("DATABASEUSER", $userDetails['databaseuser']); 
         define("DATABASEPWD", $userDetails['databasepwd']);  
-        define("EMAIL", $userDetails['email']);  
         define("SHOPNAME", $userDetails['shopname']);  
-
+        define("COMPANYNAME", $userDetails['companyname']);  
+        define("ADDRESS", $userDetails['address']);  
+        define("CITY", $userDetails['city']);  
+        define("COUNTRY", $userDetails['country']);  
+        define("VAT", $userDetails['vat']);  
+        define("EMAIL", $userDetails['email']); 
+        define("PHONE", $userDetails['phone']); 
+ 
     
 
         //Assigning to varibles
         $databasename = DATABASENAME;
         $databaseuser = DATABASEUSER;
         $databasepwd =  DATABASEPWD; 
+
+        echo "db-name: ". var_dump(DATABASENAME);
+        echo "db-user: ". var_dump(DATABASEUSER);
+        echo "pwd: ". var_dump(DATABASEPWD);
 
     
         //Setting user DB
@@ -64,13 +83,19 @@ if(isset($_SESSION['username'])){
 
         $dsn = "mysql:host=$host;dbname=$db";
         $pdo = new PDO($dsn, $user, $pass);
-    }
 
-
+        }
 
  
- 
- } else{
-    header('Location: ../login.php?error=pleaselogin');
+} else{
+
+    $host = 'localhost';
+    $db   = 'bs';
+    $user = 'root';
+    $pass = '';
+    $dsn = "mysql:host=$host;dbname=$db";
+    $pdo = new PDO($dsn, $user, $pass);
+
+  
 }
  

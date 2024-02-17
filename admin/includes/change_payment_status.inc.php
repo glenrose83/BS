@@ -1,4 +1,5 @@
-change_payment_status.inc<?php
+<?php
+session_start();
 include_once '../../bootstrap.php';
 
 

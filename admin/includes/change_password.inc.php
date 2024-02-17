@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../../bootstrap.php';
 
 //Test if both fields is set

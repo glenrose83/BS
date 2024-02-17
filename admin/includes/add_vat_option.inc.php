@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../../includes/db_connection.php';
 
 //Getting data for vat

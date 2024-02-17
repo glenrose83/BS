@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../../bootstrap.php';
 
 if(isset($_GET['delete_product'])){

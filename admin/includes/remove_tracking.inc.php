@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../../includes/db_connection.php';
 
 
@@ -10,11 +11,12 @@ if(isset($_GET['action'])){
 
     //Setting ga4 code to empty
     $data=[
-       'data' => ""
+       'data' => 0,
+       'disable' => 0
      ];
 
    
-    $sql = "UPDATE users SET ga4tracking=:data, ga4status=0";
+    $sql = "UPDATE tracking SET code=:data, status=:disable WHERE id=1";
     $stmt= $pdo->prepare($sql);
     $stmt->execute($data);
     

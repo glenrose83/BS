@@ -3,8 +3,10 @@ session_start();
 
 if(isset($_SESSION['username'])){
     $user = $_SESSION['username'];
+    
 } else {
-    header('Location: ../login.php?error=pleaselogin');
+        header('Location: ../login.php?error=pleaselogin');
+
 }
 
 include_once '../bootstrap.php'; 
@@ -129,7 +131,7 @@ include_once '../bootstrap.php';
 
                                 <div class="col-2">
                                     <div class="boxinside">
-                                    <a href="logout.inc.php">    
+                                    <a href="../logout.php">    
                                     <center>
                                     <svg class="bi" width="32" height="32" fill="currentColor">
                                     <use xlink:href="bootstrap-icons.svg#box-arrow-right"/>
