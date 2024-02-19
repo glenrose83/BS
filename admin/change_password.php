@@ -1,13 +1,18 @@
 <?php
 session_start();
 
+//Using start bootstrap to get anther DB
+include_once '../bootstrap_start.php'; 
+
 if(isset($_SESSION['username'])){
     $user = $_SESSION['username'];
 } else {
     header('Location: ../login.php?error=pleaselogin');
-}
+} 
 
-include_once '../bootstrap.php'; 
+//getting id from url
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
 
 ?>
 
@@ -17,60 +22,70 @@ include_once '../bootstrap.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Set your settings in Basic Webshop Administration">
-    <title>Basic Webshop - Change Password</title>
+    <title>Basic Webshop - Change information</title>
    
   <!--adding bootstrap-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
    <!--adding my own style-->
-   <link rel="stylesheet" href="css/mystyle.css">
+   <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 
 
 <body>
-<div class="container-fluid height">
+<div class="container-fluid height full_size divbottombg">
+    <div class="topbg"></div>
+
     <div class="row height">
 
-        <div class="col-md-3 admin-menu">
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
-        <div class="col-md-9 "> 
+        <div class="col-md-9 image"> 
 
-            <div class="container-fluid">
+            <div class="container-fluid image">
+                <img src="../img/bg-scaleup.png" alt="..." />    
+    
                       
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12 left-title">
                         <h1>Administration</h1>
-                        <h2>Change password</h2>
+                        <h2>Change your info</h2>
                     </div> 
                 </div>
 
             
                 <!--//Table with products-->
                 <div class="row">
-                    <div class="col-md-12 custom-box">
-                        <span class="fs-6 fw-light text-danger"> NOTICE - You are about to change your password</span><br><br>
-                        <?php if($_POST['status']="no-match"){    echo "<span class='fs-6 fw-light text-danger'>You have not typed the same password in both fields.... Try again</span><br>"; }?>
-
-                    <form action="includes/change_password.inc.php" method="POST">
-                        <span class="fs-6 fw-light">Type your NEW password:  </span><br><input type="password" name="pwd1"></input><br><br>
-                        
-                        <span class="fs-6 fw-light">Type your NEW password again: </span><br><input type="password" name="pwd2"></input><br><br>
-                        
-                        <button type="submit">Change Password</button>
-
-                    </div>  
-                </div>
+                    
+                    <div class="col-md-4">
+                        <div class="boxinside-one">
+                            <form action="includes/change_password.inc.php?id=<?php echo $id; ?>" method="POST">
+                                
+                                <div class="col-md-12">
+                                    <label for="Password1" class="form-label">Type password:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="pwd1">
+                                </div>
+                                <br>
+                                <div class="col-md-12">
+                                    <label for="Password2" class="form-label">Type the same password again:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="pwd2">
+                                </div>
+                                <br>
+                               
+                                <br>
+                                <center><button type="submit" class="btn btn-primary">Change info</button></center>
+                            </form>
+                        </div>
+                    </div>    
+                   
+                    
+                    
+                </div>    
 
                 
-                 
             </div>                  
-
-
         </div>
-
-
-        
     </div>
 </div>
 
@@ -79,3 +94,5 @@ include_once '../bootstrap.php';
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
 </html>
+
+

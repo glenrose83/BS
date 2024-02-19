@@ -41,6 +41,7 @@ if($usernameSet){
         $stmt = $pdo->prepare("SELECT * FROM users WHERE username=:user");
         $stmt->execute($data);
         $userDetails = $stmt->fetch();
+        
 
         //if is array so we check it found username
         $userDetailsTEST = is_array($userDetails);
@@ -62,6 +63,7 @@ if($usernameSet){
         define("VAT", $userDetails['vat']);  
         define("EMAIL", $userDetails['email']); 
         define("PHONE", $userDetails['phone']); 
+        define("ID", $userDetails['id']); 
  
     
 
@@ -69,10 +71,6 @@ if($usernameSet){
         $databasename = DATABASENAME;
         $databaseuser = DATABASEUSER;
         $databasepwd =  DATABASEPWD; 
-
-        echo "db-name: ". var_dump(DATABASENAME);
-        echo "db-user: ". var_dump(DATABASEUSER);
-        echo "pwd: ". var_dump(DATABASEPWD);
 
     
         //Setting user DB

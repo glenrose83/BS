@@ -1,21 +1,23 @@
 <?php
 session_start();
-include_once '../bootstrap.php'; 
+
+//Using start bootstrap to get anther DB
+include_once '../bootstrap_start.php'; 
 
 if(isset($_SESSION['username'])){
     $user = $_SESSION['username'];
 } else {
     header('Location: ../login.php?error=pleaselogin');
-}
+} 
 
-//Getting Id
-$stmt = $pdo->prepare(
-    "SELECT id FROM users"
-    );
-    $stmt->execute();
-    $id = $stmt->fetch();
-    echo "this is the userid: " . $id;
+//getting id from url
+$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
+
+//Getting current userdata from DB
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id=$id");
+$stmt->execute();
+$userdata = $stmt->fetch();
 ?>
 
 <!doctype html>
@@ -66,37 +68,41 @@ $stmt = $pdo->prepare(
                                 
                                 <div class="col-md-12">
                                     <label for="Companyname" class="form-label">Companyname:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="companyname">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="companyname" value="<?php echo $userdata['companyname'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label for="Address" class="form-label">Address:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="address">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="address" value="<?php echo $userdata['address'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
+                                    <label for="Zip" class="form-label">Zip:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="zip" value="<?php echo $userdata['zip'];?>">
+                                </div>
+                                <div class="col-md-12">
                                     <label for="City" class="form-label">City:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="city">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="city" value="<?php echo $userdata['city'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label for="Country" class="form-label">Country:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="country">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="country" value="<?php echo $userdata['country'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label for="VAT" class="form-label">VAT:</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vat">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="vat" value="<?php echo $userdata['vat'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label for="Email" class="form-label">Email:</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" name="email" value="<?php echo $userdata['email'];?>">
                                 </div>
                                 <br>
                                 <div class="col-md-12">
                                     <label for="Phone" class="form-label">Phone</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="phone">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="phone" value="<?php echo $userdata['phone'];?>">
                                 </div>
                                 <br>
                                 <center><button type="submit" class="btn btn-primary">Change info</button></center>

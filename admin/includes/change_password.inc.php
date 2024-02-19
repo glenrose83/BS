@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../../bootstrap.php';
+include_once '../../bootstrap_start.php';
 
 //Test if both fields is set
 if(isset($_POST['pwd1']) AND isset($_POST['pwd2'])){

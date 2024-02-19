@@ -3,13 +3,7 @@
             
             <div class="webshopinfo">
             <small><em>Basic Webshop v.1</em></small>
-            
-
-           <br><small><b>Welcome </b><?php echo $_SESSION['username']; ?>
-           <br><b>Shopname: </b><?php echo SHOPNAME ?>
-           <br><b>Email: </b><?php echo EMAIL ?> </b></small>
-           <p><br></p>
-         
+            <br><p><br>     <br>        
             </div>
 
         

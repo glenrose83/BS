@@ -76,9 +76,6 @@ include_once '../bootstrap.php';
         $stmt->execute();
         $currency = $stmt->fetch();
 
-    //getting userinfo
-     $userinfo = get_userinfo($user,$pdo);
-    
 
     //Tracking check
         $stmt = $pdo->prepare(
@@ -93,9 +90,8 @@ include_once '../bootstrap.php';
             $trackingCheck=false;
         }
 
-        //getting userinfo
-        $userinfo = get_userinfo($user,$pdo);
-?><a href="includes/set_tracking.inc.php?action=remove">
+?>
+
 
 <!doctype html>
 <html lang="en">
@@ -151,8 +147,8 @@ include_once '../bootstrap.php';
                             Vat: <span class="fs-6 fw-light"><?php echo VAT;?></span><br>
                             Email: <span class="fs-6 fw-light"><?php echo EMAIL;?></span><br>
                             Phone: <span class="fs-6 fw-light"><?php echo PHONE;?></span><br><br>
-                            <a href="change_info.php"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
-                            <a href="change_password.php"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
+                            <a href="change_info.php?id=<?php echo ID;?>"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
+                            <a href="change_password.php?id=<?php echo ID;?>"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
                         </div>    
                     
                     </div>

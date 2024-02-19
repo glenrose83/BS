@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../../bootstrap.php';
+include_once '../../bootstrap_start.php';
 
 //Checking users permission to see this
 if(isset($_SESSION['username'])){
@@ -9,9 +9,8 @@ if(isset($_SESSION['username'])){
     header('Location: ../login.php?error=pleaselogin');
 }
 
-
 //Checking and sanitizing user id
-if(isset($_GET['action'])){
+if(isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING);
 }
 
@@ -22,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $companyname = filter_input(INPUT_POST,'companyname', FILTER_SANITIZE_STRING);
     $address = filter_input(INPUT_POST,'address', FILTER_SANITIZE_STRING);
     $city = filter_input(INPUT_POST,'city', FILTER_SANITIZE_STRING);
+    $zip = filter_input(INPUT_POST,'zip', FILTER_SANITIZE_STRING);
     $country = filter_input(INPUT_POST,'country', FILTER_SANITIZE_STRING);
     $vat = filter_input(INPUT_POST,'vat', FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST,'email', FILTER_SANITIZE_STRING);
@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'id' => $id, 
         'companyname' => $companyname,
         'address' => $address,
+        'zip' => $zip,
         'city' => $city,
         'country' => $country,
         'vat' => $vat,
@@ -44,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'phone' => $phone
     ];
     
-    $sql = "UPDATE users SET companyname=:companyname, address=:address, city=:city, country=:country, vat=:vat, email=:email, phone=:phone WHERE id=:id";
+    $sql = "UPDATE users SET companyname=:companyname, address=:address, zip=:zip, city=:city, country=:country, vat=:vat, email=:email, phone=:phone WHERE id=:id";
     $stmt= $pdo->prepare($sql);
     $stmt->execute($data);
     
-    echo "done updating";
-    //header('Location: ../settings.php?status=info_updated');
+    
+    header('Location: ../settings.php?status=info_updated');
 
