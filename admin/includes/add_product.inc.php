@@ -44,15 +44,13 @@ $data = [
     'keeptrackofstock' => $keeptrackofstock,
     'allowpurchasewhenempty' => $allowpurchasewhenempty,
     'weight' => $weight,
-    'yournotes' => $yournotes,
-    'setimage' => 0
+    'yournotes' => $yournotes
+    
 ];
 
-$sql = "INSERT INTO products (productstatus, productname, productdescription, pricesxvat, costprice, expenses, item, category, deliverytime, howmanyinstock, keeptrackofstock, 
-allowpurchasewhenempty, weight, yournotes, image) 
+$sql = "INSERT INTO products (productstatus, productname, productdescription, pricesxvat, costprice, expenses, item, category, deliverytime, howmanyinstock, keeptrackofstock, allowpurchasewhenempty, weight, yournotes) 
 VALUES 
-(:productstatus, :productname, :productdescription, :pricesxvat,:costprice, :expenses, :item, :category, :deliverytime, :howmanyinstock, :keeptrackofstock, :allowpurchasewhenempty, :weight, 
-:yournotes, :setimage)";
+(:productstatus, :productname, :productdescription, :pricesxvat,:costprice, :expenses, :item, :category, :deliverytime, :howmanyinstock, :keeptrackofstock, :allowpurchasewhenempty, :weight, :yournotes)";
 $stmt= $pdo->prepare($sql);
 $stmt->execute($data);
 
@@ -97,24 +95,14 @@ if(isset($_POST['submit'])){
                                 $stmt= $pdo->prepare($sql);
                                 $stmt->execute($data);
 
-                                //inserting boolean in product table
-                                $data=[
-                                    'set' => 1,
-                                    'id' => $last_id
-                                
-                                ];
-
-                                $sql = "UPDATE products SET image=:set WHERE id=:id";
-                                $stmt= $pdo->prepare($sql);
-                                $stmt->execute($data);
-
-                        
+                                                       
 
                             }  
                 }
            } 
         }
-    
+
+echo "The errorcode is: ". $_FILES['pic']['error'];        
 }    
 
 

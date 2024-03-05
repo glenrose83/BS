@@ -52,6 +52,12 @@
         $path = $stmt->fetch();
         unlink('../'.$path[0]);
 
+        //Deleting row from DB.
+        $sql = "DELETE FROM product_images WHERE id = :id";
+        $stmt= $pdo->prepare($sql);
+        $stmt->execute($data);
+    
+
         
     }
 

@@ -47,231 +47,237 @@ if(isset($_SESSION['username'])){
     <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
    
-  <!--adding bootstrap-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+      <!--adding bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 
 <body>
 
 
-<div class="container-fluid height">
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
+
     <div class="row height">
 
-        <div class="col-md-3 admin-menu">
+        <div class="col-md-3 ">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
         <div class="col-md-9 "> 
 
-            <div class="container-fluid">
+        <div class="container-fluid">
                     
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>Administration</h1>
-                        <h2>Edit Product</h2>
-                    </div> 
-                </div>
-
-              
-                <div class="row">
-                    <div class="col-md-6 custom-box">
-                        <form class="pure-form pure-form-aligned" action="includes/edit_product.inc.php?id=<?php echo $sanitized_id ?>" method="POST" enctype='multipart/form-data'>
-                            <fieldset>
-                        
-                                <div class="pure-control-group">
-                                    Product status<br>
-                                    <?php 
-                                    if ($product['productstatus']){
-                                        echo "<input type='radio' id='aligned-name' name='productstatus' value='1' checked> Enabled
-                                        <input type='radio' id='aligned-name' name='productstatus' value='0' > Disabled";
-                                    } else {
-                                        echo "<input type='radio' id='aligned-name' name='productstatus' value='1'> Enabled
-                                        <input type='radio' id='aligned-name' name='productstatus' value='0' checked> Disabled";
-                                    }
-
-                                    ?>
-                                    
-                                    <span class="pure-form-message-inline"></span>
-                                </div>
-    
-                                <p><br></p>
-                                <div class="form-group row">
-                                    <label for="productname" class="col-sm-4 col-form-label">Productname</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="aligned-name" name="productname" value="<?php echo $product['productname'];?>">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="productdescription" class="col-sm-4 col-form-label">Product description</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="aligned-name" name="productdescription" value="<?php echo $product['productdescription'];?>" />
-                                        </div>
-                                </div>
-                        
-                              
-    
-                                <div class="form-group row"> 
-                                    <label for="priceexvat" class="col-sm-4 col-form-label">Price ex. VAT</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="aligned-name" name="priceexvat" value="<?php echo $product['pricesxvat'];?>">
-                                    </div>
-    
-                                </div>
-                                <div class="form-group row">
-                                    <label for="deliv                                                                                                                                                                                                                                                                                                                                                                                                                       erytime"  class="col-sm-4 col-form-label">Deliverytime</label>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control" id="aligned-name" name="deliverytime" value="<?php echo $product['deliverytime'];?>" />
-                                        </div>
-                                </div>
-                            </fieldset> 
-                        
+                    <div class="row">
+                        <div class="col-md-12 left-title">
+                            <h1>Administration</h1>
+                            <h2>Edit Product</h2>
+                        </div> 
                     </div>
+    
+                  
+                    <div class="row">
+                        <div class="col-md-6 custom-box">
 
-                   
-                    <div class="col-md-5 custom-box">
-                    
-                    <?php 
-                    //Checks if there is images
-                    if(is_array($images)){
-                        
-                        if(is_array($pri_image)){
-                        echo "<center><b>Frontpage image</b><br><img src='".$pri_image['url']."' class='edit-prod-pic'>";
-                        echo "<a href='includes/delete_frontpageimage.inc.php?id=".$sanitized_id."'>Disable frontpage picture</a></center>";
-                        echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
-                        }else{
-                            echo "There is no primary pic";
-                            echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
-                        }                    
-
-                    } else {
-                        echo "<center><p><br></p>You have not uploaded at picture<br><br><a href='picture_uploader.php?id=". $sanitized_id ."'>Clik here to upload a picture</a></center>";                
-                    }            
-                    
-
-                    
-                    ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-11 custom-box">
+                            <div class="boxinside-one">
+                                <form class="pure-form pure-form-aligned" action="includes/edit_product.inc.php?id=<?php echo $sanitized_id ?>" method="POST" enctype='multipart/form-data'>
+                                    <fieldset>
                                 
-                                <div class="pure-control-group">
-                                    Keep track of stock<br>
-                                    <?php 
-                                        if($product['keeptrackofstock']){
-                                            echo"
-                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' checked/> Yes
-                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' /> No
-                                            ";
-                                        } else {
-                                            echo"
-                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' /> Yes
-                                            <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' checked/> No
-                                            ";
-                                        }
-                                    ?>                                      
-                                    <span class="pure-form-message-inline"></span>
-                                </div>
-                                <br>
-                                <div class="pure-control-group">
-                                    Allow purchase when stock is empty<br>
-                                    <?php 
-                                        if($product['allowpurchasewhenempty']){
-                                            echo"
-                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' checked/> Yes
-                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' /> No
-                                            ";
-                                        } else {
-                                            echo"
-                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' /> Yes
-                                            <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' checked/> No
-                                            ";
-                                        }
-                                    ?> 
-                                    <span class="pure-form-message-inline"></span>
-                                </div>
+                                        <div class="pure-control-group">
+                                            Product status<br>
+                                            <?php 
+                                            if ($product['productstatus']){
+                                                echo "<input type='radio' id='aligned-name' name='productstatus' value='1' checked> Enabled
+                                                <input type='radio' id='aligned-name' name='productstatus' value='0' > Disabled";
+                                            } else {
+                                                echo "<input type='radio' id='aligned-name' name='productstatus' value='1'> Enabled
+                                                <input type='radio' id='aligned-name' name='productstatus' value='0' checked> Disabled";
+                                            }
         
-                                
-        
-                                <p><br></p>
-        
-                                <div class="form-group row">
-                                        <label for="itemnumber"  class="col-sm-4 col-form-label">Item number</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="aligned-name" name="itemnumber" value="<?php echo $product['item'];?>" />
+                                            ?>
+                                            
+                                            <span class="pure-form-message-inline"></span>
+                                        </div>
+            
+                                        <p><br></p>
+                                        <div class="form-group row">
+                                            <label for="productname" class="col-sm-4 col-form-label">Productname</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="productname" value="<?php echo $product['productname'];?>">
                                             </div>
-                                </div>
-        
-                                <div class="form-group row">
-                                    <label for='category'  class='col-sm-4 col-form-label'>Category</label>
-                                    <div class="col-sm-6">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="productdescription" class="col-sm-4 col-form-label">Product description</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="productdescription" value="<?php echo $product['productdescription'];?>" />
+                                                </div>
+                                        </div>
                                 
-                                <select class="form-control" id="categorySelector" name="category">
-                                <option selected>
-                                    <?php echo $product['category'];?>
+                                    
+            
+                                        <div class="form-group row"> 
+                                            <label for="priceexvat" class="col-sm-4 col-form-label">Price ex. VAT</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="priceexvat" value="<?php echo $product['pricesxvat'];?>">
+                                            </div>
+            
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="deliv                                                                                                                                                                                                                                                                                                                                                                                                                       erytime"  class="col-sm-4 col-form-label">Deliverytime</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="deliverytime" value="<?php echo $product['deliverytime'];?>" />
+                                                </div>
+                                        </div>
+                                    </fieldset>
 
-                                </option>
-                                 <!-- Getting data from database and using it for dropdown menu -->
-                                                    <?php
-                                                    $sql = "SELECT * FROM categories";
-                                                    $stmt= $pdo->prepare($sql);
-                                                    $stmt->execute();
-                                                    $items = $stmt->fetchALL(); 
-                                                        foreach($items as $item){?>
-                                                        <option><?php echo $item['cat'] . "</option>"; 
-                                                    }?>
-                                                    </select>
+                            </div>    
+                                
+                        </div>
+    
+                       
+                        <div class="col-md-5 custom-box">
+                            <div class="boxinside-one">
+                                    <?php 
+                                    //Checks if there is images
+                                    if(is_array($images)){
+                                        
+                                        if(is_array($pri_image)){
+                                        echo "<center><b>Frontpage image</b><br>
+                                        <img src='".$pri_image['url']."' class='max-height'><br>";
+                                        echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
+                                        }else{
+                                            echo "<center>You have not set a frontpage picture</center>";
+                                            echo "<center><a href='gallery.php?id=".$product['id']."'>Manage Product images</a></center>";
+                                        }                    
+                
+                                    } else {
+                                        echo "<center><p><br></p>You have not uploaded at picture<br><br><a href='picture_uploader.php?id=". $sanitized_id ."'>Clik here to upload a picture</a></center>";                
+                                    }            
+                                    
+                
+                                    
+                                    ?>
+                            </div>       
+                        </div>
+                    </div>
+    
+                    <div class="row">
+                        <div class="col-md-11 custom-box">
+                            <div class="boxinside-one">   
+
+                                    <div class="pure-control-group">
+                                        Keep track of stock<br>
+                                        <?php 
+                                            if($product['keeptrackofstock']){
+                                                echo"
+                                                <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' checked/> Yes
+                                                <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' /> No
+                                                ";
+                                            } else {
+                                                echo"
+                                                <input type='radio' id='aligned-name' name='keeptrackofstock' value='1' /> Yes
+                                                <input type='radio' id='aligned-name' name='keeptrackofstock' value='0' checked/> No
+                                                ";
+                                            }
+                                        ?>                                      
+                                        <span class="pure-form-message-inline"></span>
+                                    </div>
+                                    <br>
+                                    <div class="pure-control-group">
+                                        Allow purchase when stock is empty<br>
+                                        <?php 
+                                            if($product['allowpurchasewhenempty']){
+                                                echo"
+                                                <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' checked/> Yes
+                                                <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' /> No
+                                                ";
+                                            } else {
+                                                echo"
+                                                <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='1' /> Yes
+                                                <input type='radio' id='aligned-name' name='allowpurchasewhenempty' value='0' checked/> No
+                                                ";
+                                            }
+                                        ?> 
+                                        <span class="pure-form-message-inline"></span>
+                                    </div>
+            
+                                    
+            
+                                    <p><br></p>
+            
+                                    <div class="form-group row">
+                                            <label for="itemnumber"  class="col-sm-4 col-form-label">Item number</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="itemnumber" value="<?php echo $product['item'];?>" />
+                                                </div>
+                                    </div>
+            
+                                    <div class="form-group row">
+                                        <label for='category'  class='col-sm-4 col-form-label'>Category</label>
+                                        <div class="col-sm-6">
+                                    
+                                    <select class="form-control" id="categorySelector" name="category">
+                                    <option selected>
+                                        <?php echo $product['category'];?>
+    
+                                    </option>
+                                     <!-- Getting data from database and using it for dropdown menu -->
+                                                        <?php
+                                                        $sql = "SELECT * FROM categories";
+                                                        $stmt= $pdo->prepare($sql);
+                                                        $stmt->execute();
+                                                        $items = $stmt->fetchALL(); 
+                                                            foreach($items as $item){?>
+                                                            <option><?php echo $item['cat'] . "</option>"; 
+                                                        }?>
+                                                        </select>
+                                                      
+                                        </div>
+                                            
                                                   
                                     </div>
-                                        
-                                              
-                                </div>
-        
-                                <div class="form-group row">
-                                        <label for="howmanyareinstock"  class="col-sm-4 col-form-label">How many are in stock</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="aligned-name" name="howmanyareinstock" value="<?php echo $product['howmanyinstock'];?>" />
-                                            </div>
-                                </div>
-        
-                                <div class="form-group row">
-                                        <label for="weight"  class="col-sm-4 col-form-label">Weight in gram</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="aligned-name" name="weight" value="<?php echo $product['weight'];?>" />
-                                            </div>
-                                </div>
-                                <div class="form-group row">
-                                        <label for="costprice"  class="col-sm-4 col-form-label">Costprice</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="aligned-name" name="costprice" value="<?php echo $product['costprice'];?>" />
-                                            </div>
-                                </div>
-        
-                                <div class="form-group row">
-                                        <label for="expenses"  class="col-sm-4 col-form-label">Expenses for each product</label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="aligned-name" name="expenses" value="<?php echo $product['expenses'];?>" />
-                                            </div>
-                                </div>
-
-                                <div class="pure-control-group">Your notes<br>
-                                    <textarea class="aligned-name col-sm-10" name="yournotes" value="<?php echo $product['yournotes'];?>"></textarea>                          
-                                </div>
-                                
-                                <p><br></p>                                   
-                                <button type="submit" name="submit" value="upload" class="btn btn-success">Change product</button>                                                
-                              </form>
-                    </div>
-                    
-                </div>
-            <p><br></p>
-                        
             
+                                    <div class="form-group row">
+                                            <label for="howmanyareinstock"  class="col-sm-4 col-form-label">How many are in stock</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="howmanyareinstock" value="<?php echo $product['howmanyinstock'];?>" />
+                                                </div>
+                                    </div>
+            
+                                    <div class="form-group row">
+                                            <label for="weight"  class="col-sm-4 col-form-label">Weight in gram</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="weight" value="<?php echo $product['weight'];?>" />
+                                                </div>
+                                    </div>
+                                    <div class="form-group row">
+                                            <label for="costprice"  class="col-sm-4 col-form-label">Costprice</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="costprice" value="<?php echo $product['costprice'];?>" />
+                                                </div>
+                                    </div>
+            
+                                    <div class="form-group row">
+                                            <label for="expenses"  class="col-sm-4 col-form-label">Expenses for each product</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" id="aligned-name" name="expenses" value="<?php echo $product['expenses'];?>" />
+                                                </div>
+                                    </div>
+    
+                                    <div class="pure-control-group">Your notes<br>
+                                        <textarea class="aligned-name col-sm-10" name="yournotes" value="<?php echo $product['yournotes'];?>"></textarea>                          
+                                    </div>
+                                    
+                                    <p><br></p>                                   
+                                    <button type="submit" name="submit" value="upload" class="btn btn-success">Change product</button>                                                
+                                  </form>
 
-        </div>
+                            </div>      
+                        </div>
+                        
+                    </div>
+                <p><br></p>
 
 
         
@@ -282,5 +288,4 @@ if(isset($_SESSION['username'])){
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 </body>
-
 </html>

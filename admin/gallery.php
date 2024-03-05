@@ -28,30 +28,37 @@ include_once '../bootstrap.php';
         <!--adding bootstrap-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
  <!--adding my own style-->
- <link rel="stylesheet" href="css/mystyle.css">
+ <link rel="stylesheet" href="../css/mystyle.css">
 </head>
 
 <body>
 
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
 
-<div class="container-fluid height">
-    <div class="row height">
+    <div class="row">
 
-        <div class="col-md-3 admin-menu">
+        <!--menu-->
+        <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
-        <div class="col-md-9 "> 
-
-            <div class="container">
-                      
+        <div class="col-md-9"> 
+            <div class="header">
+            
+            <!--Site menu-->
+            <div class="container-fluid ">
+            <img src="../img/bg-scaleup.png" class="bgimage" alt="..." />
                 <div class="row">
-                    <div class="col">
-                        <h1>Administration</h1>
-                        <h2>Manage Products</h2>
-                    </div> 
-                </div>
+                             <div class="col-12 left-title">
+                            <h1>Administration<br></h1>
+                            </div>
+                            <a href="edit_product.php?id=<?php echo $id;?>">Go back</a>
+                </div>            
+                        
 
+                
+            
 
                 <?php
                     //Fetch all images from DB
@@ -61,7 +68,22 @@ include_once '../bootstrap.php';
                 ?>
 
                 <div class="row">
-                    <?php
+                <form class="pure-form pure-form-aligned" action="includes/upload_pictures.inc.php?id=<?php echo $id?>" method="POST" enctype='multipart/form-data'>
+                <div class="pure-control-group">
+                <label for="aligned-name" >Upload images</label><br>
+                <input type='file' name='pic[]' id='file' multiple ><br>
+                </div>
+
+                <p><br></p>                            
+                <button type="submit" name="submit" value="upload" class="btn btn-success">Upload picture</button>
+                </form>
+                <p><br></p>   
+                
+                
+                
+                
+                
+                <?php
                         //success sign if status is picture_deleted
                         if(isset($_GET['status'])){
                             if($_GET['status'] == "picture_deleted"){
@@ -69,29 +91,29 @@ include_once '../bootstrap.php';
                                 Picture was deleted
                                 </div>
                                 
-                </div><div class='row'>";
+                                </div><div class='row'>";
                             }
                         }
 
                         //showing images
-                        foreach ($images as $image){
+                        foreach ($images as $picture){
                             echo"
                             <div class='col-md-4'>
-                            <img class='cuz_gallery' src='".$image['url']."'>
+                                <img class='cuz_gallery' src='".$picture['url']."'>
                             
-                            <h6><b>".$image['name']."</b></h6>
+                                <h6><b>".$picture['name']."</b></h6>
                             
-                            <p>
-                                <!--checking if its primary picture-->";
+                                 <p>
+                                <!--checking if its frontpage picture-->";
 
-                                if ($image['primary_pic'] == 1) {  
-                                    echo "<button type='button' class='btn-sm btn-light' disabled>Primary picture</button><br>";                                      
+                                if ($picture['primary_pic'] == 1) {  
+                                    echo "<button type='button' class='btn-sm btn-light' disabled>Frontpage picture</button><br>";                                      
                                 } else {
-                                    echo "<a href='includes/set_primary_pic.inc.php?id=".$image['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-secondary'>Select as primary picture</button></a><br>";
+                                    echo "<a href='includes/set_primary_pic.inc.php?id=".$picture['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-secondary'>Select as frontpage picture</button></a><br>";
                                 }
                             
                             echo "<!--button to delete picture-->
-                            <a href='includes/delete_pic.inc.php?id=".$image['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-danger'>Delete picture</button></a>
+                            <a href='includes/delete_pic.inc.php?id=".$picture['id']."&requestpage=".$_GET['id']."'><button type='button' class='btn-sm btn-danger'>Delete picture</button></a>
                             
                             </p>
                             </div>";
@@ -113,8 +135,10 @@ include_once '../bootstrap.php';
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
-
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> 
 </body>
 </html>

@@ -62,6 +62,10 @@ body {
   background-size: 300px;
 }
 
+.cuz_gallery{
+  max-height: 200px;
+}
+
 .webshopinfo {
 padding-left: 10px;;
 }
@@ -131,7 +135,7 @@ padding-left: 10px;;
 }
 
 .boxinside-one {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   min-height: 100px;
   border-width: 1px;
   border-color: rgb(206, 206, 206);
@@ -166,7 +170,19 @@ padding-left: 10px;;
   padding-top: 40px;
 }
 
-.image img {
+/* .image img {
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  width: 80%;
+  max-width: 80%;
+  max-height: 80%;
+  position: absolute;
+  top: 20%;
+  left: 10%;
+  z-index: -100;
+} */
+
+.bgimage  {
   background-position: 0 0;
   background-repeat: no-repeat;
   width: 80%;
@@ -202,4 +218,8 @@ padding-left: 10px;;
 .colortitle {
   color: white;
   padding-left: 10px;
+}
+
+.max-height{
+  max-height: 25rem;
 }

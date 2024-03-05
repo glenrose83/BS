@@ -55,9 +55,7 @@ a:active {
     border-radius:  5px 5px 5px 5px;
 }
 
-.cuz_gallery{
-    max-height: 200px;
-}
+
 
 .admin-menu {
 height: 100%;
@@ -107,7 +105,7 @@ background-color: rgb(255, 0, 0);
 }
 
 .custom-box {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     margin: 5px;
     border-radius:  5px 5px 5px 5px;
     padding-top: 1rem;
@@ -127,4 +125,8 @@ background-color: rgb(255, 0, 0);
 .left-title{
     text-align: left;
 
+}
+
+.max-height{
+    max-height: 100px;
 }
