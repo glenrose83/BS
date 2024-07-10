@@ -2,7 +2,9 @@
         <div>
             
             <div class="webshopinfo">
-            <small><em>Basic Webshop v.1</em></small>
+            <small><em>Basic Webshop v.1<br></em>
+            <?php echo "Hi " . $_SESSION['username'] . "..."; ?>
+            </small>
             <br><p><br>     <br>        
             </div>
 

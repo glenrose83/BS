@@ -2,7 +2,7 @@
 
 $usernameSet = isset($_SESSION['username']);
 
-
+/* 
 if($usernameSet){
 
     //if constant is defined
@@ -97,3 +97,4 @@ if($usernameSet){
   
 }
  
+ */

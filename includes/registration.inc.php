@@ -5,6 +5,7 @@ session_unset();
 session_destroy();
 include_once '../bootstrap.php';
 include_once '../standard_database.php';
+$database = new Database();
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -13,7 +14,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require '../../vendor/autoload.php';
+//require '../../vendor/autoload.php';
 
 
 // Checking and sanitizing input data
@@ -76,10 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
     $sql = "INSERT INTO users (username, userpassword, email, shopname, role, databasename, databaseuser, databasepwd) 
     VALUES (:username, :password, :useremail, :shopname, :role, :database, :dbusername, :databasepwd)";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
-    
+    /* 
     
     
     //Creating database
@@ -368,4 +369,4 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-
+ */

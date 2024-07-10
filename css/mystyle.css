@@ -170,7 +170,7 @@ padding-left: 10px;;
   padding-top: 40px;
 }
 
-/* .image img {
+.image img {
   background-position: 0 0;
   background-repeat: no-repeat;
   width: 80%;
@@ -180,7 +180,7 @@ padding-left: 10px;;
   top: 20%;
   left: 10%;
   z-index: -100;
-} */
+} 
 
 .bgimage  {
   background-position: 0 0;

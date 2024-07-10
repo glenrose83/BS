@@ -1,17 +1,11 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-    
-} else {
-        header('Location: ../login.php?error=pleaselogin');
-
-}
-
 include_once '../bootstrap.php'; 
+$database = new Database;
+$orders = new Orders;
 
-//get username and shop fra database where $_seesion = username
+//Check if user is logged in
+User::isLoggedIn();
 
 ?>
 
@@ -148,7 +142,7 @@ include_once '../bootstrap.php';
                 <div class="row">
                     <div class="col-6">
                         <div class="box">
-                        <a href="orders.php">You have <b><?php echo findPendingOrders($pdo); ?></b> pending orders...</a>
+                        <a href="orders.php">You have <b><?php echo Orders::FindPendingOrders($database); ?></b> pending orders...</a>
                         </div>  
                     </div>
                     <div class="col-6">

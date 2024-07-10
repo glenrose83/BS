@@ -1,13 +1,15 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
-
 include_once '../bootstrap.php'; 
+
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+$products = new Products($database);
+
+
 ?>
 
 <!doctype html>
@@ -142,25 +144,17 @@ include_once '../bootstrap.php';
                                     <option selected disabled></option>
                                     <!-- Getting data from database and using it for dropdown menu -->
                                                         <?php
-                                                        $sql = "SELECT * FROM categories";
-                                                        $stmt= $pdo->prepare($sql);
-                                                        $stmt->execute();
-                                                        $items = $stmt->fetchALL(); 
-                                                            foreach($items as $item){?>
+                                                            
+                                                            $categories = $products->categories;
+                                                            
+                                                            foreach($categories as $item){?>
                                                             <option><?php echo $item['cat'] . "</option>"; 
                                                         }?>
-                                                        </select>
-                                                    
-
-
-                                
-                                    
+                                    </select>
                                     
                                 </div>
                             </div>    
-                                
-                            
-                        
+                                              
                             
                             
 

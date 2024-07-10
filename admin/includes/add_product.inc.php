@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,12 +52,12 @@ $data = [
 $sql = "INSERT INTO products (productstatus, productname, productdescription, pricesxvat, costprice, expenses, item, category, deliverytime, howmanyinstock, keeptrackofstock, allowpurchasewhenempty, weight, yournotes) 
 VALUES 
 (:productstatus, :productname, :productdescription, :pricesxvat,:costprice, :expenses, :item, :category, :deliverytime, :howmanyinstock, :keeptrackofstock, :allowpurchasewhenempty, :weight, :yournotes)";
-$stmt= $pdo->prepare($sql);
+$stmt= $data->connection->prepare($sql);
 $stmt->execute($data);
 
 
 // //here we get the last inserted ID that we use in the INSERT below
-$last_id= $pdo->lastInsertId();
+$last_id= $data->connection->lastInsertId();
 
 
 
@@ -92,7 +93,7 @@ if(isset($_POST['submit'])){
                                 ];
 
                                 $sql = "INSERT INTO product_images (fk_id, name, url) VALUES (:fk_products, :name, :url)";
-                                $stmt= $pdo->prepare($sql);
+                                $stmt= $data->connection->prepare($sql);
                                 $stmt->execute($data);
 
                                                        
