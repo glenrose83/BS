@@ -2,15 +2,16 @@
 
 class Products{
 
-public $categories;
+ 
 
-public function __construct($database){
+public function getCategories($database){
 
-    $sql = "SELECT * FROM categories";
+    //fills out category on add product page.   should only be a method NOT construct
+    $sql = "SELECT * FROM `categories`";
     $stmt= $database->connection->prepare($sql);
-    $stmt->execute();
-    
-    $this->categories = $stmt->fetchALL(); 
+    $stmt->execute();    
+    $result = $stmt->fetchALL(); 
+    return $result;
+    }
 
-}
 }

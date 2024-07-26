@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 if(isset($_GET['delete_product'])){
 
@@ -8,7 +9,7 @@ if(isset($_GET['delete_product'])){
     $id = $_GET['delete_product'];
     $sanitized_id = filter_input(INPUT_GET, 'delete_product', FILTER_SANITIZE_NUMBER_INT);
 
-    delete_product($sanitized_id, $pdo);
+    delete_product($sanitized_id, $database);
 
     header('Location: ../manage_products.php?status=product_deleted');
 

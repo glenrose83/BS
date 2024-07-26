@@ -1,13 +1,13 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
-
 include_once '../bootstrap.php'; 
+ 
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+
 ?>
 
 <!doctype html>
@@ -69,7 +69,7 @@ include_once '../bootstrap.php';
                         <tbody>
                         <?php
                                 //Fetch all products from DB
-                                $stmt = $pdo->prepare("SELECT * FROM products");
+                                $stmt = $database->connection->prepare("SELECT * FROM `products`");
                                 $stmt->execute(); 
                                 $product = $stmt->fetchALL();
 

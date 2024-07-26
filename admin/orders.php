@@ -1,13 +1,13 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
-
 include_once '../bootstrap.php'; 
+
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+
 ?>
 
 <!doctype html>
@@ -62,8 +62,8 @@ include_once '../bootstrap.php';
                         <tbody>
                         <?php
                             //Fetch all products from DB
-                            $stmt = $pdo->prepare("SELECT customers.fullname, orders.* FROM customers  
-                            LEFT JOIN orders ON customers.id = orders.fk_customer ORDER BY id DESC");
+                            $stmt = $database->connection->prepare("SELECT customers.fullname, orders.* FROM `customers`  
+                            LEFT JOIN `orders` ON customers.id = orders.fk_customer ORDER BY id DESC");
                             $stmt->execute(); 
                             $orders = $stmt->fetchALL();
 

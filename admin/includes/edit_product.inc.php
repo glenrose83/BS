@@ -1,27 +1,28 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 
 
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-$product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    
-$productstatus = filter_input(INPUT_POST,'productstatus', FILTER_SANITIZE_NUMBER_INT);
-$productname = filter_input(INPUT_POST,'productname', FILTER_SANITIZE_STRING);
-$productdescription = filter_input(INPUT_POST,'productdescription', FILTER_SANITIZE_STRING);
-$priceexvat = filter_input(INPUT_POST,'priceexvat', FILTER_SANITIZE_NUMBER_INT);
-$costprice = filter_input(INPUT_POST,'costprice', FILTER_SANITIZE_NUMBER_INT);
-$expenses = filter_input(INPUT_POST,'expenses', FILTER_SANITIZE_NUMBER_INT);
-$itemnumber = filter_input(INPUT_POST,'itemnumber', FILTER_SANITIZE_STRING);
-$category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_STRING);
-$deliverytime = filter_input(INPUT_POST,'deliverytime', FILTER_SANITIZE_STRING);
-$howmanyinstock = filter_input(INPUT_POST,'howmanyareinstock', FILTER_SANITIZE_NUMBER_INT);
-$keeptrackofstock = filter_input(INPUT_POST,'keeptrackofstock', FILTER_SANITIZE_NUMBER_INT);
-$allowpurchasewhenempty = $_POST['allowpurchasewhenempty'];
-$weight = filter_input(INPUT_POST,'weight', FILTER_SANITIZE_NUMBER_INT);
-$yournotes = filter_input(INPUT_POST,'yournotes', FILTER_SANITIZE_STRING);
+    $product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    
+    $productstatus = filter_input(INPUT_POST,'productstatus', FILTER_SANITIZE_NUMBER_INT);
+    $productname = filter_input(INPUT_POST,'productname', FILTER_SANITIZE_STRING);
+    $productdescription = filter_input(INPUT_POST,'productdescription', FILTER_SANITIZE_STRING);
+    $priceexvat = filter_input(INPUT_POST,'priceexvat', FILTER_SANITIZE_NUMBER_INT);
+    $costprice = filter_input(INPUT_POST,'costprice', FILTER_SANITIZE_NUMBER_INT);
+    $expenses = filter_input(INPUT_POST,'expenses', FILTER_SANITIZE_NUMBER_INT);
+    $itemnumber = filter_input(INPUT_POST,'itemnumber', FILTER_SANITIZE_STRING);
+    $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_STRING);
+    $deliverytime = filter_input(INPUT_POST,'deliverytime', FILTER_SANITIZE_STRING);
+    $howmanyinstock = filter_input(INPUT_POST,'howmanyareinstock', FILTER_SANITIZE_NUMBER_INT);
+    $keeptrackofstock = filter_input(INPUT_POST,'keeptrackofstock', FILTER_SANITIZE_NUMBER_INT);
+    $allowpurchasewhenempty = $_POST['allowpurchasewhenempty'];
+    $weight = filter_input(INPUT_POST,'weight', FILTER_SANITIZE_NUMBER_INT);
+    $yournotes = filter_input(INPUT_POST,'yournotes', FILTER_SANITIZE_STRING);
 } else {
     header('Location: ../manage_products.php');
 }
@@ -51,16 +52,16 @@ $data = [
     'id' => $product_id
 ];
 
-$sql = "UPDATE products SET productstatus=:productstatus, productname=:productname, productdescription=:productdescription, 
+$sql = "UPDATE `products` SET productstatus=:productstatus, productname=:productname, productdescription=:productdescription, 
 pricesxvat=:pricesxvat, costprice=:costprice, expenses=:expenses, item=:item, category=:category, deliverytime=:deliverytime, 
 howmanyinstock=:howmanyinstock, keeptrackofstock=:keeptrackofstock, allowpurchasewhenempty=:allowpurchasewhenempty, 
 weight=:weight, yournotes=:yournotes WHERE id=:id";
-$stmt= $pdo->prepare($sql);
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 
 //here we get the last inserted ID that we use in the INSERT below
-$last_id= $pdo->lastInsertId();
+$last_id= $database->connection->lastInsertId();
 
 
 //Uploading files and add URL to DB
@@ -103,8 +104,8 @@ if(isset($_POST['submit'])){
                                 
                                 ];
 
-                                $sql = "UPDATE products SET image=:set WHERE id=:id";
-                                $stmt= $pdo->prepare($sql);
+                                $sql = "UPDATE `products` SET image=:set WHERE id=:id";
+                                $stmt= $database->connection->prepare($sql);
                                 $stmt->execute($data);
                         
 

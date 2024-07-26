@@ -1,13 +1,12 @@
 <?php
 session_start();
-
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
-
 include_once '../bootstrap.php'; 
+
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
 ?>
 
 <!doctype html>
@@ -74,7 +73,7 @@ include_once '../bootstrap.php';
                             <p class='fs-6'>
                                 
                             <?php
-                                $stmt = $pdo->prepare("SELECT * FROM categories");
+                                $stmt = $database->connection->prepare("SELECT * FROM `categories`");
                                 $stmt->execute(); 
                                 $categories = $stmt->fetchALL();
 

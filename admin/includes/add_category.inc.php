@@ -1,6 +1,13 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php'; 
+
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -19,8 +26,8 @@ $data=[
     'cat' => $category
  ];
 
-$sql = "INSERT INTO categories (cat) VALUES (:cat)";
-$stmt= $pdo->prepare($sql);
+$sql = "INSERT INTO `categories` (cat) VALUES (:cat)";
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 

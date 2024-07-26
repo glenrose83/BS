@@ -14,32 +14,32 @@
         return $status;
     }
 
-    function get_userinfo($username,$pdo){
+    function get_userinfo($username,$database){
 
              $data=[
             'username' => $username
              ];
     
     $sql = "Select * FROM users WHERE username = :username";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     $stmt = $stmt->fetch();
     return $stmt;
     }
 
 
-    function delete_product($id,$pdo){
+    function delete_product($id,$database){
         $data=[
             'id' => $id,
     ];
 
     $sql = "DELETE FROM products WHERE id = :id";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
     }
 
-    function delete_picture($id,$pdo){
+    function delete_picture($id,$database){
 
         $data=[
             'id' => $id,
@@ -47,14 +47,14 @@
 
         //deleting picturefile
         $sql = "SELECT url FROM product_images WHERE id = :id";
-        $stmt= $pdo->prepare($sql);
+        $stmt= $database->connection->prepare($sql);
         $stmt->execute($data);
         $path = $stmt->fetch();
         unlink('../'.$path[0]);
 
         //Deleting row from DB.
         $sql = "DELETE FROM product_images WHERE id = :id";
-        $stmt= $pdo->prepare($sql);
+        $stmt= $database->conenction->prepare($sql);
         $stmt->execute($data);
     
 

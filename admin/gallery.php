@@ -1,11 +1,12 @@
 <?php
 session_start();
+include_once '../bootstrap.php'; 
 
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];
@@ -14,7 +15,6 @@ if(isset($_GET['id'])){
     exit();
     }
 
-include_once '../bootstrap.php'; 
 ?>
 
 <!doctype html>
@@ -62,7 +62,7 @@ include_once '../bootstrap.php';
 
                 <?php
                     //Fetch all images from DB
-                    $stmt = $pdo->prepare("SELECT * FROM product_images WHERE fk_id=$id");
+                    $stmt = $database->connection->prepare("SELECT * FROM `product_images` WHERE fk_id=$id");
                     $stmt->execute(); 
                     $images = $stmt->fetchALL();
                 ?>

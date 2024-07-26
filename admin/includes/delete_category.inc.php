@@ -2,6 +2,12 @@
 session_start();
 include_once '../../bootstrap.php';
 
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+
 if(isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     
@@ -12,8 +18,8 @@ if(isset($_GET['id'])){
      ];
 
     //deleting picturefile
-    $sql = "DELETE FROM categories WHERE id = :id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "DELETE FROM `categories` WHERE id = :id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
 

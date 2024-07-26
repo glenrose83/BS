@@ -33,5 +33,6 @@ if(!password_verify($typedPassword, $result['userpassword'])){
 //All is successfull
  $_SESSION['loggedin'] = TRUE;
  $_SESSION['username'] = $typedUsername;
+ $_SESSION['id'] = $result['id'];
  User::$username = $typedUsername;
-header('Location: ../admin/index.php');
+ header('Location: ../admin/index.php');

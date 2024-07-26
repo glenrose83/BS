@@ -1,85 +1,30 @@
 <?php
 session_start();
+include_once '../bootstrap.php'; 
 
-if(isset($_SESSION['username'])){
-    $user = $_SESSION['username'];
-} else {
-    header('Location: ../login.php?error=pleaselogin');
-}
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
+$settings = new Settings($database,$_SESSION['id']);
 
 
 include_once '../bootstrap.php'; 
 
-    //Getting payment options data
-    $stmt = $pdo->prepare(
-    'SELECT * FROM payment_options;'
-    );
-    $stmt->execute();
-    $paymentOptions = $stmt->fetchALL();
+    //Getting data
+    $paymentOptions = $settings->fetchALL_data_from_col("`payment_options`");
+    $country = $settings->fetchALL_data_from_col("`vat`");
+    $paymentOptionsCustom = $settings->fetchALL_data_from_col("`payment_options_custom`");
+    $shippings = $settings->fetchALL_data_from_col("`shipping`");
+    $coupons = $settings->fetchALL_data_from_col("`coupons`");
+    $currency = $settings->fetch_data_from_col("`currency`");
 
-
-    //Getting sales vat data
-    $stmt = $pdo->prepare(
-    'SELECT * FROM vat;'
-    );
-    $stmt->execute();
-    $country = $stmt->fetchALL();
-
-    //Getting payment options data
-    $stmt = $pdo->prepare(
-    'SELECT * FROM payment_options_custom;'
-    );
-    $stmt->execute();
-    $paymentOptionsCustom = $stmt->fetchALL();
-
-    //Getting shipping data
-    $stmt = $pdo->prepare(
-    'SELECT * FROM shipping;'
-    );
-    $stmt->execute();
-    $shippings = $stmt->fetchALL();
-
-    //Getting data for coupons
-    $stmt = $pdo->prepare(
-    'SELECT * FROM coupons;'
-    );
-    $stmt->execute();
-    $coupons = $stmt->fetchALL();
-
-    //Getting data for currency
-    $stmt = $pdo->prepare(
-        'SELECT * FROM currency;'
-        );
-        $stmt->execute();
-        $currency = $stmt->fetch();
-
-
-    //Getting shipping data
-    $stmt = $pdo->prepare(
-    'SELECT * FROM shipping;'
-    );
-    $stmt->execute();
-    $shippings = $stmt->fetchALL();
-
-
-    //Getting data for coupons
-    $stmt = $pdo->prepare(
-    'SELECT * FROM coupons;'
-    );
-    $stmt->execute();
-    $coupons = $stmt->fetchALL();
-
-    //Getting data for currency
-    $stmt = $pdo->prepare(
-        'SELECT * FROM currency;'
-        );
-        $stmt->execute();
-        $currency = $stmt->fetch();
 
 
     //Tracking check
-        $stmt = $pdo->prepare(
-        'SELECT * FROM tracking;'
+        $stmt = $database->connection->prepare(
+        'SELECT * FROM `tracking`;'
         );
         $stmt->execute();
         $check = $stmt->fetch();
@@ -139,16 +84,16 @@ include_once '../bootstrap.php';
                         <div class="boxinside-one">
                         
                             My info: <br><br>
-                            Shopname: <span class="fs-6 fw-light"><?php echo SHOPNAME;?></span><br>
-                            Companyname: <span class="fs-6 fw-light"><?php echo COMPANYNAME;?></span><br>
-                            Address: <span class="fs-6 fw-light"><?php echo ADDRESS;?></span><br>
-                            City: <span class="fs-6 fw-light"><?php echo CITY;?></span><br>
-                            Country: <span class="fs-6 fw-light"><?php echo COUNTRY;?></span><br>
-                            Vat: <span class="fs-6 fw-light"><?php echo VAT;?></span><br>
-                            Email: <span class="fs-6 fw-light"><?php echo EMAIL;?></span><br>
-                            Phone: <span class="fs-6 fw-light"><?php echo PHONE;?></span><br><br>
-                            <a href="change_info.php?id=<?php echo ID;?>"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
-                            <a href="change_password.php?id=<?php echo ID;?>"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
+                            Shopname: <span class="fs-6 fw-light"><?php echo $settings->shopname;?></span><br>
+                            Companyname: <span class="fs-6 fw-light"><?php echo $settings->companyname;?></span><br>
+                            Address: <span class="fs-6 fw-light"><?php echo $settings->address;?></span><br>
+                            City: <span class="fs-6 fw-light"><?php echo $settings->city;?></span><br>
+                            Country: <span class="fs-6 fw-light"><?php echo $settings->country;?></span><br>
+                            Vat: <span class="fs-6 fw-light"><?php echo $settings->vat;?></span><br>
+                            Email: <span class="fs-6 fw-light"><?php echo $settings->email;?></span><br>
+                            Phone: <span class="fs-6 fw-light"><?php echo $settings->phone;?></span><br><br>
+                            <a href="change_info.php?id=<?php echo $settings->id;?>"><span class="fs-6 fw-light text-primary">Change your info</span></a><br>                    
+                            <a href="change_password.php?id=<?php echo $settings->id;?>"><span class="fs-6 fw-light text-danger">Change Password (Change)</span></a><br><br> 
                         </div>    
                     
                     </div>

@@ -23,7 +23,7 @@ class Database {
         }
     }
 
-
+    //Fetch data
     public function query($statement){
        
         $stmt = $this->connection->prepare($statement);

@@ -2,26 +2,28 @@
 session_start();
 include_once '../../bootstrap.php';
 $database = new Database;
+$products = new Products;
 
 // //Checking and sanitizing input data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-$product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    
-$productstatus = filter_input(INPUT_POST,'productstatus', FILTER_SANITIZE_NUMBER_INT);
-$productname = filter_input(INPUT_POST,'productname', FILTER_SANITIZE_STRING);
-$productdescription = filter_input(INPUT_POST,'productdescription', FILTER_SANITIZE_STRING);
-$priceexvat = filter_input(INPUT_POST,'priceexvat', FILTER_SANITIZE_NUMBER_INT);
-$costprice = filter_input(INPUT_POST,'costprice', FILTER_SANITIZE_NUMBER_INT);
-$expenses = filter_input(INPUT_POST,'expenses', FILTER_SANITIZE_NUMBER_INT);
-$itemnumber = filter_input(INPUT_POST,'itemnumber', FILTER_SANITIZE_STRING);
-$category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_STRING);
-$deliverytime = filter_input(INPUT_POST,'deliverytime', FILTER_SANITIZE_STRING);
-$howmanyinstock = filter_input(INPUT_POST,'howmanyareinstock', FILTER_SANITIZE_NUMBER_INT);
-$keeptrackofstock = filter_input(INPUT_POST,'keeptrackofstock', FILTER_SANITIZE_NUMBER_INT);
-$allowpurchasewhenempty = $_POST['allowpurchasewhenempty'];
-$weight = filter_input(INPUT_POST,'weight', FILTER_SANITIZE_NUMBER_INT);
-$yournotes = filter_input(INPUT_POST,'yournotes', FILTER_SANITIZE_STRING);
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    
+    $productstatus = filter_input(INPUT_POST,'productstatus', FILTER_SANITIZE_NUMBER_INT);
+    $productname = filter_input(INPUT_POST,'productname', FILTER_SANITIZE_STRING);
+    $productdescription = filter_input(INPUT_POST,'productdescription', FILTER_SANITIZE_STRING);
+    $priceexvat = filter_input(INPUT_POST,'priceexvat', FILTER_SANITIZE_NUMBER_INT);
+    $costprice = filter_input(INPUT_POST,'costprice', FILTER_SANITIZE_NUMBER_INT);
+    $expenses = filter_input(INPUT_POST,'expenses', FILTER_SANITIZE_NUMBER_INT);
+    $itemnumber = filter_input(INPUT_POST,'itemnumber', FILTER_SANITIZE_STRING);
+    $category = filter_input(INPUT_POST,'category', FILTER_SANITIZE_STRING);
+    $deliverytime = filter_input(INPUT_POST,'deliverytime', FILTER_SANITIZE_STRING);
+    $howmanyinstock = filter_input(INPUT_POST,'howmanyareinstock', FILTER_SANITIZE_NUMBER_INT);
+    $keeptrackofstock = filter_input(INPUT_POST,'keeptrackofstock', FILTER_SANITIZE_NUMBER_INT);
+    $allowpurchasewhenempty = $_POST['allowpurchasewhenempty'];
+    $weight = filter_input(INPUT_POST,'weight', FILTER_SANITIZE_NUMBER_INT);
+    $yournotes = filter_input(INPUT_POST,'yournotes', FILTER_SANITIZE_STRING);
+
 } else {
-    header('Location: ../manage_products.php');
+        header('Location: ../manage_products.php');
 }
 
 
@@ -49,15 +51,15 @@ $data = [
     
 ];
 
-$sql = "INSERT INTO products (productstatus, productname, productdescription, pricesxvat, costprice, expenses, item, category, deliverytime, howmanyinstock, keeptrackofstock, allowpurchasewhenempty, weight, yournotes) 
+$sql = "INSERT INTO `products` (productstatus, productname, productdescription, pricesxvat, costprice, expenses, item, category, deliverytime, howmanyinstock, keeptrackofstock, allowpurchasewhenempty, weight, yournotes) 
 VALUES 
 (:productstatus, :productname, :productdescription, :pricesxvat,:costprice, :expenses, :item, :category, :deliverytime, :howmanyinstock, :keeptrackofstock, :allowpurchasewhenempty, :weight, :yournotes)";
-$stmt= $data->connection->prepare($sql);
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 
 // //here we get the last inserted ID that we use in the INSERT below
-$last_id= $data->connection->lastInsertId();
+$last_id= $database->connection->lastInsertId();
 
 
 
@@ -92,8 +94,8 @@ if(isset($_POST['submit'])){
                                         'url' => "img/" .$url
                                 ];
 
-                                $sql = "INSERT INTO product_images (fk_id, name, url) VALUES (:fk_products, :name, :url)";
-                                $stmt= $data->connection->prepare($sql);
+                                $sql = "INSERT INTO `product_images` (fk_id, name, url) VALUES (:fk_products, :name, :url)";
+                                $stmt= $database->connection->prepare($sql);
                                 $stmt->execute($data);
 
                                                        
@@ -102,9 +104,8 @@ if(isset($_POST['submit'])){
                 }
            } 
         }
-
-echo "The errorcode is: ". $_FILES['pic']['error'];        
-}    
+    
+}   
 
 
 

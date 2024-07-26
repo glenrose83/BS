@@ -2,6 +2,11 @@
 session_start();
 include_once '../bootstrap.php'; 
 
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
 
 
 //GET id from url  and Fetch order from DB
@@ -14,16 +19,16 @@ $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 ];
 
 //Getting data on the customer
-$stmt = $pdo->prepare("SELECT * FROM orders LEFT JOIN customers ON orders.fk_customer = customers.id WHERE orders.id=$sanitized_id");
+$stmt = $database->connection->prepare("SELECT * FROM `orders` LEFT JOIN `customers` ON orders.fk_customer = customers.id WHERE orders.id=$sanitized_id");
 $stmt->execute();
 $customer = $stmt->fetch();
 
 //NEW getting all data by inner joins 3 tables
-$stmt = $pdo->prepare("
-SELECT * FROM orders od 
-INNER JOIN ordered_products op 
+$stmt = $database->connection->prepare("
+SELECT * FROM `orders` od 
+INNER JOIN `ordered_products` op 
 ON od.id = op.fk_orders 
-INNER JOIN products pr 
+INNER JOIN `products` pr 
 ON pr.id = op.fk_products 
 WHERE od.id = $sanitized_id");
 $stmt->execute();
@@ -94,8 +99,8 @@ $order = $stmt->fetchALL();
                         <select class="form-control" id="categorySelector" name="status" required>
                             
                             <?php
-                            $sql = 'SELECT * FROM order_statuses';
-                            $stmt= $pdo->prepare($sql);
+                            $sql = 'SELECT * FROM `order_statuses`';
+                            $stmt= $database->connection->prepare($sql);
                             $stmt->execute();
                             $statuses = $stmt->fetchALL(); 
                             
@@ -143,7 +148,7 @@ $order = $stmt->fetchALL();
                         echo "Time: ".$customer['order_date']."; <br>
                         IP: ".$customer['ip']." <br>"
                         ."Customerid: ".$customer['id']."
-                        User Client: ".$customer['browser']."<br>
+                        User Client: ".$customer['browser']."<br>"
                 
                         ?>
                         </div>

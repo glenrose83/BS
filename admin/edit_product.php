@@ -1,22 +1,27 @@
 <?php
 session_start();
 include_once '../bootstrap.php'; 
+//Check if user is logged in
+User::isLoggedIn();
+
+//intialising objects
+$database = new Database;
 
 //GET id from url and Fetch product from DB
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$stmt = $pdo->prepare("SELECT * FROM products WHERE id=$sanitized_id");
+$stmt = $database->connection->prepare("SELECT * FROM `products` WHERE id=$sanitized_id");
 $stmt->execute(); 
 $product = $stmt->fetch();
 
 //Get image info
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$stmt = $pdo->prepare("SELECT * FROM product_images WHERE fk_id=$sanitized_id");
+$stmt = $database->connection->prepare("SELECT * FROM `product_images` WHERE fk_id=$sanitized_id");
 $stmt->execute(); 
 $images = $stmt->fetchALL();
 
 //Get fronpage info
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-$stmt = $pdo->prepare("SELECT * FROM product_images WHERE fk_id=$sanitized_id AND primary_pic=1");
+$stmt = $database->connection->prepare("SELECT * FROM `product_images` WHERE fk_id=$sanitized_id AND primary_pic=1");
 $stmt->execute(); 
 $pri_image = $stmt->fetch();
 
@@ -29,7 +34,7 @@ if(isset($_SESSION['username'])){
     //Updating DB if GET product is set
     if(isset($_GET['category'])){
         $clean_category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_STRING);        
-        change_category($clean_category, $sanitized_id, $pdo);
+        change_category($clean_category, $sanitized_id, $database->connection);
         header('Location: edit_product.php?id='.$sanitized_id);
         }
 
@@ -224,8 +229,8 @@ if(isset($_SESSION['username'])){
                                     </option>
                                      <!-- Getting data from database and using it for dropdown menu -->
                                                         <?php
-                                                        $sql = "SELECT * FROM categories";
-                                                        $stmt= $pdo->prepare($sql);
+                                                        $sql = "SELECT * FROM `categories`";
+                                                        $stmt= $database->connection->prepare($sql);
                                                         $stmt->execute();
                                                         $items = $stmt->fetchALL(); 
                                                             foreach($items as $item){?>

@@ -7,7 +7,8 @@ User::isLoggedIn();
 
 //intialising objects
 $database = new Database;
-$products = new Products($database);
+$products = new Products;
+
 
 
 ?>
@@ -145,7 +146,7 @@ $products = new Products($database);
                                     <!-- Getting data from database and using it for dropdown menu -->
                                                         <?php
                                                             
-                                                            $categories = $products->categories;
+                                                            $categories = $products->getCategories($database);
                                                             
                                                             foreach($categories as $item){?>
                                                             <option><?php echo $item['cat'] . "</option>"; 
@@ -157,7 +158,6 @@ $products = new Products($database);
                                               
                             
                             
-
                                 <div class="form-group row">
                                         <label for="howmanyareinstock"  class="col-sm-4 col-form-label">How many are in stock</label>
                                         <div class="col-sm-6">

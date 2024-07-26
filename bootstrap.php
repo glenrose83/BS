@@ -5,6 +5,7 @@ include_once 'admin/classes/database.class.php';
 include_once 'admin/classes/user.class.php';
 include_once 'admin/classes/orders.class.php';
 include_once 'admin/classes/products.class.php';
+include_once 'admin/classes/settings.class.php';
 include_once 'functions/cart_functions.php';
 include_once 'admin/functions/admin_functions.php';
 include_once 'admin/functions/edit_product_functions.php';
