@@ -10,7 +10,7 @@ if(isset($_GET['status'])){
     $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     //Changing status in DB
-    change_orderstatus($sanitized_id, $sanitized_status, $pdo);
+    change_orderstatus($sanitized_id, $sanitized_status, $database->connection);
 
     header('Location: ../orders.php?status=changed');
 

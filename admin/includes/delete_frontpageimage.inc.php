@@ -14,7 +14,7 @@ if(isset($_GET['id'])){
 
    
     $sql = "UPDATE product_images SET primary_pic=0 WHERE fk_id=:data";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
 

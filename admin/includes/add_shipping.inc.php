@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -26,7 +27,7 @@ $data=[
  ];
 
 $sql = "INSERT INTO shipping (description,shippingTime,price) VALUES (:shippingMethod,:time,:price)";
-$stmt= $pdo->prepare($sql);
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 

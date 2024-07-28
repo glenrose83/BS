@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 
 // //Checking for og ID
@@ -14,8 +15,8 @@ if(isset($_GET['id'])){
      ];
 
     //Updating the DB        
-    $sql = "DELETE FROM shipping WHERE id=:id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "DELETE FROM `shipping` WHERE id=:id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
     

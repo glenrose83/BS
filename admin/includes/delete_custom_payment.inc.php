@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 if(isset($_GET['id'])){
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -12,8 +13,8 @@ if(isset($_GET['id'])){
      ];
 
     //deleting picturefile
-    $sql = "DELETE FROM payment_options_custom WHERE id = :id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "DELETE FROM `payment_options_custom` WHERE id = :id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
 

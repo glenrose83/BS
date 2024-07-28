@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     $symbol = filter_input(INPUT_POST,'symbol', FILTER_SANITIZE_STRING);
@@ -16,8 +17,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
 
     //Updating the DB        
-    $sql = "UPDATE currency SET currency=:currency, symbol=:symbol WHERE id=:id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "UPDATE `currency` SET currency=:currency, symbol=:symbol WHERE id=:id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
     

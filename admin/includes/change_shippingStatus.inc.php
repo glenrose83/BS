@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 
 // //Checking for GET-status og ID
@@ -23,8 +24,8 @@ if(isset($_GET['status'])){
         }
 
     //Updating the DB        
-    $sql = "UPDATE shipping SET status=:status WHERE id=:id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "UPDATE `shipping` SET status=:status WHERE id=:id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
     

@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -24,8 +25,8 @@ $data=[
     'status' => 0  
  ];
 
-$sql = "INSERT INTO payment_options_custom (options,info,status) VALUES (:description,:info,:status)";
-$stmt= $pdo->prepare($sql);
+$sql = "INSERT INTO `payment_options_custom` (options,info,status) VALUES (:description,:info,:status)";
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 

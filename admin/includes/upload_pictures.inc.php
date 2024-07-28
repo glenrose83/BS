@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -42,7 +42,7 @@ if(isset($_POST['submit'])){
                                 ];
 
                                 $sql = "INSERT INTO product_images (fk_id, name, url) VALUES (:fk_products, :name, :url)";
-                                $stmt= $pdo->prepare($sql);
+                                $stmt= $database->connection->prepare($sql);
                                 $stmt->execute($data);
 
                                                        

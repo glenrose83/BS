@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
@@ -26,8 +27,8 @@ $data=[
     'discount' => $discount
  ];
 
-$sql = "INSERT INTO coupons (status,name,code,discount) VALUES (:status,:name,:code,:discount)";
-$stmt= $pdo->prepare($sql);
+$sql = "INSERT INTO `coupons` (status,name,code,discount) VALUES (:status,:name,:code,:discount)";
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 

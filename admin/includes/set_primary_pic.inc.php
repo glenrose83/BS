@@ -18,13 +18,13 @@ if(isset($_GET['id'])){
 
     //removing marking from old priamry pic
     $sql = "UPDATE product_images SET primary_pic=FALSE WHERE fk_id=:id AND primary_pic=1";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
 
     //marking new primary
     $sql = "UPDATE product_images SET primary_pic=TRUE WHERE id =:id";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data1);
     
 

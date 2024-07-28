@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../bootstrap_start.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 //Checking users permission to see this
 if(isset($_SESSION['username'])){
@@ -45,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'phone' => $phone
     ];
     
-    $sql = "UPDATE users SET companyname=:companyname, address=:address, zip=:zip, city=:city, country=:country, vat=:vat, email=:email, phone=:phone WHERE id=:id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "UPDATE `users`  SET companyname=:companyname, address=:address, zip=:zip, city=:city, country=:country, vat=:vat, email=:email, phone=:phone WHERE id=:id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
     

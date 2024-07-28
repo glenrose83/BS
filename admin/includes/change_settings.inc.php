@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
     
     $sql = "UPDATE users SET shopname=:shopname, companyname=:companyname, address=:address, city=:city, country=:country, vat=:vat, email=:email, phone=:phone ";
-    $stmt= $pdo->prepare($sql);
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
     echo "done updating";

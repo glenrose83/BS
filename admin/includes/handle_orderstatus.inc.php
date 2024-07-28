@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
+$database = new Database;
 
 
 // //Checking and sanitizing input data
@@ -15,11 +16,11 @@ $status = filter_input(INPUT_POST,'status', FILTER_SANITIZE_STRING);
    
 
     //Updating the DB        
-    $sql = "UPDATE orders SET status=:status WHERE id=:id";
-    $stmt= $pdo->prepare($sql);
+    $sql = "UPDATE `orders` SET status=:status WHERE id=:id";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
 
-echo "Done";
+Header('Location: ../handle_order.php?id='.$id.'status=changed');
 } 
 

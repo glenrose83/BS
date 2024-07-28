@@ -1,10 +1,11 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 //Getting data for vat
-    $stmt = $pdo->prepare(
-    'SELECT * FROM vat;'
+    $stmt = $database->connection->prepare(
+    'SELECT * FROM `vat`;'
     );
     $stmt->execute();
     $vatOptions = $stmt->fetchALL();
@@ -38,8 +39,8 @@ $data=[
     'country' => $country
  ];
 
-$sql = "INSERT INTO vat (country,vat) VALUES (:country,:vat)";
-$stmt= $pdo->prepare($sql);
+$sql = "INSERT INTO `vat` (country,vat) VALUES (:country,:vat)";
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 

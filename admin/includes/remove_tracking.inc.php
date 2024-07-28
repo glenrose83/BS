@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 
 if(isset($_GET['action'])){
@@ -16,8 +17,8 @@ if(isset($_GET['action'])){
      ];
 
    
-    $sql = "UPDATE tracking SET code=:data, status=:disable WHERE id=1";
-    $stmt= $pdo->prepare($sql);
+    $sql = "UPDATE `tracking` SET code=:data, status=:disable WHERE id=1";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
     
 

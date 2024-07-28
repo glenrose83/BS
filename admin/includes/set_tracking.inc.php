@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once '../../includes/db_connection.php';
+include_once '../../bootstrap.php';
+$database = new Database;
 
 
 // //Checking and sanitizing input data
@@ -23,8 +24,8 @@ $data=[
     'enable' => 1
  ];
 
-$sql = "UPDATE tracking SET code=:tracking, status=:enable WHERE id=1";
-$stmt= $pdo->prepare($sql);
+$sql = "UPDATE `tracking` SET code=:tracking, status=:enable WHERE id=1";
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 
