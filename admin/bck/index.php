@@ -33,32 +33,31 @@ User::isLoggedIn();
 <body>
 
 <!--div nedenfor laver scrool horzintol-->
-<div class="container-fluid full_size">
-    <div class="topbg"></div>
+<div class="container-fluid full_size divbottombg">
+<div class="topbg"></div>
 
     <div class="row">
 
-    <!--menu-->
-    <div class="col-md-3">
-        <?php include_once 'includes/menu.php' ?>
-    </div>
+        <!--menu-->
+        <div class="col-md-3">
+            <?php include_once 'includes/menu.php' ?>
+        </div>
 
-    <div class="col-md-9 full-height"> 
-    
-        <div class="header">
-                
-                <!--Site menu-->
-                <div class="container-fluid image">
-                <img src="../img/bg-scaleup.png" alt="..." />
-                    <div class="row">
-                                <div class="col-10 title">
-                                <h1>Administration<br></h1>
-                                </div>
-                    </div>            
-                            
-                    <div class="row">
-                        
-                    <div class="col-2">
+        <div class="col-md-9"> 
+            <div class="header">
+            
+            <!--Site menu-->
+            <div class="container-fluid image">
+            <img src="../img/bg-scaleup.png" alt="..." />
+                <div class="row">
+                             <div class="col-12 title">
+                            <h1>Administration<br></h1>
+                            </div>
+                </div>            
+                           
+                <div class="row">
+                       
+                                <div class="col-2">
                                     <div class="boxinside">
                                     <a href="orders.php">    
                                    <center><svg class="bi" width="32" height="32" fill="currentColor">
@@ -86,7 +85,18 @@ User::isLoggedIn();
                                 </a>
                             
                             
-                               
+                                <div class="col-2">
+                                    <div class="boxinside">
+                                    <a href="manage_products.php">    
+                                    <center>    
+                                    <svg class="bi" width="32" height="32" fill="currentColor">
+                                    <use xlink:href="bootstrap-icons.svg#pencil-square"/>
+                                    </svg> <br>
+                                    Show Products
+                                    </center>
+                                    </div>
+                                </div>    
+                                </a>
                             
                                
                                 <div class="col-2">
@@ -130,12 +140,12 @@ User::isLoggedIn();
 
                 
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="box">
                         <a href="orders.php">You have <b><?php echo Orders::FindPendingOrders($database); ?></b> pending orders...</a>
                         </div>  
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="box">
                         <a href="orders.php">Visits in your shop today</a>
                         </div>
@@ -143,30 +153,22 @@ User::isLoggedIn();
                 </div>
 
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="box">
                         <a href="orders.php">Sales this week</a>
                         </div>  
                     </div>
-                    <div class="col-5">
+                    <div class="col-6">
                         <div class="box">
                         <a href="orders.php">Sales this month</a>
                         </div>
                     </div>
-                </div>                        
-        
-                    </div>
-                </div>
+                </div>           
+
         </div>
+        
     </div>
-
-    <div class="divbottombg"></div>
-
 </div>
-
-
-
-
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-3.3.1.slim.min.js"></script>

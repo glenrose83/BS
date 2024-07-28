@@ -45,21 +45,25 @@ body {
   background: -moz-linear-gradient(
     0deg,
     rgba(0, 183, 255, 1) 8%,
-    rgba(0, 123, 255, 1) 100%
+    rgba(0, 183, 255, 1) 100%
   );
   background: -webkit-linear-gradient(
     0deg,
     rgba(0, 183, 255, 1) 8%,
-    rgba(0, 123, 255, 1) 100%
+    rgba(0, 183, 255, 1) 100%
   );
   background: linear-gradient(
     0deg,
     rgba(0, 183, 255, 1) 8%,
-    rgba(0, 123, 255, 1) 100%
+    rgba(0, 183, 255, 1) 100%
   );
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00b7ff",endColorstr="#007bff",GradientType=1);
 
   background-size: 300px;
+}
+
+.full-height{
+  height: 88vh;
 }
 
 .cuz_gallery{
@@ -76,13 +80,14 @@ padding-left: 10px;;
   background-image: url("../img/top.png");
   background-repeat: repeat-x;
   background-position: top;
-  height: 4rem;
+  height: 5vh;
 }
 
 .divbottombg {
   background-image: url("../img/grass.png");
   background-repeat: repeat-x;
   background-position: bottom;
+  height: 5vh;
 }
 
 .box {
