@@ -54,30 +54,36 @@ include_once '../bootstrap.php';
 
 
 <body>
-<div class="container-fluid height full_size divbottombg">
-    <div class="topbg"></div>
 
-    <div class="row height">
+<!--div nedenfor laver scrool horzintol-->
+<div class="container-fluid full_size">
+         <div class="topbg"></div>
 
+    <div class="row">
+
+        <!--menu-->
         <div class="col-md-3">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
-        <div class="col-md-9 image"> 
-
-            <div class="container-fluid image">
-                <img src="../img/bg-scaleup.png" alt="..." />    
+        <!--content window-->
+        <div class="col-md-9 full-height"> 
     
-                      
-                <div class="row">
-                    <div class="col-md-12 title">
-                        <h1>Administration</h1>
-                        <h2>Settings</h2>
-                    </div> 
-                </div>
-
-            
-                <!--//Table with products-->
+                <div class="header">
+                        
+                        <!--Site menu-->
+                        <div class="container-fluid image">
+                        <img src="../img/bg-scaleup.png" alt="..." />
+                            <div class="row">
+                                        <div class="col-10 title">
+                                        <h1>Settings<br></h1>
+                                        </div>
+                            </div>            
+                        </div>
+                            
+                </div>            
+             
+                <!--content 1-->                      
                 <div class="row">
 
                     <div class="col-md-5 custom-box">
@@ -132,347 +138,355 @@ include_once '../bootstrap.php';
                             <br>&nbsp;<br>&nbsp;
                             </form>
                         </div>
-                    </div>
+                    </div>    
 
                 </div>
-
-                <!--Sales Vat-->
-                <div class="row">
-                    
-                     <div class="col-md-10 custom-box">
+                <!--end of content 1-->
                         
-                        <div class="boxinside-one">   
-                                <strong>VAT Options:</strong> 
-                                <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                <th scope="col">Country</th>
-                                <th scope="col">Amount in %</th>
-                                <th scope="col">Delete Option</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-            
-                            <?php
-                            foreach ($country as $countryOption){
-                            ?>
-                            <tr>
-                                                        
-                            <td><?php echo $countryOption['country']?>    
-                            </td>
-                            <td><?php echo $countryOption['vat']; ?></td>
-                            <td>
 
-                            <?php  
-                                echo "<a href='includes/delete_vat.inc?id=". $countryOption['id']."'>Delete</a>";
-                                
-                                ?>       
-                            </td>
-                            </tr>
-                            <?php } ?>  
-                            </tbody>
-                            </table><p>&nbsp;</p>
-                 
-                     
-                                <!--Add VAT option-->
-                                <strong>Add VAT options:  </strong>     
-                  
-                                <form action="includes/add_vat_option.inc.php" method="POST" enctype='multipart/form-data'>                
-                                <div class="form row">
-                            
-                                    <div class="col-md-4">
-                                    <label for="code">Country</label>
-                                    <input type="text" class="form-control" id="country" name="country" placeholder="Ect. Denmark"  required>
-                                    </div>
+              
 
-                                    <div class="col-md-4">
-                                    <label for="code">VAT in %(ONLY NUMBERS):</label>
-                                    <input type="text" class="form-control" id="vat" name="vat" placeholder="Ect. 25"  required>
-                                    </div>
-
-                                </div>    
-
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
-                                    <br><button type="submit" class="btn btn-primary">Add VAT option</button>
-                                    </div>
-                            
-                                 </form>
-                                </div>
-                        </div>        
-                    </div>
-                </div>
-
-
-
-                <!--payment options-->
+                <!--Content 2-->
                 <div class="row">
-                    
-                     <div class="col-md-10 custom-box">
-                        
-                        <div class="boxinside-one">   
-                                <strong>Payment Options:</strong> 
-                                <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Payment Option</th>
-                                <th scope="col">Delete Option</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-            
-                            <?php
-                            foreach ($paymentOptions as $payOption){
-                            ?>
-                            <tr>
-                            <td><?php  
-                                if($payOption['status']==1){
-                                echo "<a href='includes/change_payment_status.inc?status=1&id=". $payOption['id']."'>activated</a>";
-                                    } else {
-                                echo "<a href='includes/change_payment_status.inc?status=0&id=". $payOption['id']."'>Deactivated</a>";
-                                }
-                                ?>    
-                            </td>
-                            <td><?php echo $payOption['options']; ?></td>
-                            <td><i>Can´t be deleted</i></td>
-                            </tr>
-                            <?php } ?>  
                 
-                            <?php
-                            foreach ($paymentOptionsCustom as $payOptionCustom){
-                            echo "<tr>
-                                <td>"
-                            ?>
-                            <?php if($payOptionCustom['status']==1){
-                                    echo "<a href='includes/change_custom_payment_status.inc?status=1&id=". $payOptionCustom['id']."'>activated</a>
-                                    </td>
-                                    <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
-                                    <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
-                                    </tr>    
-                                    ";
-                                        } else {
-                                    echo "<a href='includes/change_custom_payment_status.inc?status=0&id=". $payOptionCustom['id']."'>Deactivated</a>
-                                </td>
-                                <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
-                                <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
-                                </tr>";
-                                }
-                            }?>
-                            </tbody>
-                            </table><p>&nbsp;</p>
-                 
-                     
-                                <!--Make a custom payment method-->
-                                <strong>Add custom payment options:  </strong>     
-                  
-                                <form action="includes/add_payment_custom.inc.php" method="POST" enctype='multipart/form-data'>                
-                                <div class="form row">
-                            
-                                    <div class="col-md-4">
-                                    <label for="code">Customer text:</label>
-                                    <input type="text" class="form-control" id="code" name="description" placeholder="Ect. pay in 25 rates"  required>
-                                    </div>
+                    <!--Sales Vat-->
+                    <div class="col-md-10 custom-box">
+                       
+                       <div class="boxinside-one">   
+                               <strong>VAT Options:</strong> 
+                               <table class="table table-striped">
+                               <thead>
+                               <tr>
+                               <th scope="col">Country</th>
+                               <th scope="col">Amount in %</th>
+                               <th scope="col">Delete Option</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+           
+                           <?php
+                           foreach ($country as $countryOption){
+                           ?>
+                           <tr>
+                                                       
+                           <td><?php echo $countryOption['country']?>    
+                           </td>
+                           <td><?php echo $countryOption['vat']; ?></td>
+                           <td>
 
-                                    <div class="col-md-4">
-                                    <label for="code">Your info(customer hidden):</label>
-                                    <input type="text" class="form-control" id="code" name="info" placeholder="Ect. Create 25 invoices"  required>
-                                    </div>
-
-                                </div>    
-
-                                <div class="form-group row">
-                                    <div class="col-sm-10">
-                                    <br><button type="submit" class="btn btn-primary">Add payment option</button>
-                                    </div>
-                            
-                                 </form>
-                                </div>
-                        </div>        
-                    </div>
-                </div>
-
-                <!--Shipping methods-->
-
-                <div class="row">
-                        <div class="col-md-10 custom-box">
-                            <div class="boxinside-one">
-                        
-                                    Shipping Methods:            
-                                    <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Shipping Time</th>
-                                        <th scope="col">price</th>
-                                        <th scope="col">Delete option</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                    
-                                    <?php
-                                    foreach ($shippings as $shipping){
-                                    ?>
-                                    <tr>
-                                    <td><?php  
-                                        if($shipping['status']==1){
-                                        echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $shipping['id']."'>activated</a>";
-                                            } else {
-                                        echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $shipping['id']."'>Deactivated</a>";
-                                        }
-                                        ?>    
-                                    </td>
-                                    <td><?php echo $shipping['description']; ?></td>
-                                    <td> <?php echo $shipping['shippingTime']; ?></td>
-                                    <td><?php echo $shipping['price']; ?>  </td>
-                                    <td><?php echo "<a href='includes/delete_shipping.inc.php?id=". $shipping['id']."'>Delete</a>";?></td>
-                                    </tr>
-                                    <?php } ?>   
-                                    </tbody>
-                                    </table>
-                                    
-                              
-
-                                <!--Inserting a new shipping option-->
-                                <form action="includes/add_shipping.inc.php" method="POST" enctype='multipart/form-data'>                
-                                        <div class="form row">
-                                            <div class="col-md-2">
-                                            <label for="name">Shipping method:</label>
-                                            <input type="text" class="form-control" id="name" name="shippingMethod" placeholder="ect. Airdrop-delivery"  required>
-                                            </div>
-
-                                        
-                                            <div class="col-md-2">
-                                            <label for="code">Shipping time:</label>
-                                            <input type="text" class="form-control" id="code" name="time" placeholder="ect. 3 days"  required>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                            <label for="validationCustom05">Price</label>
-                                            <input type="text" class="form-control" id="discount" name="price" placeholder="Only numbers" required>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                            <label for="validationCustom05">Price</label>
-                                            <input type="text" class="form-control" id="discount" name="price" placeholder="Only numbers" required>
-                                            </div>
-                                        </div>    
-
-                                        <div class="form-group row">
-                                            <div class="col-sm-10">
-                                            <br><button type="submit" class="btn btn-primary">Add shipping option</button>
-                                            </div>
-                                        </div>
-                                </form>         
+                           <?php  
+                               echo "<a href='includes/delete_vat.inc?id=". $countryOption['id']."'>Delete</a>";
                                
-                        </div>
-                    </div>                   
-                </div>
-
-
-                <div class="row">
-                        <div class="col-md-10 custom-box">
-                            <div class="boxinside-one">
-                        
-                                Coupons: <br>            
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Coupon name</th>
-                                        <th scope="col">Coupon code</th>
-                                        <th scope="col">Discount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                    
-                                    <?php
-                                    foreach ($coupons as $coupon){
-                                    ?>
-                                    <tr>
-                                    <td><?php  
-                                        if($coupon['status']==1){
-                                        echo "<a href='includes/change_coupons.inc.php?status=1&id=". $coupon['id']."'>activated</a>";
-                                            } else {
-                                        echo "<a href='includes/change_coupons.inc.php?status=0&id=". $coupon['id']."'>Deactivated</a>";
-                                        }
-                                        ?>    
-                                    </td>
-                                    <td><?php echo $coupon['name']; ?></td>
-                                    <td> <?php echo $coupon['code']; ?></td>
-                                    <td> <?php echo $coupon['discount']; ?></td>
-                                    <td><?php echo "<a href='includes/delete_coupon.inc.php?id=". $coupon['id']."'>Delete</a>";?></td>
-                                    </tr>
-                                    <?php } ?>   
-                                    </tbody>
-                                </table>
-                                    
-                                    <!--Inserting a new coupon-->
-                                <form action="includes/add_coupon.inc.php" method="POST" enctype='multipart/form-data'>                
-                                    <div class="form row">
-                                        <div class="col-md-4">
-                                        <label for="name">Coupon name:</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Name of coupon"  required>
-                                        </div>
-
-                                    
-                                        <div class="col-md-3">
-                                        <label for="code">Coupon code:</label>
-                                        <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                        <label for="validationCustom05">Discount in %</label>
-                                        <input type="text" class="form-control" id="discount" name="discount" placeholder="Only numbers" required>
-                                        </div>
-                                    </div>    
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-10">
-                                    <br><button type="submit" class="btn btn-primary">Add coupon option</button>
-                                        </div>
-                                    </div>
-                            
-                                </form>
-                            </div>    
-                    </div>
-                </div>
-
-                <div class="row">
-                        <div class="col-md-10 custom-box">
-                            <div class="boxinside-one">
-         
-                                <form action="includes/change_currency.inc.php?id=<?php echo $currency['id']; ?>" method="POST" enctype='multipart/form-data'>                
-                                    <div class="form row">
-                                        <div class="col-sm-5">
-                                        <label for="currency">Currency:</label>
-                                        <input type="text" class="form-control" id="currency" name="currency" value="<?php echo $currency['currency'] ?>" required>
-                                        </div>
-                                    
-                                        <div class="col-sm-5">
-                                        <label for="symbol">Symbol:</label>
-                                        <input type="text" class="form-control" id="symbol" name="symbol" value="<?php echo $currency['symbol'] ?>" required>
-                                        </div>
-
-                                        <div class="col-sm-10">
-                                        <br> <button type="submit" class="btn btn-primary">Change currency</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                       </div>
-                </div>
+                               ?>       
+                           </td>
+                           </tr>
+                           <?php } ?>  
+                           </tbody>
+                           </table><p>&nbsp;</p>
                 
-            </div>                  
+                    
+                               <!--Add VAT option-->
+                               <strong>Add VAT options:  </strong>     
+                 
+                               <form action="includes/add_vat_option.inc.php" method="POST" enctype='multipart/form-data'>                
+                               <div class="form row">
+                           
+                                   <div class="col-md-4">
+                                   <label for="code">Country</label>
+                                   <input type="text" class="form-control" id="country" name="country" placeholder="Ect. Denmark"  required>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                   <label for="code">VAT in %(ONLY NUMBERS):</label>
+                                   <input type="text" class="form-control" id="vat" name="vat" placeholder="Ect. 25"  required>
+                                   </div>
+
+                               </div>    
+
+                               <div class="form-group row">
+                                   <div class="col-sm-10">
+                                   <br><button type="submit" class="btn btn-primary">Add VAT option</button>
+                                   </div>
+                           
+                                </form>
+                               </div>
+                       </div>        
+                   </div>
+               </div>
+
+
+
+               <!--payment options-->
+               <div class="row">
+                   
+                    <div class="col-md-10 custom-box">
+                       
+                       <div class="boxinside-one">   
+                               <strong>Payment Options:</strong> 
+                               <table class="table table-striped">
+                               <thead>
+                               <tr>
+                               <th scope="col">Status</th>
+                               <th scope="col">Payment Option</th>
+                               <th scope="col">Delete Option</th>
+                               </tr>
+                               </thead>
+                               <tbody>
+           
+                           <?php
+                           foreach ($paymentOptions as $payOption){
+                           ?>
+                           <tr>
+                           <td><?php  
+                               if($payOption['status']==1){
+                               echo "<a href='includes/change_payment_status.inc?status=1&id=". $payOption['id']."'>activated</a>";
+                                   } else {
+                               echo "<a href='includes/change_payment_status.inc?status=0&id=". $payOption['id']."'>Deactivated</a>";
+                               }
+                               ?>    
+                           </td>
+                           <td><?php echo $payOption['options']; ?></td>
+                           <td><i>Can´t be deleted</i></td>
+                           </tr>
+                           <?php } ?>  
+               
+                           <?php
+                           foreach ($paymentOptionsCustom as $payOptionCustom){
+                           echo "<tr>
+                               <td>"
+                           ?>
+                           <?php if($payOptionCustom['status']==1){
+                                   echo "<a href='includes/change_custom_payment_status.inc?status=1&id=". $payOptionCustom['id']."'>activated</a>
+                                   </td>
+                                   <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
+                                   <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
+                                   </tr>    
+                                   ";
+                                       } else {
+                                   echo "<a href='includes/change_custom_payment_status.inc?status=0&id=". $payOptionCustom['id']."'>Deactivated</a>
+                               </td>
+                               <td>". $payOptionCustom['options']." <i>- (Custom payment Option)</i></td> 
+                               <td><a href='includes/delete_custom_payment.inc.php?id=". $payOptionCustom['id']. "'> Delete this option</a></td>
+                               </tr>";
+                               }
+                           }?>
+                           </tbody>
+                           </table><p>&nbsp;</p>
+                
+                    
+                               <!--Make a custom payment method-->
+                               <strong>Add custom payment options:  </strong>     
+                 
+                               <form action="includes/add_payment_custom.inc.php" method="POST" enctype='multipart/form-data'>                
+                               <div class="form row">
+                           
+                                   <div class="col-md-4">
+                                   <label for="code">Customer text:</label>
+                                   <input type="text" class="form-control" id="code" name="description" placeholder="Ect. pay in 25 rates"  required>
+                                   </div>
+
+                                   <div class="col-md-4">
+                                   <label for="code">Your info(customer hidden):</label>
+                                   <input type="text" class="form-control" id="code" name="info" placeholder="Ect. Create 25 invoices"  required>
+                                   </div>
+
+                               </div>    
+
+                               <div class="form-group row">
+                                   <div class="col-sm-10">
+                                   <br><button type="submit" class="btn btn-primary">Add payment option</button>
+                                   </div>
+                           
+                                </form>
+                               </div>
+                       </div>        
+                   </div>
+               </div>
+
+               <!--Shipping methods-->
+
+               <div class="row">
+                       <div class="col-md-10 custom-box">
+                           <div class="boxinside-one">
+                       
+                                   Shipping Methods:            
+                                   <table class="table table-striped">
+                                   <thead>
+                                       <tr>
+                                       <th scope="col">Status</th>
+                                       <th scope="col">Description</th>
+                                       <th scope="col">Shipping Time</th>
+                                       <th scope="col">price</th>
+                                       <th scope="col">Delete option</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                   
+                                   <?php
+                                   foreach ($shippings as $shipping){
+                                   ?>
+                                   <tr>
+                                   <td><?php  
+                                       if($shipping['status']==1){
+                                       echo "<a href='includes/change_shippingStatus.inc.php?status=1&id=". $shipping['id']."'>activated</a>";
+                                           } else {
+                                       echo "<a href='includes/change_shippingStatus.inc.php?status=0&id=". $shipping['id']."'>Deactivated</a>";
+                                       }
+                                       ?>    
+                                   </td>
+                                   <td><?php echo $shipping['description']; ?></td>
+                                   <td> <?php echo $shipping['shippingTime']; ?></td>
+                                   <td><?php echo $shipping['price']; ?>  </td>
+                                   <td><?php echo "<a href='includes/delete_shipping.inc.php?id=". $shipping['id']."'>Delete</a>";?></td>
+                                   </tr>
+                                   <?php } ?>   
+                                   </tbody>
+                                   </table>
+                                   
+                             
+
+                               <!--Inserting a new shipping option-->
+                               <form action="includes/add_shipping.inc.php" method="POST" enctype='multipart/form-data'>                
+                                       <div class="form row">
+                                           <div class="col-md-2">
+                                           <label for="name">Shipping method:</label>
+                                           <input type="text" class="form-control" id="name" name="shippingMethod" placeholder="ect. Airdrop-delivery"  required>
+                                           </div>
+
+                                       
+                                           <div class="col-md-2">
+                                           <label for="code">Shipping time:</label>
+                                           <input type="text" class="form-control" id="code" name="time" placeholder="ect. 3 days"  required>
+                                           </div>
+
+                                           <div class="col-md-2">
+                                           <label for="validationCustom05">Price</label>
+                                           <input type="text" class="form-control" id="discount" name="price" placeholder="Only numbers" required>
+                                           </div>
+
+                                           <div class="col-md-2">
+                                           <label for="validationCustom05">Price</label>
+                                           <input type="text" class="form-control" id="discount" name="price" placeholder="Only numbers" required>
+                                           </div>
+                                       </div>    
+
+                                       <div class="form-group row">
+                                           <div class="col-sm-10">
+                                           <br><button type="submit" class="btn btn-primary">Add shipping option</button>
+                                           </div>
+                                       </div>
+                               </form>         
+                              
+                       </div>
+                   </div>                   
+               </div>
+
+
+               <div class="row">
+                       <div class="col-md-10 custom-box">
+                           <div class="boxinside-one">
+                       
+                               Coupons: <br>            
+                               <table class="table table-striped">
+                                   <thead>
+                                       <tr>
+                                       <th scope="col">Status</th>
+                                       <th scope="col">Coupon name</th>
+                                       <th scope="col">Coupon code</th>
+                                       <th scope="col">Discount</th>
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                   
+                                   <?php
+                                   foreach ($coupons as $coupon){
+                                   ?>
+                                   <tr>
+                                   <td><?php  
+                                       if($coupon['status']==1){
+                                       echo "<a href='includes/change_coupons.inc.php?status=1&id=". $coupon['id']."'>activated</a>";
+                                           } else {
+                                       echo "<a href='includes/change_coupons.inc.php?status=0&id=". $coupon['id']."'>Deactivated</a>";
+                                       }
+                                       ?>    
+                                   </td>
+                                   <td><?php echo $coupon['name']; ?></td>
+                                   <td> <?php echo $coupon['code']; ?></td>
+                                   <td> <?php echo $coupon['discount']; ?></td>
+                                   <td><?php echo "<a href='includes/delete_coupon.inc.php?id=". $coupon['id']."'>Delete</a>";?></td>
+                                   </tr>
+                                   <?php } ?>   
+                                   </tbody>
+                               </table>
+                                   
+                                   <!--Inserting a new coupon-->
+                               <form action="includes/add_coupon.inc.php" method="POST" enctype='multipart/form-data'>                
+                                   <div class="form row">
+                                       <div class="col-md-4">
+                                       <label for="name">Coupon name:</label>
+                                       <input type="text" class="form-control" id="name" name="name" placeholder="Name of coupon"  required>
+                                       </div>
+
+                                   
+                                       <div class="col-md-3">
+                                       <label for="code">Coupon code:</label>
+                                       <input type="text" class="form-control" id="code" name="code" placeholder="Code to type"  required>
+                                       </div>
+
+                                       <div class="col-md-3">
+                                       <label for="validationCustom05">Discount in %</label>
+                                       <input type="text" class="form-control" id="discount" name="discount" placeholder="Only numbers" required>
+                                       </div>
+                                   </div>    
+
+                                   <div class="form-group row">
+                                       <div class="col-sm-10">
+                                   <br><button type="submit" class="btn btn-primary">Add coupon option</button>
+                                       </div>
+                                   </div>
+                           
+                               </form>
+                           </div>    
+                   </div>
+               </div>
+
+               <div class="row">
+                       <div class="col-md-10 custom-box">
+                           <div class="boxinside-one">
+        
+                               <form action="includes/change_currency.inc.php?id=<?php echo $currency['id']; ?>" method="POST" enctype='multipart/form-data'>                
+                                   <div class="form row">
+                                       <div class="col-sm-5">
+                                       <label for="currency">Currency:</label>
+                                       <input type="text" class="form-control" id="currency" name="currency" value="<?php echo $currency['currency'] ?>" required>
+                                       </div>
+                                   
+                                       <div class="col-sm-5">
+                                       <label for="symbol">Symbol:</label>
+                                       <input type="text" class="form-control" id="symbol" name="symbol" value="<?php echo $currency['symbol'] ?>" required>
+                                       </div>
+
+                                       <div class="col-sm-10">
+                                       <br> <button type="submit" class="btn btn-primary">Change currency</button>
+                                       </div>
+                                   </div>
+                               </form>
+                           </div>
+                      </div>
+               </div>
+            <!--end of content 2-->
+                       
         </div>
     </div>
 </div>
 
-<!--Javascript and stuff-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+
+
+<!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> 
 </body>
 </html>
-
-

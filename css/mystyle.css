@@ -152,6 +152,20 @@ padding-left: 10px;;
   color: #565f6b;
 }
 
+.boxinside-one-right{
+  background-color: rgb(255, 255, 255);
+  min-height: 100px;
+  border-width: 1px;
+  border-color: rgb(206, 206, 206);
+  border-style: solid;
+  border-radius: 15px;
+  box-shadow: 0 10px 12px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-right: 10px;
+  color: #565f6b;
+}
+
 .cus-cart {
   height: 30px;
   width: auto;

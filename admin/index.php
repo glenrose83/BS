@@ -56,10 +56,11 @@ User::isLoggedIn();
                                 </div>
                     </div>            
                             
+
+                <!--main div content-->
                     <div class="row">
-                        
-                    <div class="col-2">
-                                    <div class="boxinside">
+                        <div class="col-2">
+                                <div class="boxinside">
                                     <a href="orders.php">    
                                    <center><svg class="bi" width="32" height="32" fill="currentColor">
                                     <use xlink:href="bootstrap-icons.svg#cash-coin"/>
@@ -72,8 +73,8 @@ User::isLoggedIn();
                                 
 
                             
-                                <div class="col-2">
-                                    <div class="boxinside">
+                        <div class="col-2">
+                                <div class="boxinside">
                                     <a href="add_product.php">  
                                     <center>     
                                     <svg class="bi" width="32" height="32" fill="currentColor">
@@ -81,8 +82,8 @@ User::isLoggedIn();
                                     </svg> <br>
                                     Create a product 
                                     </center>
-                                    </div>
-                                </div>  
+                                </div>
+                        </div>  
                                 </a>
                             
                             
