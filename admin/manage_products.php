@@ -58,6 +58,11 @@ User::isLoggedIn();
                             <div class="row">
                                         <div class="col-10 title">
                                         <h1>Add a product<br></h1>
+
+                                        
+                                        <!--Alert--> 
+                                        <center><span class="half-width"><?php echo Misc::alert(); ?></span></center>
+
                                         </div>
                             </div>            
                         </div>

@@ -21,6 +21,6 @@ $status = filter_input(INPUT_POST,'status', FILTER_SANITIZE_STRING);
     $stmt->execute($data);
 
 
-Header('Location: ../handle_order.php?id='.$id.'status=changed');
+Header('Location: ../handle_order.php?id='.$id.'&status=changed');
 } 
 

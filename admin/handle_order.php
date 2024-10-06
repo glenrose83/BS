@@ -67,21 +67,25 @@ $order = $stmt->fetchALL();
     <div class="row">
 
         <!--menu-->
-        <div class="col-md-3">
+        <div class="col-md-2">
             <?php include_once 'includes/menu.php' ?>
         </div>
 
         <!--content window-->
-        <div class="col-md-9 full-height"> 
-    
+        <div class="col-md-10 full-height"> 
+        
                 <div class="header">
                         
                         <!--Site menu-->
                         <div class="container-fluid image">
                         <img src="../img/bg-scaleup.png" alt="..." />
                             <div class="row">
-                                        <div class="col-10 title">
-                                        <h1>Add a product<br></h1>
+                                        <div class="col-11 title">
+                                        <h1>Handle order<br></h1>
+
+                                        <!--Alert--> 
+                                        <center><span class="half-width"><?php echo Misc::alert(); ?></span></center>
+     
                                         </div>
                             </div>            
                         </div>
@@ -107,7 +111,7 @@ $order = $stmt->fetchALL();
                         <div class="col-md-1">    
                         </div>
 
-                        <div class="col-md-3 boxinside-one">    
+                        <div class="col-md-5 boxinside-one">    
                                 <b>Status: </b>
                                 <?php echo handle_color($customer['status']);?><br><br>
                                 <b>Actions:</b><br>
@@ -131,7 +135,7 @@ $order = $stmt->fetchALL();
                                 </form>
                         </div>
                     
-                        <div class="col-md-9 boxinside-one">    
+                        <div class="col-md-11 boxinside-one">    
                                 <b>Items:</b><br>
                                 <table class='table table-striped'>
                                 <tr>
@@ -156,7 +160,7 @@ $order = $stmt->fetchALL();
                                 </table>
                         </div>
 
-                        <div class="col-md-4 boxinside-one">    
+                        <div class="col-md-5 boxinside-one">    
                                 
                                 <?php 
                                 echo "Time: ".$customer['order_date']."; <br>
@@ -170,7 +174,7 @@ $order = $stmt->fetchALL();
                         <div class="col-md-1">                                   
                         </div>
 
-                        <div class="col-md-4 boxinside-one">    
+                        <div class="col-md-5 boxinside-one">    
                                 <?php 
                                 echo "
                                 Shipping: <br>

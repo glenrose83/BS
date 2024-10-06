@@ -2,6 +2,8 @@
 session_start();
 include_once '../../bootstrap.php';
 
+$database = new Database;
+
 // //Checking and sanitizing input data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    
@@ -41,7 +43,7 @@ if(isset($_POST['submit'])){
                                         'url' => "img/" .$url
                                 ];
 
-                                $sql = "INSERT INTO product_images (fk_id, name, url) VALUES (:fk_products, :name, :url)";
+                                $sql = "INSERT INTO `product_images` (fk_id, name, url) VALUES (:fk_products, :name, :url)";
                                 $stmt= $database->connection->prepare($sql);
                                 $stmt->execute($data);
 

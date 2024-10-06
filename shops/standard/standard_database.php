@@ -2,13 +2,6 @@
 
 $standardDatabase = 
 "
---
--- Database: `bs`
---
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `categories`
 --
 

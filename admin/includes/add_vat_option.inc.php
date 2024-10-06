@@ -12,7 +12,7 @@ $database = new Database;
 
 //if array has more than one
     if(count($vatOptions) >= 1 ) {
-        header('Location: ../settings.php?error=youCanOlyHaveOne');
+        header('Location: ../settings.php?status=onlyone');
         exit();
         
     } 

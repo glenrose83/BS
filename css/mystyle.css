@@ -66,8 +66,30 @@ body {
   height: 88vh;
 }
 
-.cuz_gallery{
-  max-height: 200px;
+.gallery{
+  display: inline-block;
+  border: solid 1px hsl(0, 0%, 70%);
+  margin: 10px;
+  padding: 5px;
+  position: relative;
+
+  
+
+}
+.gallery:hover{
+  border: solid 1px hsl(0, 0%, 20%);
+}
+
+
+.gallery img{
+  width: 100%;
+  height: auto;
+}
+
+.gallery .description-gallery{
+text-align: center;
+
+
 }
 
 .webshopinfo {
@@ -120,6 +142,10 @@ padding-left: 10px;;
   min-height: 200px;
   max-width: 70%;
   color: darkgray;
+}
+
+.half-width {
+  width: 50%;
 }
 
 
@@ -241,4 +267,5 @@ padding-left: 10px;;
 
 .max-height{
   max-height: 25rem;
+  max-width: 100%;
 }

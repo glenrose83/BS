@@ -77,6 +77,10 @@ include_once '../bootstrap.php';
                             <div class="row">
                                         <div class="col-10 title">
                                         <h1>Settings<br></h1>
+
+                                         <!--Alert--> 
+                                         <center><span class="half-width"><?php echo Misc::alert(); ?></span></center>
+                                         
                                         </div>
                             </div>            
                         </div>

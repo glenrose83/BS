@@ -4,7 +4,6 @@ session_start();
 session_unset();
 session_destroy();
 include_once '../bootstrap.php';
-include_once '../standard_database.php';
 $database = new Database();
 
 //Import PHPMailer classes into the global namespace
@@ -14,7 +13,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-//require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 
 // Checking and sanitizing input data
@@ -64,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = "JayFooD_". rand(200,9999);
 
 
-    // Inserting data to database
-    $data = [
+    // Inserting create user in master DB 
+        $data = [
             'username' => $userName,
             'shopname' => $shopName,
             'useremail' => $userEmail,
@@ -80,22 +79,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
-    /* 
+    
     
     
     //Creating database
-    $sql = "CREATE DATABASE $uniqueDB";
-    $stmt= $pdo->prepare($sql);
+    $stmt = $database->connection->prepare("CREATE DATABASE $uniqueDB");
+    $stmt->execute();
+
+    
+    
+    // Creating user in DB
+    $stmt = $database->connection->prepare("CREATE USER '" . $uniqueName . "'@'localhost' IDENTIFIED BY '" . $pass . "' ");
     $stmt->execute();
     
     // Creating user in DB
-    $sql = "CREATE USER '" . $uniqueName . "'@'localhost' IDENTIFIED BY '" . $pass . "' ";
-    $stmt= $pdo->prepare($sql);
-    $stmt->execute();
-    
-    // Creating user in DB
-    $sql = "GRANT SELECT, INSERT, UPDATE, DELETE ON ".$uniqueDB.".* TO '".$uniqueName."'@'localhost'";
-    $stmt= $pdo->prepare($sql);
+    $sql = "GRANT ALL PRIVILEGES ON ".$uniqueDB.".* TO '".$uniqueName."'@'localhost'";
+    $stmt= $database->connection->prepare($sql);
     $stmt->execute();
     
     
@@ -116,29 +115,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Creating DB file
     $p="";
-    $filepath = "../shops/" . $shopNameFolder . "/db.php";
+    $filepath = "../shops/" . $shopNameFolder . "/shop_db_class.php";
     $index = fopen($filepath, "w") or die("unable to create file");
     $text = "
-    <?php
-        \$host = 'localhost';
-        \$db   = '$uniqueDB';
-        \$user = '$uniqueName';
-        \$pass = '$pass';
-        \$dsn = \"mysql:host=\$host;dbname=\$db\";
-        \$pdo = new PDO(\$dsn, \$user, \$pass);
-        \$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        <?php 
+        class DatabaseShop {
+
+            public \$connection;
+
+            private \$servername = 'localhost';
+            private \$username = '$uniqueName';
+            private \$password = '$pass';
+            private \$databasename = '$uniqueDB';
+            
+
+            public function __construct() {
+
+
+                try {
+                    \$this->connection = new PDO(\"mysql:host=\$this->servername;dbname=\$this->databasename\", \$this->username, \$this->password);
+                    // set the PDO error mode to exception
+                    \$this->connection ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                } catch(PDOException \$e) {
+                    echo 'Connection failed: ' . \$e->getMessage();
+                }
+            }
+        }
     ";
         
     fwrite($index, $text);
     fclose($index); 
     
     
-    //creating bootstrap.php
+
+    //creating bootstrap.php (shop_db_class.php changes in each shop, therefore own shop folder)
     $filepath = "../shops/" . $shopNameFolder . "/bootstrap.php";
     $index = fopen($filepath, "w") or die("unable to create file");
     $text = "
     <?php
-    include_once 'db.php';
+    include_once 'shop_db_class.php';
     include_once '../../functions/cart_functions.php';
     include_once '../../includes/constants.php';
     include_once '../../includes/main.class.php';
@@ -215,19 +231,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = null;
     
     
-    //Import standard database
-    $host = '127.0.0.1';
-    $db   = $uniqueDB;
-    $user = 'root';
-    $pass = '';
-    
-    
-    $dsn = "mysql:host=$host;dbname=$db";
-    $pdo = new PDO($dsn, $user, $pass);
-    
-    //Statement to import the database tables
-    $stmt= $pdo->prepare($standardDatabase);
-    $stmt->execute();
+    //Import standard database and inizialation of the Shops Database-conenction   
+        include_once "../shops/$shopNameFolder"   . "/shop_db_class.php";
+        include_once '../shops/standard/standard_database.php';
+
+        $databaseShop = new DatabaseShop;
+        $stmt = $databaseShop->connection->prepare($standardDatabase);
+        $stmt->execute();
+
+
+        
+        
+                 
     
     
     
@@ -332,7 +347,7 @@ try {
     $mail->Host       = 'smtp.sendgrid.net';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'apikey';                     //SMTP username
-    $mail->Password   = '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';                               //SMTP password
+    $mail->Password   = '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';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -369,4 +384,4 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
- */
+

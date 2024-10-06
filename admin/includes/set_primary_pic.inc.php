@@ -2,6 +2,9 @@
 session_start();
 include_once '../../bootstrap.php';
 
+//intialising objects
+$database = new Database;
+
 if(isset($_GET['id'])){
     $requestpage = filter_input(INPUT_GET, 'requestpage', FILTER_SANITIZE_NUMBER_INT);
     $pic_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -17,13 +20,13 @@ if(isset($_GET['id'])){
     ];
 
     //removing marking from old priamry pic
-    $sql = "UPDATE product_images SET primary_pic=FALSE WHERE fk_id=:id AND primary_pic=1";
+    $sql = "UPDATE `product_images` SET primary_pic=FALSE WHERE fk_id=:id AND primary_pic=1";
     $stmt= $database->connection->prepare($sql);
     $stmt->execute($data);
 
 
     //marking new primary
-    $sql = "UPDATE product_images SET primary_pic=TRUE WHERE id =:id";
+    $sql = "UPDATE `product_images` SET primary_pic=TRUE WHERE id =:id";
     $stmt= $database->connection->prepare($sql);
     $stmt->execute($data1);
     

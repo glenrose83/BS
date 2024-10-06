@@ -58,6 +58,7 @@ User::isLoggedIn();
                             <div class="row">
                                         <div class="col-10 title">
                                         <h1>Add a product<br></h1>
+
                                         </div>
                             </div>            
                         </div>
@@ -68,16 +69,66 @@ User::isLoggedIn();
                 <div class="row">
                     <div class="col-md-10 custom-box">
                         <div class="boxinside-one"> 
-                                            
+
+                            <form class="pure-form pure-form-aligned" action="includes/add_product.inc.php" method="POST" enctype='multipart/form-data'>
+                            <fieldset>
+                        
+                                <div class="pure-control-group">
+                                    <b>Product status</b><br>
+                                    <input type="radio" id="aligned-name" name="productstatus" value="1" checked> Enable
+                                    <input type="radio" id="aligned-name" name="productstatus" value="0" > Disable
+                                    <span class="pure-form-message-inline"></span>
+                                </div>
+
+                                <p><br></p>
+                                <div class="form-group row">
+                                    <label for="productname" class="col-sm-4 col-form-label">Productname</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="productname" placeholder="required">
+                                        </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="productdescription" class="col-sm-4 col-form-label">Product description</label>
+                                        <div class="col-sm-6">
+                                        <input type="text" class="form-control" required="" id="aligned-name" name="productdescription" placeholder="required..." />
+                                        </div>
+                                </div>
+                        
+                            
+
+                                <div class="form-group row"> 
+                                    <label for="priceexvat" class="col-sm-4 col-form-label">Price ex. VAT</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="priceexvat" placeholder="required">
+                                        </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="deliverytime"  class="col-sm-4 col-form-label">Deliverytime</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="deliverytime" placeholder="required..." />
+                                        </div>
+                                </div>
+                        </div>                    
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-10 custom-box">
+                        <div class="boxinside-one"> 
+
                                                 <div class="pure-control-group">
-                                                    Keep track of stock<br>
+                                                   <b>Keep track of stock</b><br>
                                                     <input type="radio" id="aligned-name" name="keeptrackofstock" value="1" checked/> Yes
                                                     <input type="radio" id="aligned-name" name="keeptrackofstock" value="0" /> No
                                                     <span class="pure-form-message-inline"></span>
                                                 </div>
                                                 <br>
                                                 <div class="pure-control-group">
-                                                    Allow purchase when stock is empty<br>
+                                                    <b>Allow purchase when stock is empty</b><br>
                                                     <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="1" checked/> Yes
                                                     <input type="radio" id="aligned-name" name="allowpurchasewhenempty" value="0" /> No
                                                     <span class="pure-form-message-inline"></span>
@@ -98,7 +149,7 @@ User::isLoggedIn();
                                                     <label for="category"  class="col-sm-4 col-form-label">Category</label>
                                                     <div class="col-sm-6">
 
-                                                    
+                                                                                                        
                                                         
                                                         <select class="form-control" id="categorySelector" name="category" required>
                                                         <option selected disabled></option>
@@ -147,7 +198,7 @@ User::isLoggedIn();
                                             
 
                                     
-                                                    <div class="pure-control-group">Your notes<br>
+                                                    <div class="pure-control-group"><b>Your notes</b><br>
                                                         <textarea class="aligned-name col-sm-10" name="yournotes" placeholder=""></textarea>                          
                                                     </div>
                         </div> 
@@ -162,7 +213,7 @@ User::isLoggedIn();
                     <div class="col-md-10">
                         <div class="boxinside-one">    
                                                     <div class="pure-control-group">
-                                                        <label for="aligned-name" >Upload images</label><br>
+                                                        <label for="aligned-name" ><b>Upload images</b></label><br>
                                                         <input type='file' name='pic[]' id='file' multiple ><br>
                                                     </div>
 
