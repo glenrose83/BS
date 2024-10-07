@@ -1,7 +1,11 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
-$database = new Database;
+
+//Getting the right DB
+include '../../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 //Checking users permission to see this
 if(isset($_SESSION['username'])){

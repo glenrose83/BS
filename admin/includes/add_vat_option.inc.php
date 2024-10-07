@@ -1,7 +1,11 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
-$database = new Database;
+
+//Getting the right DB
+include '../../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 //Getting data for vat
     $stmt = $database->connection->prepare(

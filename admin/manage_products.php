@@ -5,7 +5,10 @@ include_once '../bootstrap.php';
 //Check if user is logged in
 User::isLoggedIn();
 
-$database = new Database;
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 $products = new Products;
 
 //Check if user is logged in

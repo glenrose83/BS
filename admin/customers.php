@@ -8,6 +8,11 @@ if(isset($_SESSION['username'])){
 }
 
 include_once '../bootstrap.php'; 
+
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 ?>
 
 <!doctype html>
@@ -61,7 +66,7 @@ include_once '../bootstrap.php';
             <tbody>
             <?php
                     //Fetch all products from DB
-                    $stmt = $pdo->prepare("SELECT * FROM customers");
+                    $stmt = $database->connection->prepare("SELECT * FROM customers");
                     $stmt->execute(); 
                     $customer = $stmt->fetchALL();
 

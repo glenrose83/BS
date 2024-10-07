@@ -2,10 +2,13 @@
 session_start();
 include_once '../bootstrap.php'; 
 
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
 //Check if user is logged in
 User::isLoggedIn();
 
-$database = new Database;
+$database = new DatabaseShop;
 $products = new Products;
 
 //Check if user is logged in

@@ -5,8 +5,10 @@ include_once '../bootstrap.php';
 //Check if user is logged in
 User::isLoggedIn();
 
-//intialising objects
-$database = new Database;
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 ?>
 
 <!doctype html>
@@ -66,10 +68,12 @@ $database = new Database;
                         <div class="boxinside-one"> 
 
                             <form class="pure-form pure-form-aligned" action="includes/add_category.inc.php" method="POST" enctype='multipart/form-data'>
+                            <p><b>Add a category:<h6></b></p>
                                 <div class="form-group row">
-                                        <label for="productname" class="col-sm-2 col-form-label">Add a category: </label>
+                                 
+                                        
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control" required="" id="aligned-name" name="category" placeholder="Type something...">
+                                            <input type="text" class="form-control" required="" id="aligned-name" name="category" placeholder="Write the categoryname, you wish to create...">
                                             <br><button type="submit" name="submit" value="upload" class="btn btn-success">Add category</button> 
                                         </div>
                                 </div>
@@ -77,19 +81,27 @@ $database = new Database;
                             </form><br>
                             
 
-                            <p><h6><br><b>Categories:<h6></b></h6></p>
-                            <p class='fs-6'>
+                            <p><br><b>Categories:<h6></b></p>
+                            
                                 
-                            <?php
-                                $stmt = $database->connection->prepare("SELECT * FROM `categories`");
-                                $stmt->execute(); 
-                                $categories = $stmt->fetchALL();
+                            <div class=container-categories>
+                                        <?php
+                                            $stmt = $database->connection->prepare("SELECT * FROM `categories`");
+                                            $stmt->execute(); 
+                                            $categories = $stmt->fetchALL();
 
-                                foreach ($categories as $category) {
-                                    echo $category['cat']. " <== <a  class='text-danger' href='includes/delete_category.inc.php?id=".$category['id']."'>Delete</a><br>";
-                                }
-                            ?>       
-                            </p>
+                                            
+
+                                            foreach ($categories as $category) {
+                                                ?>
+                           
+                                                <div class="flexitem"><b><?php echo $category['cat'] ?></b> <br/>
+                                                <a  class='text-danger' href='includes/delete_category.inc.php?id=<?php echo $category['id']?>'><small>Delete</small></a>
+                                                </div>
+
+                                            <?php }  ?>       
+                                        
+                            </div>            
 
 
                         </div> 

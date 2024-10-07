@@ -15,23 +15,30 @@ if(empty($typedPassword || $typedUsername)){
 
 
         //Check user exist in database 
-        $result = $database->query("SELECT * FROM `users` where username='$typedUsername'");    
+        $userData = $database->query("SELECT * FROM `users` where username='$typedUsername'");    
 
-        if(!$result){
+        if(!$userData){
           header('Location: ../login.php?error=wronguserorpassword');
+
         } else {
 
         
             //Checks password is correct  
-            if(!password_verify($typedPassword, $result['userpassword'])){ 
+            if(!password_verify($typedPassword, $userData['userpassword'])){ 
               header('Location: ../login.php?error=wronguserorpassword');
           
             } else {
               
-            //All is successfull
+            //All is successfull - getting shopdata
+            var_dump($userData);
+
+
+            //assigning sessionvalues
             $_SESSION['loggedin'] = TRUE;
             $_SESSION['username'] = $typedUsername;
-            $_SESSION['id'] = $result['id'];
+            $_SESSION['id'] = $userData['id'];
+            $_SESSION['shopname'] = $userData['shopname'];
+            $_SESSION['role'] = $userData['role'];
             User::$username = $typedUsername;
             header('Location: ../admin/index.php');
             }

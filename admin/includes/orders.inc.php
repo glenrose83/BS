@@ -1,5 +1,5 @@
 <?php
-session_start();
+/* session_start();
 include_once '../../bootstrap.php';
 
 
@@ -19,3 +19,4 @@ if(isset($_GET['status'])){
     header('Location: ../index.php');
 }
 
+ */

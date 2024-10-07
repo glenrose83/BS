@@ -1,18 +1,15 @@
-
-
-
-
-
-
-
 <?php
 session_start();
+
 include_once '../bootstrap.php'; 
+
 //Check if user is logged in
 User::isLoggedIn();
 
-//intialising objects
-$database = new Database;
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 //GET id from url and Fetch product from DB
 $sanitized_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);

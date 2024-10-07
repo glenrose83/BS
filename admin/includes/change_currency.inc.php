@@ -1,7 +1,11 @@
 <?php
 session_start();
 include_once '../../bootstrap.php';
-$database = new Database;
+
+//Getting the right DB
+include '../../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     $symbol = filter_input(INPUT_POST,'symbol', FILTER_SANITIZE_STRING);

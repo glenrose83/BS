@@ -3,6 +3,11 @@ session_start();
 
 include_once '../bootstrap.php';
 
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
+
 //sanitize input
 $fullname = filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_STRING);
 $streetname = filter_input(INPUT_POST, 'streetname', FILTER_SANITIZE_STRING);
@@ -61,11 +66,11 @@ $data = [
 ];
 $sql = "INSERT INTO customers (fullname, streetname, housenr, etc, postcode, city, country, phone, email, browser, ip, iptwo, ipthree, ipfour) 
 VALUES (:fullname, :streetname, :housenumber, :etc, :postcode, :city, :country, :phone, :email, :browser, :ip, :iptwo, :ipthree, :ipfour)";
-$stmt= $pdo->prepare($sql);
+$stmt= $database->connection->prepare($sql);
 $stmt->execute($data);
 
 //here we get the last inserted ID to use later in checkout proccess
-$_SESSION['last_id'] = $pdo->lastInsertId();
+$_SESSION['last_id'] = $database->lastInsertId();
 
 header('Location: ../shops/basisit/delivery_design.php');
 exit();

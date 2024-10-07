@@ -2,8 +2,10 @@
 session_start();
 include_once '../../bootstrap.php';
 
-//intialising objects
-$database = new Database;
+//Getting the right DB
+include '../../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 if(isset($_GET['id'])){
     $requestpage = filter_input(INPUT_GET, 'requestpage', FILTER_SANITIZE_NUMBER_INT);

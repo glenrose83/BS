@@ -5,8 +5,10 @@ include_once '../bootstrap.php';
 //Check if user is logged in
 User::isLoggedIn();
 
-//intialising objects
-$database = new Database;
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];

@@ -2,6 +2,11 @@
 session_start();
 include_once '../../bootstrap.php';
 
+//Getting the right DB
+include '../shops/'. $_SESSION['shopname'] .'/shop_db_class.php';
+
+$database = new DatabaseShop;
+
 
 //here we get the last inserted current product id
 $product_id = filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT);    

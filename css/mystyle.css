@@ -269,3 +269,17 @@ padding-left: 10px;;
   max-height: 25rem;
   max-width: 100%;
 }
+
+.container-categories {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.flexitem {
+  border: 1px solid #cecece;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  margin: 5px;
+}
